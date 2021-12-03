@@ -80,14 +80,14 @@ class PhotoEditorGUI(QMainWindow):
 
         self.show()
 
-    def createMainLabel():
+    def createMainLabel(self):
         pass
 
-    def createEditingBar():
+    def createEditingBar(self):
         pass
 
-    def createMenu():
+    def createMenu(self):
         pass
 
-    def createToolBar():
+    def createToolBar(self):
         pass
