@@ -1,7 +1,7 @@
 import sys  # sys нужен для передачи argv в QApplication
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QSizePolicy
-from PyQt5.QtGui import QPixmap, QImage
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QLabel, QSizePolicy, QScrollArea
+from PyQt5.QtGui import QPixmap, QImage, QPalette
 from PyQt5.QtCore import Qt
 
 class imageLabel(QLabel):
