@@ -1,19 +1,93 @@
-import sys  # sys нужен для передачи argv в QApplication
+import sys  # sys ����� ��� �������� argv � QApplication
 from PyQt5 import QtWidgets
-import design  # Это наш конвертированный файл дизайна
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QSizePolicy
+from PyQt5.QtGui import QPixmap, QImage
+from PyQt5.QtCore import Qt
 
-class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
+class imageLabel(QLabel):
+    """Subclass of QLabel for displaying image"""
+    def __init__(self, parent, image=None):
+        super().__init__(parent)
+        self.parent = parent 
+        self.image = QImage()
+        #self.image = "images/parrot.png"
+
+        #self.original_image = self.image.copy
+        self.original_image = self.image
+
+        #self.rubber_band = QRubberBand(QRubberBand.Rectangle, self)
+
+        # setBackgroundRole() will create a bg for the image
+        #self.setBackgroundRole(QPalette.Base)
+        self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
+        self.setScaledContents(True)
+
+        # Load image
+        self.setPixmap(QPixmap().fromImage(self.image))
+        self.setAlignment(Qt.AlignCenter)
+
+    def openImage(self):
+        # ���� ������ �����
+        image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
+                "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
+
+        if image_file:
+            self.parent.zoom_factor = 1
+            #self.parent.scroll_area.setVisible(True)
+            #self.parent.print_act.setEnabled(True)
+            #self.parent.updateActions()
+
+            # Reset all sliders
+            self.parent.brightness_slider.setValue(0)
+
+            # Get image format
+            image_format = self.image.format()
+            self.image = QImage(image_file)
+            self.original_image = self.image.copy()
+
+            #pixmap = QPixmap(image_file)
+            self.setPixmap(QPixmap().fromImage(self.image))
+            #image_size = self.image_label.sizeHint()
+            self.resize(self.pixmap().size())
+        elif image_file == "":
+            # ������������ ������ '�����'
+            pass
+        else:
+            # �� ���������� ������� ����
+            QMessageBox.information(self, "������", 
+                "���������� ������� ����.", QMessageBox.Ok)
+
+class PhotoEditorGUI(QMainWindow):
+    
     def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле design.py
         super().__init__()
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
-def main():
-    app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
-    window = App()  # Создаём объект класса ExampleApp
-    window.show()  # Показываем окно
-    app.exec_()  # и запускаем приложение
+        self.initializeUI()
 
-if __name__ == '__main__':  # Если мы запускаем файл напрямую, а не импортируем
-    main()  # то запускаем функцию main()
+        self.image = QImage()
+
+    def initializeUI(self):
+        self.setMinimumSize(300, 200)
+        self.setWindowTitle("Photo Editor")
+        self.showMaximized()
+
+        self.zoom_factor = 1
+
+        self.createMainLabel()
+        self.createEditingBar()
+        self.createMenu()
+        self.createToolBar()
+
+        self.show()
+
+    def createMainLabel(self):
+        pass
+
+    def createEditingBar(self):
+        pass
+
+    def createMenu(self):
+        pass
+
+    def createToolBar(self):
+        pass
