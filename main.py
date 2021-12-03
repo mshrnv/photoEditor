@@ -105,3 +105,10 @@ class PhotoEditorGUI(QMainWindow):
 
     def createToolBar(self):
         pass
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    app.setAttribute(Qt.AA_DontShowIconsInMenus, True)
+    #app.setStyleSheet(style_sheet)
+    window = PhotoEditorGUI()
+    sys.exit(app.exec_())
