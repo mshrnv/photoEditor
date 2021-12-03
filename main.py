@@ -73,9 +73,21 @@ class PhotoEditorGUI(QMainWindow):
 
         self.zoom_factor = 1
 
-        # self.createMainLabel()
-        # self.createEditingBar()
-        # self.createMenu()
-        # self.createToolBar()
+        self.createMainLabel()
+        self.createEditingBar()
+        self.createMenu()
+        self.createToolBar()
 
         self.show()
+
+    def createMainLabel():
+        pass
+
+    def createEditingBar():
+        pass
+
+    def createMenu():
+        pass
+
+    def createToolBar():
+        pass
