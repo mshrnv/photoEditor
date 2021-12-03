@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QSizePolicy
-from PyQt5.QtGui import QPixmap, QImage
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QLabel, QSizePolicy, QScrollArea
+from PyQt5.QtGui import QPixmap, QImage, QPalette
 from PyQt5.QtCore import Qt
 
 class imageLabel(QLabel):
@@ -81,7 +81,21 @@ class PhotoEditorGUI(QMainWindow):
         self.show()
 
     def createMainLabel(self):
-        pass
+        self.image_label = imageLabel(self)
+        self.image_label.resize(self.image_label.pixmap().size())
+
+        self.scroll_area = QScrollArea()
+        self.scroll_area.setBackgroundRole(QPalette.Dark)
+        self.scroll_area.setAlignment(Qt.AlignCenter)
+        #self.scroll_area.setWidgetResizable(False)
+        #scroll_area.setMinimumSize(800, 800)
+        
+        self.scroll_area.setWidget(self.image_label)
+        #self.scroll_area.setVisible(False)
+
+        self.setCentralWidget(self.scroll_area)
+
+        #self.resize(QApplication.primaryScreen().availableSize() * 3 / 5)
 
     def createEditingBar(self):
         self.editing_bar = QDockWidget("Tools")
@@ -148,3 +162,10 @@ class PhotoEditorGUI(QMainWindow):
 
     def createToolBar(self):
         pass
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    app.setAttribute(Qt.AA_DontShowIconsInMenus, True)
+    #app.setStyleSheet(style_sheet)
+    window = PhotoEditorGUI()
+    sys.exit(app.exec_())
