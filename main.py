@@ -1,4 +1,4 @@
-import sys  # sys нужен для передачи argv в QApplication
+import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QLabel, QSizePolicy, QScrollArea
 from PyQt5.QtGui import QPixmap, QImage, QPalette
@@ -27,7 +27,7 @@ class imageLabel(QLabel):
         self.setAlignment(Qt.AlignCenter)
 
     def openImage(self):
-        # Окно выбора файла
+        # Choosing the file
         image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
                 "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
 
@@ -50,12 +50,12 @@ class imageLabel(QLabel):
             #image_size = self.image_label.sizeHint()
             self.resize(self.pixmap().size())
         elif image_file == "":
-            # Пользователь выбрал 'Назад'
+            # User pressed 'cancel'
             pass
         else:
-            # Не получилось открыть файл
-            QMessageBox.information(self, "Ошибка", 
-                "Невозможно открыть файл.", QMessageBox.Ok)
+            # Some errors
+            QMessageBox.information(self, "Error", 
+                "Cannot to open the file.", QMessageBox.Ok)
 
 class PhotoEditorGUI(QMainWindow):
     
@@ -98,7 +98,64 @@ class PhotoEditorGUI(QMainWindow):
         #self.resize(QApplication.primaryScreen().availableSize() * 3 / 5)
 
     def createEditingBar(self):
-        pass
+        self.editing_bar = QDockWidget("Tools")
+        self.editing_bar.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        self.editing_bar.setMinimumWidth(90)
+
+        # Create editing tool buttons
+        filters_label = QLabel("Filters")
+
+        convert_to_grayscale = QToolButton()
+        #convert_to_grayscale.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
+        #convert_to_grayscale.clicked.connect(self.image_label.convertToGray)
+
+        convert_to_RGB = QToolButton()
+        #convert_to_RGB.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
+        #convert_to_RGB.clicked.connect(self.image_label.convertToRGB)
+
+        convert_to_sepia = QToolButton()
+        #convert_to_sepia.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
+        #convert_to_sepia.clicked.connect(self.image_label.convertToSepia)
+
+        change_hue = QToolButton()
+        change_hue.setIcon(QIcon(os.path.join(icon_path, "")))
+        #change_hue.clicked.connect(self.image_label.changeHue)
+
+        brightness_label = QLabel("Brightness")
+        self.brightness_slider = QSlider(Qt.Horizontal)
+        self.brightness_slider.setRange(-255, 255)
+        self.brightness_slider.setTickInterval(35)
+        self.brightness_slider.setTickPosition(QSlider.TicksAbove)
+        #self.brightness_slider.valueChanged.connect(self.image_label.changeBrighteness)
+
+        contrast_label = QLabel("Contrast")
+        self.contrast_slider = QSlider(Qt.Horizontal)
+        self.contrast_slider.setRange(-255, 255)
+        self.contrast_slider.setTickInterval(35)
+        self.contrast_slider.setTickPosition(QSlider.TicksAbove)
+        #self.contrast_slider.valueChanged.connect(self.image_label.changeContrast)
+
+        # Set layout for dock widget
+        editing_grid = QGridLayout()
+        #editing_grid.addWidget(filters_label, 0, 0, 0, 2, Qt.AlignTop)
+        editing_grid.addWidget(convert_to_grayscale, 1, 0)
+        editing_grid.addWidget(convert_to_RGB, 1, 1)
+        editing_grid.addWidget(convert_to_sepia, 2, 0)
+        editing_grid.addWidget(change_hue, 2, 1)
+        editing_grid.addWidget(brightness_label, 3, 0)
+        editing_grid.addWidget(self.brightness_slider, 4, 0, 1, 0)
+        editing_grid.addWidget(contrast_label, 5, 0)
+        editing_grid.addWidget(self.contrast_slider, 6, 0, 1, 0)
+        editing_grid.setRowStretch(7, 10)
+
+        container = QWidget()
+        container.setLayout(editing_grid)
+
+        self.editing_bar.setWidget(container)
+
+        self.addDockWidget(Qt.LeftDockWidgetArea, self.editing_bar)
+
+        self.tools_menu_act = self.editing_bar.toggleViewAction()
 
     def createMenu(self):
         pass
