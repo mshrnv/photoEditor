@@ -65,3 +65,17 @@ class PhotoEditorGUI(QMainWindow):
         self.initializeUI()
 
         self.image = QImage()
+
+    def initializeUI(self):
+        self.setMinimumSize(300, 200)
+        self.setWindowTitle("Photo Editor")
+        self.showMaximized()
+
+        self.zoom_factor = 1
+
+        # self.createMainLabel()
+        # self.createEditingBar()
+        # self.createMenu()
+        # self.createToolBar()
+
+        self.show()
