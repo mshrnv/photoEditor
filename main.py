@@ -1,4 +1,4 @@
-import sys  # sys нужен для передачи argv в QApplication
+import sys  # sys РЅСѓР¶РµРЅ РґР»СЏ РїРµСЂРµРґР°С‡Рё argv РІ QApplication
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QSizePolicy
 from PyQt5.QtGui import QPixmap, QImage
@@ -27,7 +27,7 @@ class imageLabel(QLabel):
         self.setAlignment(Qt.AlignCenter)
 
     def openImage(self):
-        # Окно выбора файла
+        # РћРєРЅРѕ РІС‹Р±РѕСЂР° С„Р°Р№Р»Р°
         image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
                 "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
 
@@ -50,12 +50,12 @@ class imageLabel(QLabel):
             #image_size = self.image_label.sizeHint()
             self.resize(self.pixmap().size())
         elif image_file == "":
-            # Пользователь выбрал 'Назад'
+            # РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІС‹Р±СЂР°Р» 'РќР°Р·Р°Рґ'
             pass
         else:
-            # Не получилось открыть файл
-            QMessageBox.information(self, "Ошибка", 
-                "Невозможно открыть файл.", QMessageBox.Ok)
+            # РќРµ РїРѕР»СѓС‡РёР»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»
+            QMessageBox.information(self, "РћС€РёР±РєР°", 
+                "РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р».", QMessageBox.Ok)
 
 class PhotoEditorGUI(QMainWindow):
     
@@ -81,7 +81,21 @@ class PhotoEditorGUI(QMainWindow):
         self.show()
 
     def createMainLabel(self):
-        pass
+        self.image_label = imageLabel(self)
+        self.image_label.resize(self.image_label.pixmap().size())
+
+        self.scroll_area = QScrollArea()
+        self.scroll_area.setBackgroundRole(QPalette.Dark)
+        self.scroll_area.setAlignment(Qt.AlignCenter)
+        #self.scroll_area.setWidgetResizable(False)
+        #scroll_area.setMinimumSize(800, 800)
+        
+        self.scroll_area.setWidget(self.image_label)
+        #self.scroll_area.setVisible(False)
+
+        self.setCentralWidget(self.scroll_area)
+
+        #self.resize(QApplication.primaryScreen().availableSize() * 3 / 5)
 
     def createEditingBar(self):
         pass
