@@ -172,8 +172,6 @@ class Ui_MainWindow(object):
         self.actionRotate_91.setText(_translate("MainWindow", "Rotate 90 <-"))
         self.actionFlip_horizontal.setText(_translate("MainWindow", "Flip horizontal"))
         self.actionFlip_vartical.setText(_translate("MainWindow", "Flip vartical"))
-import test_rc
-
 
 if __name__ == "__main__":
     import sys
