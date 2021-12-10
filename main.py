@@ -165,7 +165,7 @@ class PhotoEditorGUI(QMainWindow):
         self.exit_act.setShortcut('Ctrl+Q')
         #self.exit_act.triggered.connect(self.close)
 
-
+        #---------------------
 
         #self.new_act = QAction(QIcon(os.path.join(icon_path, "new.png")), 'New...')
 
@@ -177,6 +177,13 @@ class PhotoEditorGUI(QMainWindow):
         self.save_act.setShortcut('Ctrl+S')
         #self.save_act.triggered.connect(self.image_label.saveImage)
         self.save_act.setEnabled(False)
+
+        #---------------------------
+
+        #self.revert_act = QAction("Revert to Original", self)
+        #self.revert_act.triggered.connect(self.image_label.revertToOriginal)
+        self.revert_act.setEnabled(False)
+
 
     def createToolBar(self):
         pass
