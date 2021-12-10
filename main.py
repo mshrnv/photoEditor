@@ -167,7 +167,16 @@ class PhotoEditorGUI(QMainWindow):
 
 
 
+        #self.new_act = QAction(QIcon(os.path.join(icon_path, "new.png")), 'New...')
 
+        #self.open_act = QAction(QIcon(os.path.join(icon_path, "open.png")),'Open...', self)
+        self.open_act.setShortcut('Ctrl+O')
+        #self.open_act.triggered.connect(self.image_label.openImage)
+
+        #self.save_act = QAction(QIcon(os.path.join(icon_path, "save.png")), "Save...", self)
+        self.save_act.setShortcut('Ctrl+S')
+        #self.save_act.triggered.connect(self.image_label.saveImage)
+        self.save_act.setEnabled(False)
 
     def createToolBar(self):
         pass
