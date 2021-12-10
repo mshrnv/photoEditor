@@ -158,7 +158,16 @@ class PhotoEditorGUI(QMainWindow):
         self.tools_menu_act = self.editing_bar.toggleViewAction()
 
     def createMenu(self):
-        pass
+        about_act = QAction('About', self)
+        #about_act.triggered.connect(self.aboutDialog)
+
+        #self.exit_act = QAction(QIcon(os.path.join(icon_path, "exit.png")), 'Quit Photo Editor', self)
+        self.exit_act.setShortcut('Ctrl+Q')
+        #self.exit_act.triggered.connect(self.close)
+
+
+
+
 
     def createToolBar(self):
         pass
