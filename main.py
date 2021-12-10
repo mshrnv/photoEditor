@@ -238,6 +238,10 @@ class PhotoEditorGUI(QMainWindow):
         file_menu.addSeparator()
         file_menu.addAction(self.print_act)
 
+
+        edit_menu = menu_bar.addMenu('Edit')
+        edit_menu.addAction(self.revert_act)
+
     def createToolBar(self):
         pass
 
