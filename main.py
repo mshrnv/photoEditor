@@ -221,6 +221,11 @@ class PhotoEditorGUI(QMainWindow):
         #self.normal_size_Act.triggered.connect(self.normalSize)
         self.normal_size_Act.setEnabled(False)
 
+
+
+        menu_bar = self.menuBar()
+        menu_bar.setNativeMenuBar(False)
+
     def createToolBar(self):
         pass
 
