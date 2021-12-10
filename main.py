@@ -226,6 +226,18 @@ class PhotoEditorGUI(QMainWindow):
         menu_bar = self.menuBar()
         menu_bar.setNativeMenuBar(False)
 
+
+        main_menu = menu_bar.addMenu('Photo Editor')
+        main_menu.addAction(about_act)
+        main_menu.addSeparator()
+        main_menu.addAction(self.exit_act)
+
+        file_menu = menu_bar.addMenu('File')
+        file_menu.addAction(self.open_act)
+        file_menu.addAction(self.save_act)
+        file_menu.addSeparator()
+        file_menu.addAction(self.print_act)
+
     def createToolBar(self):
         pass
 
