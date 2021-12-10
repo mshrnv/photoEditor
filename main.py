@@ -184,6 +184,42 @@ class PhotoEditorGUI(QMainWindow):
         #self.revert_act.triggered.connect(self.image_label.revertToOriginal)
         self.revert_act.setEnabled(False)
 
+        #--------------------------
+
+        #self.crop_act = QAction(QIcon(os.path.join(icon_path, "crop.png")), "Crop", self)
+        self.crop_act.setShortcut('Shift+X')
+        #self.crop_act.triggered.connect(self.image_label.cropImage)
+
+        #self.resize_act = QAction(QIcon(os.path.join(icon_path, "resize.png")), "Resize", self)
+        self.resize_act.setShortcut('Shift+Z')
+        #self.resize_act.triggered.connect(self.image_label.resizeImage)
+
+        #self.rotate90_cw_act = QAction(QIcon(os.path.join(icon_path, "rotate90_cw.png")),'Rotate 90º CW', self)
+        #self.rotate90_cw_act.triggered.connect(lambda: self.image_label.rotateImage90("cw"))
+
+        #self.rotate90_ccw_act = QAction(QIcon(os.path.join(icon_path, "rotate90_ccw.png")),'Rotate 90º CCW', self)
+        #self.rotate90_ccw_act.triggered.connect(lambda: self.image_label.rotateImage90("ccw"))
+
+        #self.flip_horizontal = QAction(QIcon(os.path.join(icon_path, "flip_horizontal.png")), 'Flip Horizontal', self)
+        #self.flip_horizontal.triggered.connect(lambda: self.image_label.flipImage("horizontal"))
+
+        #self.flip_vertical = QAction(QIcon(os.path.join(icon_path, "flip_vertical.png")), 'Flip Vertical', self)
+        #self.flip_vertical.triggered.connect(lambda: self.image_label.flipImage('vertical'))
+        
+        #self.zoom_in_act = QAction(QIcon(os.path.join(icon_path, "zoom_in.png")), 'Zoom In', self)
+        self.zoom_in_act.setShortcut('Ctrl++')
+        #self.zoom_in_act.triggered.connect(lambda: self.zoomOnImage(1.25))
+        self.zoom_in_act.setEnabled(False)
+
+        #self.zoom_out_act = QAction(QIcon(os.path.join(icon_path, "zoom_out.png")), 'Zoom Out', self)
+        self.zoom_out_act.setShortcut('Ctrl+-')
+        #self.zoom_out_act.triggered.connect(lambda: self.zoomOnImage(0.8))
+        self.zoom_out_act.setEnabled(False)
+
+        #self.normal_size_Act = QAction("Normal Size", self)
+        self.normal_size_Act.setShortcut('Ctrl+=')
+        #self.normal_size_Act.triggered.connect(self.normalSize)
+        self.normal_size_Act.setEnabled(False)
 
     def createToolBar(self):
         pass
