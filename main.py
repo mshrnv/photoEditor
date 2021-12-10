@@ -1,7 +1,7 @@
-import sys
+import sys, os
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QLabel, QSizePolicy, QScrollArea
-from PyQt5.QtGui import QPixmap, QImage, QPalette
+from PyQt5.QtWidgets import QSlider, QGridLayout, QWidget, QApplication, QMainWindow, QFileDialog, QLabel, QSizePolicy, QScrollArea, QDockWidget, QToolButton
+from PyQt5.QtGui import QPixmap, QImage, QPalette, QIcon
 from PyQt5.QtCore import Qt
 
 class imageLabel(QLabel):
@@ -118,7 +118,7 @@ class PhotoEditorGUI(QMainWindow):
         #convert_to_sepia.clicked.connect(self.image_label.convertToSepia)
 
         change_hue = QToolButton()
-        change_hue.setIcon(QIcon(os.path.join(icon_path, "")))
+        #change_hue.setIcon(QIcon(os.path.join(icon_path, "")))
         #change_hue.clicked.connect(self.image_label.changeHue)
 
         brightness_label = QLabel("Brightness")
