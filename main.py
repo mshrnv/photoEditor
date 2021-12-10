@@ -235,8 +235,6 @@ class PhotoEditorGUI(QMainWindow):
         file_menu = menu_bar.addMenu('File')
         file_menu.addAction(self.open_act)
         file_menu.addAction(self.save_act)
-        file_menu.addSeparator()
-        file_menu.addAction(self.print_act)
 
 
         edit_menu = menu_bar.addMenu('Edit')
