@@ -34,7 +34,6 @@ class ImageLabel(QLabel):
         self.setAlignment(Qt.AlignCenter)
 
 class PhotoEditorGUI(QMainWindow):
-
     """
     Класс используется для работы с окном приложения
     
@@ -43,6 +42,7 @@ class PhotoEditorGUI(QMainWindow):
     
     def __init__(self):
         """Констрктор класса PhotoEditorGUI"""
+
         super().__init__()
 
         self.initializeUI()
@@ -93,21 +93,25 @@ class PhotoEditorGUI(QMainWindow):
         self.editing_bar.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.editing_bar.setMinimumWidth(90)
 
-        filters_label = QLabel("Filters")
+        # filters_label = QLabel("Filters")
 
         convert_to_grayscale = QToolButton()
+        convert_to_grayscale.setText('Grayscale')
         #convert_to_grayscale.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_grayscale.clicked.connect(self.image_label.convertToGray)
 
         convert_to_RGB = QToolButton()
+        convert_to_RGB.setText('RGB')
         #convert_to_RGB.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_RGB.clicked.connect(self.image_label.convertToRGB)
 
         convert_to_sepia = QToolButton()
+        convert_to_sepia.setText('Sepia')
         #convert_to_sepia.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_sepia.clicked.connect(self.image_label.convertToSepia)
 
         change_hue = QToolButton()
+        change_hue.setText('Hue')
         #change_hue.setIcon(QIcon(os.path.join(icon_path, "")))
         #change_hue.clicked.connect(self.image_label.changeHue)
 
@@ -129,7 +133,7 @@ class PhotoEditorGUI(QMainWindow):
 
         # Сетка кнопок на панели редактирования
         editing_grid = QGridLayout()
-        #editing_grid.addWidget(filters_label, 0, 0, 0, 2, Qt.AlignTop)
+        # editing_grid.addWidget(filters_label, 0, 0, 0, 2, Qt.AlignTop)
         editing_grid.addWidget(convert_to_grayscale, 1, 0)
         editing_grid.addWidget(convert_to_RGB, 1, 1)
         editing_grid.addWidget(convert_to_sepia, 2, 0)
