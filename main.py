@@ -1,5 +1,3 @@
-"""Summary
-"""
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (QToolBar, QAction, QSlider, QGridLayout,
@@ -9,7 +7,7 @@ from PyQt5.QtWidgets import (QToolBar, QAction, QSlider, QGridLayout,
 from PyQt5.QtGui import QPixmap, QImage, QPalette, QIcon
 from PyQt5.QtCore import Qt, QSize
 
-class imageLabel(QLabel):
+class ImageLabel(QLabel):
     """
     Класс используется для работы с лейблом изображения
     
@@ -22,14 +20,14 @@ class imageLabel(QLabel):
     parent : PhotoEditorGUI
         Окно приложения
     """
-    def __init__(self, parent, image=None):
-        """Конструктор класса imageLabel"""
+    def __init__(self, parent, image = None):
+        """Конструктор класса ImageLabel"""
 
         super().__init__(parent)
 
         # parent - родительский элемент, в котором содержится QImage
         self.parent = parent 
-        self.image = QImage()
+        self.image  = QImage()
 
         # Вывод изображения на экран (по умолчанию - ничего)
         self.setPixmap(QPixmap().fromImage(self.image))
@@ -75,7 +73,7 @@ class PhotoEditorGUI(QMainWindow):
         """Создает центральный(главный) виджет приложения"""
 
         # Создание лейбла с изображением
-        self.image_label = imageLabel(self)
+        self.image_label = ImageLabel(self)
         self.image_label.resize(self.image_label.pixmap().size())
 
         self.scroll_area = QScrollArea()
