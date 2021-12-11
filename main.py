@@ -216,10 +216,10 @@ class PhotoEditorGUI(QMainWindow):
         #self.zoom_out_act.triggered.connect(lambda: self.zoomOnImage(0.8))
         self.zoom_out_act.setEnabled(False)
 
-        self.normal_size_Act = QAction("Normal Size", self)
-        self.normal_size_Act.setShortcut('Ctrl+=')
-        #self.normal_size_Act.triggered.connect(self.normalSize)
-        self.normal_size_Act.setEnabled(False)
+        self.normal_size_act = QAction("Normal Size", self)
+        self.normal_size_act.setShortcut('Ctrl+=')
+        #self.normal_size_act.triggered.connect(self.normalSize)
+        self.normal_size_act.setEnabled(False)
 
         # Создание menubar
 
@@ -257,7 +257,7 @@ class PhotoEditorGUI(QMainWindow):
         tool_menu.addSeparator()
         tool_menu.addAction(self.zoom_in_act)
         tool_menu.addAction(self.zoom_out_act)
-        tool_menu.addAction(self.normal_size_Act)
+        tool_menu.addAction(self.normal_size_act)
 
     def createToolBar(self):
         """Создает панель редактирования"""
