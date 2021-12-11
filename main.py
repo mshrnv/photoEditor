@@ -5,57 +5,14 @@ from PyQt5.QtGui import QPixmap, QImage, QPalette, QIcon
 from PyQt5.QtCore import Qt, QSize
 
 class imageLabel(QLabel):
-    """Subclass of QLabel for displaying image"""
+
     def __init__(self, parent, image=None):
         super().__init__(parent)
         self.parent = parent 
         self.image = QImage()
-        #self.image = "images/parrot.png"
 
-        #self.original_image = self.image.copy
-        self.original_image = self.image
-
-        #self.rubber_band = QRubberBand(QRubberBand.Rectangle, self)
-
-        # setBackgroundRole() will create a bg for the image
-        #self.setBackgroundRole(QPalette.Base)
-        self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
-        self.setScaledContents(True)
-
-        # Load image
         self.setPixmap(QPixmap().fromImage(self.image))
         self.setAlignment(Qt.AlignCenter)
-
-    def openImage(self):
-        # Choosing the file
-        image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
-                "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
-
-        if image_file:
-            self.parent.zoom_factor = 1
-            #self.parent.scroll_area.setVisible(True)
-            #self.parent.print_act.setEnabled(True)
-            #self.parent.updateActions()
-
-            # Reset all sliders
-            self.parent.brightness_slider.setValue(0)
-
-            # Get image format
-            image_format = self.image.format()
-            self.image = QImage(image_file)
-            self.original_image = self.image.copy()
-
-            #pixmap = QPixmap(image_file)
-            self.setPixmap(QPixmap().fromImage(self.image))
-            #image_size = self.image_label.sizeHint()
-            self.resize(self.pixmap().size())
-        elif image_file == "":
-            # User pressed 'cancel'
-            pass
-        else:
-            # Some errors
-            QMessageBox.information(self, "Error", 
-                "Cannot to open the file.", QMessageBox.Ok)
 
 class PhotoEditorGUI(QMainWindow):
     
@@ -63,13 +20,13 @@ class PhotoEditorGUI(QMainWindow):
         super().__init__()
 
         self.initializeUI()
-
         self.image = QImage()
 
     def initializeUI(self):
         self.setMinimumSize(300, 200)
         self.setWindowTitle("Photo Editor")
-        self.showMaximized()
+        #self.showMaximized()
+        self.resize(640, 480)
 
         self.zoom_factor = 1
 
@@ -87,22 +44,16 @@ class PhotoEditorGUI(QMainWindow):
         self.scroll_area = QScrollArea()
         self.scroll_area.setBackgroundRole(QPalette.Dark)
         self.scroll_area.setAlignment(Qt.AlignCenter)
-        #self.scroll_area.setWidgetResizable(False)
-        #scroll_area.setMinimumSize(800, 800)
         
         self.scroll_area.setWidget(self.image_label)
-        #self.scroll_area.setVisible(False)
 
         self.setCentralWidget(self.scroll_area)
-
-        #self.resize(QApplication.primaryScreen().availableSize() * 3 / 5)
 
     def createEditingBar(self):
         self.editing_bar = QDockWidget("Tools")
         self.editing_bar.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.editing_bar.setMinimumWidth(90)
 
-        # Create editing tool buttons
         filters_label = QLabel("Filters")
 
         convert_to_grayscale = QToolButton()
@@ -135,7 +86,6 @@ class PhotoEditorGUI(QMainWindow):
         self.contrast_slider.setTickPosition(QSlider.TicksAbove)
         #self.contrast_slider.valueChanged.connect(self.image_label.changeContrast)
 
-        # Set layout for dock widget
         editing_grid = QGridLayout()
         #editing_grid.addWidget(filters_label, 0, 0, 0, 2, Qt.AlignTop)
         editing_grid.addWidget(convert_to_grayscale, 1, 0)
