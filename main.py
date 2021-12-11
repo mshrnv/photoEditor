@@ -73,6 +73,8 @@ class PhotoEditorGUI(QMainWindow):
 
     def createMainLabel(self):
         """Создает центральный(главный) виджет приложения"""
+
+        # Создание лейбла с изображением
         self.image_label = imageLabel(self)
         self.image_label.resize(self.image_label.pixmap().size())
 
@@ -82,6 +84,7 @@ class PhotoEditorGUI(QMainWindow):
         
         self.scroll_area.setWidget(self.image_label)
 
+        # Главный виджет
         self.setCentralWidget(self.scroll_area)
 
     def createEditingBar(self):
