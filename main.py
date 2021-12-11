@@ -1,5 +1,3 @@
-"""Summary
-"""
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (QToolBar, QAction, QSlider, QGridLayout,
@@ -9,7 +7,7 @@ from PyQt5.QtWidgets import (QToolBar, QAction, QSlider, QGridLayout,
 from PyQt5.QtGui import QPixmap, QImage, QPalette, QIcon
 from PyQt5.QtCore import Qt, QSize
 
-class imageLabel(QLabel):
+class ImageLabel(QLabel):
     """
     Класс используется для работы с лейблом изображения
     
@@ -22,21 +20,20 @@ class imageLabel(QLabel):
     parent : PhotoEditorGUI
         Окно приложения
     """
-    def __init__(self, parent, image=None):
-        """Конструктор класса imageLabel"""
+    def __init__(self, parent, image = None):
+        """Конструктор класса ImageLabel"""
 
         super().__init__(parent)
 
         # parent - родительский элемент, в котором содержится QImage
         self.parent = parent 
-        self.image = QImage()
+        self.image  = QImage()
 
         # Вывод изображения на экран (по умолчанию - ничего)
         self.setPixmap(QPixmap().fromImage(self.image))
         self.setAlignment(Qt.AlignCenter)
 
 class PhotoEditorGUI(QMainWindow):
-
     """
     Класс используется для работы с окном приложения
     
@@ -45,6 +42,7 @@ class PhotoEditorGUI(QMainWindow):
     
     def __init__(self):
         """Констрктор класса PhotoEditorGUI"""
+
         super().__init__()
 
         self.initializeUI()
@@ -75,7 +73,7 @@ class PhotoEditorGUI(QMainWindow):
         """Создает центральный(главный) виджет приложения"""
 
         # Создание лейбла с изображением
-        self.image_label = imageLabel(self)
+        self.image_label = ImageLabel(self)
         self.image_label.resize(self.image_label.pixmap().size())
 
         self.scroll_area = QScrollArea()
@@ -95,21 +93,25 @@ class PhotoEditorGUI(QMainWindow):
         self.editing_bar.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.editing_bar.setMinimumWidth(90)
 
-        filters_label = QLabel("Filters")
+        # filters_label = QLabel("Filters")
 
         convert_to_grayscale = QToolButton()
+        convert_to_grayscale.setText('Grayscale')
         #convert_to_grayscale.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_grayscale.clicked.connect(self.image_label.convertToGray)
 
         convert_to_RGB = QToolButton()
+        convert_to_RGB.setText('RGB')
         #convert_to_RGB.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_RGB.clicked.connect(self.image_label.convertToRGB)
 
         convert_to_sepia = QToolButton()
+        convert_to_sepia.setText('Sepia')
         #convert_to_sepia.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_sepia.clicked.connect(self.image_label.convertToSepia)
 
         change_hue = QToolButton()
+        change_hue.setText('Hue')
         #change_hue.setIcon(QIcon(os.path.join(icon_path, "")))
         #change_hue.clicked.connect(self.image_label.changeHue)
 
@@ -131,7 +133,7 @@ class PhotoEditorGUI(QMainWindow):
 
         # Сетка кнопок на панели редактирования
         editing_grid = QGridLayout()
-        #editing_grid.addWidget(filters_label, 0, 0, 0, 2, Qt.AlignTop)
+        # editing_grid.addWidget(filters_label, 0, 0, 0, 2, Qt.AlignTop)
         editing_grid.addWidget(convert_to_grayscale, 1, 0)
         editing_grid.addWidget(convert_to_RGB, 1, 1)
         editing_grid.addWidget(convert_to_sepia, 2, 0)
@@ -214,10 +216,10 @@ class PhotoEditorGUI(QMainWindow):
         #self.zoom_out_act.triggered.connect(lambda: self.zoomOnImage(0.8))
         self.zoom_out_act.setEnabled(False)
 
-        self.normal_size_Act = QAction("Normal Size", self)
-        self.normal_size_Act.setShortcut('Ctrl+=')
-        #self.normal_size_Act.triggered.connect(self.normalSize)
-        self.normal_size_Act.setEnabled(False)
+        self.normal_size_act = QAction("Normal Size", self)
+        self.normal_size_act.setShortcut('Ctrl+=')
+        #self.normal_size_act.triggered.connect(self.normalSize)
+        self.normal_size_act.setEnabled(False)
 
         # Создание menubar
 
@@ -255,7 +257,7 @@ class PhotoEditorGUI(QMainWindow):
         tool_menu.addSeparator()
         tool_menu.addAction(self.zoom_in_act)
         tool_menu.addAction(self.zoom_out_act)
-        tool_menu.addAction(self.normal_size_Act)
+        tool_menu.addAction(self.normal_size_act)
 
     def createToolBar(self):
         """Создает панель редактирования"""
