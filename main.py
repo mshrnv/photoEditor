@@ -88,7 +88,9 @@ class PhotoEditorGUI(QMainWindow):
         self.setCentralWidget(self.scroll_area)
 
     def createEditingBar(self):
-        """Создает менюшку редактирования"""
+        """Создает меню редактирования"""
+
+        # Инициализация меню редактирования
         self.editing_bar = QDockWidget("Tools")
         self.editing_bar.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.editing_bar.setMinimumWidth(90)
@@ -111,6 +113,7 @@ class PhotoEditorGUI(QMainWindow):
         #change_hue.setIcon(QIcon(os.path.join(icon_path, "")))
         #change_hue.clicked.connect(self.image_label.changeHue)
 
+        # Яркость изображения
         brightness_label = QLabel("Brightness")
         self.brightness_slider = QSlider(Qt.Horizontal)
         self.brightness_slider.setRange(-255, 255)
@@ -118,6 +121,7 @@ class PhotoEditorGUI(QMainWindow):
         self.brightness_slider.setTickPosition(QSlider.TicksAbove)
         #self.brightness_slider.valueChanged.connect(self.image_label.changeBrighteness)
 
+        # Контраст изображения 
         contrast_label = QLabel("Contrast")
         self.contrast_slider = QSlider(Qt.Horizontal)
         self.contrast_slider.setRange(-255, 255)
@@ -125,6 +129,7 @@ class PhotoEditorGUI(QMainWindow):
         self.contrast_slider.setTickPosition(QSlider.TicksAbove)
         #self.contrast_slider.valueChanged.connect(self.image_label.changeContrast)
 
+        # Сетка кнопок на панели редактирования
         editing_grid = QGridLayout()
         #editing_grid.addWidget(filters_label, 0, 0, 0, 2, Qt.AlignTop)
         editing_grid.addWidget(convert_to_grayscale, 1, 0)
@@ -137,13 +142,13 @@ class PhotoEditorGUI(QMainWindow):
         editing_grid.addWidget(self.contrast_slider, 6, 0, 1, 0)
         editing_grid.setRowStretch(7, 10)
 
+        # Инициализация виджета, используя сетку
         container = QWidget()
         container.setLayout(editing_grid)
 
+        # Добавление меню к этому виджету
         self.editing_bar.setWidget(container)
-
         self.addDockWidget(Qt.LeftDockWidgetArea, self.editing_bar)
-
         self.tools_menu_act = self.editing_bar.toggleViewAction()
 
     def createMenu(self):
