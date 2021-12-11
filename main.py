@@ -261,7 +261,20 @@ class PhotoEditorGUI(QMainWindow):
         self.addToolBar(tool_bar)
 
 
-
+        tool_bar.addAction(self.open_act)
+        tool_bar.addAction(self.save_act)
+        tool_bar.addAction(self.exit_act)
+        tool_bar.addSeparator()
+        tool_bar.addAction(self.crop_act)
+        tool_bar.addAction(self.resize_act)
+        tool_bar.addSeparator()
+        tool_bar.addAction(self.rotate90_cw_act)
+        tool_bar.addAction(self.rotate90_ccw_act)
+        tool_bar.addAction(self.flip_horizontal)
+        tool_bar.addAction(self.flip_vertical)
+        tool_bar.addSeparator()
+        tool_bar.addAction(self.zoom_in_act)
+        tool_bar.addAction(self.zoom_out_act)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
