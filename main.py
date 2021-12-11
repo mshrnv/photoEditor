@@ -52,18 +52,23 @@ class PhotoEditorGUI(QMainWindow):
 
     def initializeUI(self):
         """Главный метод, создающий окно и рисующий все компоненты"""
+
+        # Параметры окна
         self.setMinimumSize(300, 200)
         self.setWindowTitle("Photo Editor")
         #self.showMaximized()
         self.resize(640, 480)
 
+        # Zoom изображения
         self.zoom_factor = 1
 
+        # Отрисовка всех компонентов окна
         self.createMainLabel()
         self.createEditingBar()
         self.createMenu()
         self.createToolBar()
 
+        # Показ окна
         self.show()
 
     def createMainLabel(self):
