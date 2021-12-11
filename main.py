@@ -1,8 +1,8 @@
 import sys, os
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QAction, QSlider, QGridLayout, QWidget, QApplication, QMainWindow, QFileDialog, QLabel, QSizePolicy, QScrollArea, QDockWidget, QToolButton
+from PyQt5.QtWidgets import QToolBar, QAction, QSlider, QGridLayout, QWidget, QApplication, QMainWindow, QFileDialog, QLabel, QSizePolicy, QScrollArea, QDockWidget, QToolButton
 from PyQt5.QtGui import QPixmap, QImage, QPalette, QIcon
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSize
 
 class imageLabel(QLabel):
     """Subclass of QLabel for displaying image"""
@@ -255,7 +255,13 @@ class PhotoEditorGUI(QMainWindow):
         tool_menu.addAction(self.normal_size_Act)
 
     def createToolBar(self):
-        pass
+        
+        tool_bar = QToolBar('Main Toolbar')
+        tool_bar.setIconSize(QSize(26, 26))
+        self.addToolBar(tool_bar)
+
+
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
