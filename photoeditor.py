@@ -7,6 +7,8 @@ from PyQt5.QtCore import Qt, QSize
 from image import ImageLabel
 import styles
 
+ICON_PATH = 'icons'
+
 class PhotoEditorGUI(QMainWindow):
     """
     Класс используется для работы с окном приложения
