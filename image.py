@@ -69,3 +69,6 @@ class ImageLabel(QLabel):
         if self.image.isNull() == False:
             image_file, _ = QFileDialog.getSaveFileName(self, "Save Image", 
                 "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
+
+            if image_file:
+                self.image.save(image_file)
