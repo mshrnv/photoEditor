@@ -62,3 +62,9 @@ class ImageLabel(QLabel):
 
             # Какая-то другая ошибка
             pass
+
+    def revertToOriginal(self):
+
+        self.image = self.original_image
+        self.setPixmap(QPixmap().fromImage(self.image))
+        self.repaint()
