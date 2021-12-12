@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QLabel, QFileDialog
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import Qt
 
@@ -29,4 +29,5 @@ class ImageLabel(QLabel):
         self.setAlignment(Qt.AlignCenter)
 
     def openImage(self):
-        pass
+        image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
+                "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
