@@ -30,6 +30,7 @@ class ImageLabel(QLabel):
 
     def openImage(self):
 
+        # Открытие QFileDialog для выбора изображения нужного расширения
         image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
                 "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
 
@@ -51,8 +52,10 @@ class ImageLabel(QLabel):
             self.resize(self.pixmap().size())
 
         elif image_file == '':
+
             # Пользватель выбрал 'Назад'
             pass
         else:
+            
             # Какая-то другая ошибка
             pass
