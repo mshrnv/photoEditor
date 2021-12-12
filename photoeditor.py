@@ -67,17 +67,10 @@ class PhotoEditorGUI(QMainWindow):
         self.editing_bar.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.editing_bar.setMinimumWidth(90)
 
-        # filters_label = QLabel("Filters")
-
         convert_to_grayscale = QToolButton()
         convert_to_grayscale.setText('Grayscale')
         #convert_to_grayscale.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_grayscale.clicked.connect(self.image_label.convertToGray)
-
-        convert_to_RGB = QToolButton()
-        convert_to_RGB.setText('RGB')
-        #convert_to_RGB.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
-        #convert_to_RGB.clicked.connect(self.image_label.convertToRGB)
 
         convert_to_sepia = QToolButton()
         convert_to_sepia.setText('Sepia')
@@ -117,7 +110,7 @@ class PhotoEditorGUI(QMainWindow):
         editing_grid = QGridLayout()
         # editing_grid.addWidget(filters_label, 0, 0, 0, 2, Qt.AlignTop)
         editing_grid.addWidget(convert_to_grayscale, 1, 0)
-        editing_grid.addWidget(convert_to_RGB, 1, 1)
+        # editing_grid.addWidget(convert_to_RGB, 1, 1)
         editing_grid.addWidget(convert_to_sepia, 2, 0)
         editing_grid.addWidget(change_hue, 2, 1)
         editing_grid.addWidget(brightness_label, 3, 0 , 1, 0)
