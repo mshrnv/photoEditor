@@ -64,4 +64,8 @@ class ImageLabel(QLabel):
             pass
 
     def saveImage(self):
-        pass
+
+        # Окно выбора куда сохранять
+        if self.image.isNull() == False:
+            image_file, _ = QFileDialog.getSaveFileName(self, "Save Image", 
+                "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
