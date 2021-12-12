@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (QToolBar, QAction, QSlider, QGridLayout,
-                             QWidget, QMainWindow, QLabel,
+                             QWidget, QMainWindow, QLabel, QMessageBox,
                              QScrollArea, QDockWidget, QToolButton)
 from PyQt5.QtGui import QImage, QPalette, QIcon
 from PyQt5.QtCore import Qt, QSize
@@ -134,8 +134,13 @@ class PhotoEditorGUI(QMainWindow):
 
         # Actions для Photo Editor menu
 
+        about_dialog = QMessageBox(self)
+        about_dialog.setWindowTitle("About")
+        about_dialog.setText("Какой-то текст.")
+        about_dialog.setBaseSize(QSize(600, 120));
+
         about_act = QAction('About', self)
-        #about_act.triggered.connect(self.aboutDialog)
+        about_act.triggered.connect(about_dialog.exec_)
 
         self.exit_act = QAction('Exit', self)
         self.exit_act.setShortcut('Ctrl+Q')
