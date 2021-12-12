@@ -1,7 +1,4 @@
 slider = """
-            QSlider{
-                
-            }
             QSlider::groove:horizontal {  
                 height: 10px;
                 margin: 0px;
@@ -20,3 +17,5 @@ slider = """
                 border-radius: 5px;
             }
         """
+
+edit_label = """QLabel{font-size: 20px}"""
