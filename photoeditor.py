@@ -30,7 +30,7 @@ class PhotoEditorGUI(QMainWindow):
 
         # Параметры окна
         self.setMinimumSize(300, 200)
-        self.setWindowTitle("Photo Editor")
+        self.setWindowTitle("Фоторедактор")
         #self.showMaximized()
         self.resize(640, 480)
 
@@ -162,7 +162,7 @@ class PhotoEditorGUI(QMainWindow):
 
         # Actions для Edit menu
 
-        self.revert_act = QAction("Revert to Original", self)
+        self.revert_act = QAction("Отменить редактирование", self)
         self.revert_act.triggered.connect(self.image_label.revertToOriginal)
         self.revert_act.setEnabled(False)
 
@@ -216,25 +216,25 @@ class PhotoEditorGUI(QMainWindow):
 
         # Добавление Actions к Photo Editor
 
-        main_menu = menu_bar.addMenu('Photo Editor')
+        main_menu = menu_bar.addMenu('Фоторедактор')
         main_menu.addAction(about_act)
         main_menu.addSeparator()
         main_menu.addAction(self.exit_act)
 
         # Добавление Actions к File
 
-        file_menu = menu_bar.addMenu('File')
+        file_menu = menu_bar.addMenu('Файл')
         file_menu.addAction(self.open_act)
         file_menu.addAction(self.save_act)
 
         # Добавление Actions к Edit
 
-        edit_menu = menu_bar.addMenu('Edit')
+        edit_menu = menu_bar.addMenu('Редактировать')
         edit_menu.addAction(self.revert_act)
 
         # Добавление Actions к Tools
 
-        tool_menu = menu_bar.addMenu('Tools')
+        tool_menu = menu_bar.addMenu('Интсрументы')
         tool_menu.addAction(self.crop_act)
         tool_menu.addAction(self.resize_act)
         tool_menu.addSeparator()
@@ -252,7 +252,7 @@ class PhotoEditorGUI(QMainWindow):
 
         # Добавление панели управления на основе главного меню
 
-        tool_bar = QToolBar('Main Toolbar')
+        tool_bar = QToolBar('Панель редактирования')
         tool_bar.setIconSize(QSize(26, 26))
         self.addToolBar(tool_bar)
 
