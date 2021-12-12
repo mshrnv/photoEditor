@@ -157,7 +157,7 @@ class PhotoEditorGUI(QMainWindow):
 
         self.save_act = QAction(QIcon(os.path.join(ICON_PATH, "save.png")) ,"Save...", self)
         self.save_act.setShortcut('Ctrl+S')
-        #self.save_act.triggered.connect(self.image_label.saveImage)
+        self.save_act.triggered.connect(self.image_label.saveImage)
         self.save_act.setEnabled(False)
 
         # Actions для Edit menu
