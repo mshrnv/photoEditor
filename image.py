@@ -29,6 +29,7 @@ class ImageLabel(QLabel):
         self.setAlignment(Qt.AlignCenter)
 
     def openImage(self):
+        """Функция предлагает выбрать изображение и открывает его"""
 
         # Открытие QFileDialog для выбора изображения нужного расширения
         image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
@@ -56,6 +57,6 @@ class ImageLabel(QLabel):
             # Пользватель выбрал 'Назад'
             pass
         else:
-            
+
             # Какая-то другая ошибка
             pass
