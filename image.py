@@ -54,9 +54,6 @@ class ImageLabel(QLabel):
             self.setPixmap(QPixmap().fromImage(self.image))
             self.resize(self.pixmap().size())
 
-            # Делаем кнопки редактирования активными
-            self.parent.updateActions()
-
         elif image_file == '':
 
             # Пользватель выбрал 'Назад'
@@ -66,5 +63,9 @@ class ImageLabel(QLabel):
             # Какая-то другая ошибка
             pass
 
-    def revertToOriginal(self):
-        pass
+    def saveImage(self):
+
+        # Окно выбора куда сохранять
+        if self.image.isNull() == False:
+            image_file, _ = QFileDialog.getSaveFileName(self, "Save Image", 
+                "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
