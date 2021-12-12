@@ -12,6 +12,8 @@ class ImageLabel(QLabel):
     ----------
     image : QImage
         Изображение на экране
+    original_image : QImage
+        Оригинальное изображение
     parent : PhotoEditorGUI
         Окно приложения
     """
