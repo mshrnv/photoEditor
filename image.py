@@ -54,9 +54,6 @@ class ImageLabel(QLabel):
             self.setPixmap(QPixmap().fromImage(self.image))
             self.resize(self.pixmap().size())
 
-            # Делаем кнопки редактирования активными
-            self.parent.updateActions()
-
         elif image_file == '':
 
             # Пользватель выбрал 'Назад'
