@@ -274,4 +274,16 @@ class PhotoEditorGUI(QMainWindow):
         tool_bar.addAction(self.zoom_out_act)
 
     def updateActions(self):
-        pass
+
+        # Делаем кнопки активными
+        self.crop_act.setEnabled(True)
+        self.resize_act.setEnabled(True)
+        self.rotate90_cw_act.setEnabled(True)
+        self.rotate90_ccw_act.setEnabled(True)
+        self.flip_horizontal.setEnabled(True)
+        self.flip_vertical.setEnabled(True)
+        self.save_act.setEnabled(True)
+        self.revert_act.setEnabled(True)
+        self.zoom_in_act.setEnabled(True)
+        self.zoom_out_act.setEnabled(True)
+        self.normal_size_act.setEnabled(True)

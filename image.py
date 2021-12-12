@@ -55,7 +55,7 @@ class ImageLabel(QLabel):
             self.resize(self.pixmap().size())
 
             # Делаем кнопки редактирования активными
-            self.updateActions()
+            self.parent.updateActions()
 
         elif image_file == '':
 
