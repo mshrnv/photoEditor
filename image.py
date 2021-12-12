@@ -63,8 +63,12 @@ class ImageLabel(QLabel):
             # Какая-то другая ошибка
             pass
 
-    def saveImage(self):
+    def revertToOriginal(self):
+        self.image = self.original_image
+        self.setPixmap(QPixmap().fromImage(self.image))
+        self.repaint()
 
+    def saveImage(self):
         # Окно выбора куда сохранять
         if self.image.isNull() == False:
             image_file, _ = QFileDialog.getSaveFileName(self, "Save Image", 
@@ -76,3 +80,4 @@ class ImageLabel(QLabel):
                 # Ошибка при выборе файла
         else:
             # Ошибка - не открыта фотографии
+
