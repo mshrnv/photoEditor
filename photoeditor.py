@@ -69,16 +69,19 @@ class PhotoEditorGUI(QMainWindow):
 
         convert_to_grayscale = QToolButton()
         convert_to_grayscale.setText('Черно-белый')
+        convert_to_grayscale.setStyleSheet(styles.filter_button)
         #convert_to_grayscale.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_grayscale.clicked.connect(self.image_label.convertToGray)
 
         convert_to_sepia = QToolButton()
         convert_to_sepia.setText('Сепия')
+        convert_to_sepia.setStyleSheet(styles.filter_button)
         #convert_to_sepia.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_sepia.clicked.connect(self.image_label.convertToSepia)
 
         convert_to_negative = QToolButton()
         convert_to_negative.setText('Негатив')
+        convert_to_negative .setStyleSheet(styles.filter_button)
         #change_hue.setIcon(QIcon(os.path.join(icon_path, "")))
         #change_hue.clicked.connect(self.image_label.changeHue)
 

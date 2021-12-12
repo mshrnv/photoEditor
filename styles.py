@@ -19,3 +19,13 @@ slider = """
         """
 
 edit_label = """QLabel{font-size: 20px}"""
+
+filter_button = """
+					QToolButton {
+						width: 100%;
+						font-size: 15px;
+					    border: 1px solid #8f8f91;
+					    border-radius: 6px;
+					    background-color: white;
+					}
+				"""
