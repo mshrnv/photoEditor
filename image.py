@@ -62,3 +62,6 @@ class ImageLabel(QLabel):
 
             # Какая-то другая ошибка
             pass
+
+    def revertToOriginal(self):
+        pass
