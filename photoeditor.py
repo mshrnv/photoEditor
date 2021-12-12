@@ -171,22 +171,28 @@ class PhotoEditorGUI(QMainWindow):
         self.crop_act = QAction(QIcon(os.path.join(ICON_PATH, "selection.png")), "Crop", self)
         self.crop_act.setShortcut('Shift+X')
         #self.crop_act.triggered.connect(self.image_label.cropImage)
+        self.crop_act.setEnabled(False)
 
         self.resize_act = QAction(QIcon(os.path.join(ICON_PATH, "move.png")), "Resize", self)
         self.resize_act.setShortcut('Shift+Z')
         #self.resize_act.triggered.connect(self.image_label.resizeImage)
+        self.resize_act.setEnabled(False)
 
         self.rotate90_cw_act = QAction(QIcon(os.path.join(ICON_PATH, "rotateccw.png")), 'Rotate ->', self)
         #self.rotate90_cw_act.triggered.connect(lambda: self.image_label.rotateImage90("cw"))
+        self.rotate90_cw_act.setEnabled(False)
 
         self.rotate90_ccw_act = QAction(QIcon(os.path.join(ICON_PATH, "rotateccw.png")), 'Rotate <-', self)
         #self.rotate90_ccw_act.triggered.connect(lambda: self.image_label.rotateImage90("ccw"))
+        self.rotate90_ccw_act.setEnabled(False)
 
         self.flip_horizontal = QAction(QIcon(os.path.join(ICON_PATH, "fliph.png")), 'Flip Horizontal', self)
         #self.flip_horizontal.triggered.connect(lambda: self.image_label.flipImage("horizontal"))
+        self.flip_horizontal.setEnabled(False)
 
         self.flip_vertical = QAction(QIcon(os.path.join(ICON_PATH, "flipv.png")), 'Flip Vertical', self)
         #self.flip_vertical.triggered.connect(lambda: self.image_label.flipImage('vertical'))
+        self.flip_vertical.setEnabled(False)
         
         self.zoom_in_act = QAction(QIcon(os.path.join(ICON_PATH, "zoom-in.png")), 'Zoom In', self)
         self.zoom_in_act.setShortcut('Ctrl++')
