@@ -6,6 +6,9 @@ from PyQt5.QtGui import QImage, QPalette, QIcon
 from PyQt5.QtCore import Qt, QSize
 from image import ImageLabel
 import styles
+import os
+
+ICON_PATH = 'icons'
 
 class PhotoEditorGUI(QMainWindow):
     """
@@ -142,19 +145,17 @@ class PhotoEditorGUI(QMainWindow):
         about_act = QAction('About', self)
         about_act.triggered.connect(about_dialog.exec_)
 
-        self.exit_act = QAction('Exit', self)
+        self.exit_act = QAction(QIcon(os.path.join(ICON_PATH, "exit.png")) ,'Exit', self)
         self.exit_act.setShortcut('Ctrl+Q')
         self.exit_act.triggered.connect(self.close)
 
         # Actions для File menu
 
-        self.new_act = QAction('New...')
-
-        self.open_act = QAction('Open...', self)
+        self.open_act = QAction(QIcon(os.path.join(ICON_PATH, "open.png")) ,'Open...', self)
         self.open_act.setShortcut('Ctrl+O')
         self.open_act.triggered.connect(self.image_label.openImage)
 
-        self.save_act = QAction("Save...", self)
+        self.save_act = QAction(QIcon(os.path.join(ICON_PATH, "save.png")) ,"Save...", self)
         self.save_act.setShortcut('Ctrl+S')
         #self.save_act.triggered.connect(self.image_label.saveImage)
         self.save_act.setEnabled(False)
@@ -167,32 +168,38 @@ class PhotoEditorGUI(QMainWindow):
 
         # Actions для Tools menu
 
-        self.crop_act = QAction("Crop", self)
+        self.crop_act = QAction(QIcon(os.path.join(ICON_PATH, "selection.png")), "Crop", self)
         self.crop_act.setShortcut('Shift+X')
         #self.crop_act.triggered.connect(self.image_label.cropImage)
+        self.crop_act.setEnabled(False)
 
-        self.resize_act = QAction("Resize", self)
+        self.resize_act = QAction(QIcon(os.path.join(ICON_PATH, "move.png")), "Resize", self)
         self.resize_act.setShortcut('Shift+Z')
         #self.resize_act.triggered.connect(self.image_label.resizeImage)
+        self.resize_act.setEnabled(False)
 
-        self.rotate90_cw_act = QAction('Rotate ->', self)
+        self.rotate90_cw_act = QAction(QIcon(os.path.join(ICON_PATH, "rotateccw.png")), 'Rotate ->', self)
         #self.rotate90_cw_act.triggered.connect(lambda: self.image_label.rotateImage90("cw"))
+        self.rotate90_cw_act.setEnabled(False)
 
-        self.rotate90_ccw_act = QAction('Rotate <-', self)
+        self.rotate90_ccw_act = QAction(QIcon(os.path.join(ICON_PATH, "rotateccw.png")), 'Rotate <-', self)
         #self.rotate90_ccw_act.triggered.connect(lambda: self.image_label.rotateImage90("ccw"))
+        self.rotate90_ccw_act.setEnabled(False)
 
-        self.flip_horizontal = QAction('Flip Horizontal', self)
+        self.flip_horizontal = QAction(QIcon(os.path.join(ICON_PATH, "fliph.png")), 'Flip Horizontal', self)
         #self.flip_horizontal.triggered.connect(lambda: self.image_label.flipImage("horizontal"))
+        self.flip_horizontal.setEnabled(False)
 
-        self.flip_vertical = QAction('Flip Vertical', self)
+        self.flip_vertical = QAction(QIcon(os.path.join(ICON_PATH, "flipv.png")), 'Flip Vertical', self)
         #self.flip_vertical.triggered.connect(lambda: self.image_label.flipImage('vertical'))
+        self.flip_vertical.setEnabled(False)
         
-        self.zoom_in_act = QAction('Zoom In', self)
+        self.zoom_in_act = QAction(QIcon(os.path.join(ICON_PATH, "zoom-in.png")), 'Zoom In', self)
         self.zoom_in_act.setShortcut('Ctrl++')
         #self.zoom_in_act.triggered.connect(lambda: self.zoomOnImage(1.25))
         self.zoom_in_act.setEnabled(False)
 
-        self.zoom_out_act = QAction('Zoom Out', self)
+        self.zoom_out_act = QAction(QIcon(os.path.join(ICON_PATH, "zoom-out.png")), 'Zoom Out', self)
         self.zoom_out_act.setShortcut('Ctrl+-')
         #self.zoom_out_act.triggered.connect(lambda: self.zoomOnImage(0.8))
         self.zoom_out_act.setEnabled(False)
