@@ -151,8 +151,6 @@ class PhotoEditorGUI(QMainWindow):
 
         # Actions для File menu
 
-        self.new_act = QAction('New...')
-
         self.open_act = QAction(QIcon(os.path.join(ICON_PATH, "open.png")) ,'Open...', self)
         self.open_act.setShortcut('Ctrl+O')
         self.open_act.triggered.connect(self.image_label.openImage)
