@@ -143,7 +143,7 @@ class PhotoEditorGUI(QMainWindow):
         about_dialog.setText("Какой-то текст.")
         about_dialog.setBaseSize(QSize(600, 120));
 
-        about_act = QAction('About', self)
+        about_act = QAction('О программе...', self)
         about_act.triggered.connect(about_dialog.exec_)
 
         self.exit_act = QAction(QIcon(os.path.join(ICON_PATH, "exit.png")) ,'Выход', self)
