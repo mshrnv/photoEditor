@@ -139,7 +139,7 @@ class PhotoEditorGUI(QMainWindow):
 
         self.exit_act = QAction('Exit', self)
         self.exit_act.setShortcut('Ctrl+Q')
-        #self.exit_act.triggered.connect(self.close)
+        self.exit_act.triggered.connect(self.close)
 
         # Actions для File menu
 
