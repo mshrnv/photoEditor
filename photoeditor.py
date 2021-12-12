@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (QToolBar, QAction, QSlider, QGridLayout,
 from PyQt5.QtGui import QImage, QPalette, QIcon
 from PyQt5.QtCore import Qt, QSize
 from image import ImageLabel
+import styles
 
 class PhotoEditorGUI(QMainWindow):
     """
@@ -64,58 +65,60 @@ class PhotoEditorGUI(QMainWindow):
         # Инициализация меню редактирования
         self.editing_bar = QDockWidget("Tools")
         self.editing_bar.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.editing_bar.setMinimumWidth(90)
-
-        # filters_label = QLabel("Filters")
+        self.editing_bar.setMinimumWidth(120)
 
         convert_to_grayscale = QToolButton()
-        convert_to_grayscale.setText('Grayscale')
+        convert_to_grayscale.setText('Черно-белый')
+        convert_to_grayscale.setStyleSheet(styles.filter_button)
         #convert_to_grayscale.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_grayscale.clicked.connect(self.image_label.convertToGray)
 
-        convert_to_RGB = QToolButton()
-        convert_to_RGB.setText('RGB')
-        #convert_to_RGB.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
-        #convert_to_RGB.clicked.connect(self.image_label.convertToRGB)
-
         convert_to_sepia = QToolButton()
-        convert_to_sepia.setText('Sepia')
+        convert_to_sepia.setText('Сепия')
+        convert_to_sepia.setStyleSheet(styles.filter_button)
         #convert_to_sepia.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         #convert_to_sepia.clicked.connect(self.image_label.convertToSepia)
 
-        change_hue = QToolButton()
-        change_hue.setText('Hue')
+        convert_to_negative = QToolButton()
+        convert_to_negative.setText('Негатив')
+        convert_to_negative .setStyleSheet(styles.filter_button)
         #change_hue.setIcon(QIcon(os.path.join(icon_path, "")))
         #change_hue.clicked.connect(self.image_label.changeHue)
 
         # Яркость изображения
-        brightness_label = QLabel("Brightness")
+        brightness_label = QLabel("Яркость")
+        brightness_label.setStyleSheet(styles.edit_label)
+        brightness_label.setAlignment(Qt.AlignCenter)
         self.brightness_slider = QSlider(Qt.Horizontal)
         self.brightness_slider.setRange(-255, 255)
-        self.brightness_slider.setTickInterval(35)
+        self.brightness_slider.setTickInterval(10)
+        self.brightness_slider.setPageStep(50)
         self.brightness_slider.setTickPosition(QSlider.TicksAbove)
+        self.brightness_slider.setStyleSheet(styles.slider)
         #self.brightness_slider.valueChanged.connect(self.image_label.changeBrighteness)
 
         # Контраст изображения 
-        contrast_label = QLabel("Contrast")
+        contrast_label = QLabel("Контраст")
+        contrast_label.setStyleSheet(styles.edit_label)
+        contrast_label.setAlignment(Qt.AlignCenter)
         self.contrast_slider = QSlider(Qt.Horizontal)
         self.contrast_slider.setRange(-255, 255)
-        self.contrast_slider.setTickInterval(35)
+        self.contrast_slider.setTickInterval(10)
+        self.contrast_slider.setPageStep(50)
         self.contrast_slider.setTickPosition(QSlider.TicksAbove)
+        self.contrast_slider.setStyleSheet(styles.slider)
         #self.contrast_slider.valueChanged.connect(self.image_label.changeContrast)
 
         # Сетка кнопок на панели редактирования
         editing_grid = QGridLayout()
-        # editing_grid.addWidget(filters_label, 0, 0, 0, 2, Qt.AlignTop)
-        editing_grid.addWidget(convert_to_grayscale, 1, 0)
-        editing_grid.addWidget(convert_to_RGB, 1, 1)
-        editing_grid.addWidget(convert_to_sepia, 2, 0)
-        editing_grid.addWidget(change_hue, 2, 1)
-        editing_grid.addWidget(brightness_label, 3, 0)
-        editing_grid.addWidget(self.brightness_slider, 4, 0, 1, 0)
-        editing_grid.addWidget(contrast_label, 5, 0)
-        editing_grid.addWidget(self.contrast_slider, 6, 0, 1, 0)
-        editing_grid.setRowStretch(7, 10)
+        editing_grid.addWidget(convert_to_grayscale, 1, 0, 1, 0)
+        editing_grid.addWidget(convert_to_sepia, 2, 0, 1, 0)
+        editing_grid.addWidget(convert_to_negative, 3, 0, 1, 0)
+        editing_grid.addWidget(brightness_label, 4, 0 , 1, 0)
+        editing_grid.addWidget(self.brightness_slider, 5, 0, 1, 0)
+        editing_grid.addWidget(contrast_label, 6, 0, 1, 0)
+        editing_grid.addWidget(self.contrast_slider, 7, 0, 1, 0)
+        editing_grid.setRowStretch(8, 10)
 
         # Инициализация виджета, используя сетку
         container = QWidget()
