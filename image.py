@@ -35,7 +35,7 @@ class ImageLabel(QLabel):
 
         # Открытие QFileDialog для выбора изображения нужного расширения
         image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
-                "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
+                "", "PNG Files (*.png);JPG Files (*.jpeg *.jpg )")
 
         if image_file:
 
