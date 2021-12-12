@@ -64,4 +64,7 @@ class ImageLabel(QLabel):
             pass
 
     def revertToOriginal(self):
-        pass
+
+        self.image = self.original_image
+        self.setPixmap(QPixmap().fromImage(self.image))
+        self.repaint()
