@@ -31,3 +31,10 @@ class ImageLabel(QLabel):
     def openImage(self):
         image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
                 "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
+
+        if image_file:
+            pass
+        elif image_file == '':
+            # Пользватель выбрал 'Назад'
+        else:
+            pass
