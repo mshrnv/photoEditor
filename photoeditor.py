@@ -152,7 +152,7 @@ class PhotoEditorGUI(QMainWindow):
 
         self.open_act = QAction('Open...', self)
         self.open_act.setShortcut('Ctrl+O')
-        #self.open_act.triggered.connect(self.image_label.openImage)
+        self.open_act.triggered.connect(self.image_label.openImage)
 
         self.save_act = QAction("Save...", self)
         self.save_act.setShortcut('Ctrl+S')

@@ -27,3 +27,6 @@ class ImageLabel(QLabel):
         # Вывод изображения на экран (по умолчанию - ничего)
         self.setPixmap(QPixmap().fromImage(self.image))
         self.setAlignment(Qt.AlignCenter)
+
+    def openImage(self):
+        pass
