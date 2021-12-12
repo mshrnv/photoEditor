@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (QToolBar, QAction, QSlider, QGridLayout,
 from PyQt5.QtGui import QImage, QPalette, QIcon
 from PyQt5.QtCore import Qt, QSize
 from image import ImageLabel
+import styles
 
 class PhotoEditorGUI(QMainWindow):
     """
@@ -92,8 +93,10 @@ class PhotoEditorGUI(QMainWindow):
         brightness_label = QLabel("Brightness")
         self.brightness_slider = QSlider(Qt.Horizontal)
         self.brightness_slider.setRange(-255, 255)
-        self.brightness_slider.setTickInterval(35)
+        self.brightness_slider.setTickInterval(50)
+        self.brightness_slider.setPageStep(50)
         self.brightness_slider.setTickPosition(QSlider.TicksAbove)
+        self.brightness_slider.setStyleSheet(styles.slider)
         #self.brightness_slider.valueChanged.connect(self.image_label.changeBrighteness)
 
         # Контраст изображения 
@@ -102,6 +105,7 @@ class PhotoEditorGUI(QMainWindow):
         self.contrast_slider.setRange(-255, 255)
         self.contrast_slider.setTickInterval(35)
         self.contrast_slider.setTickPosition(QSlider.TicksAbove)
+        self.contrast_slider.setStyleSheet(styles.slider)
         #self.contrast_slider.valueChanged.connect(self.image_label.changeContrast)
 
         # Сетка кнопок на панели редактирования
