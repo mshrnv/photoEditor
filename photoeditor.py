@@ -272,3 +272,6 @@ class PhotoEditorGUI(QMainWindow):
         tool_bar.addSeparator()
         tool_bar.addAction(self.zoom_in_act)
         tool_bar.addAction(self.zoom_out_act)
+
+    def updateActions(self):
+        pass
