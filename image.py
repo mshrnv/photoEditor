@@ -54,6 +54,8 @@ class ImageLabel(QLabel):
             self.setPixmap(QPixmap().fromImage(self.image))
             self.resize(self.pixmap().size())
 
+            self.parent.updateActions()
+
         elif image_file == '':
 
             # Пользватель выбрал 'Назад'
@@ -76,8 +78,3 @@ class ImageLabel(QLabel):
 
             if image_file:
                 self.image.save(image_file)
-            else:
-                # Ошибка при выборе файла
-        else:
-            # Ошибка - не открыта фотографии
-
