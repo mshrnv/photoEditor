@@ -66,7 +66,7 @@ class ImageLabel(QLabel):
             pass
 
     def revertToOriginal(self):
-        self.image = self.original_image
+        self.image = self.original_image.copy()
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint()
 
@@ -114,5 +114,5 @@ class ImageLabel(QLabel):
         if self.image.isNull() == False:
             grayscale_img = self.image.convertToFormat(QImage.Format_Grayscale16)
             self.image = QImage(grayscale_img)
-            self.setPixmap(QPixmap().fromImage(grayscale_img))
+            self.setPixmap(QPixmap().fromImage(self.image))
             self.repaint
