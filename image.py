@@ -94,5 +94,9 @@ class ImageLabel(QLabel):
                     new_green = int(0.349 * red + 0.686 * green + 0.168 * blue)
                     new_blue  = int(0.272 * red + 0.534 * green + 0.131 * blue)
 
+                    red   = new_red if new_red < 256 else red
+                    green = new_green if new_green < 256 else green
+                    blue  = new_blue if new_blue < 256 else blue
+
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint()
