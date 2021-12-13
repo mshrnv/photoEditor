@@ -81,3 +81,6 @@ class ImageLabel(QLabel):
 
     def convertToSepia(self):
         pass
+
+    def convertToNegativ(self):
+        pass
