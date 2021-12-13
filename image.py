@@ -90,5 +90,9 @@ class ImageLabel(QLabel):
                     green = pixel.green()
                     blue  = pixel.blue()
 
+                    new_red   = int(0.393 * red + 0.769 * green + 0.189 * blue)
+                    new_green = int(0.349 * red + 0.686 * green + 0.168 * blue)
+                    new_blue  = int(0.272 * red + 0.534 * green + 0.131 * blue)
+
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint()
