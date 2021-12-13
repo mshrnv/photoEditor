@@ -84,3 +84,6 @@ class ImageLabel(QLabel):
 
     def convertToNegativ(self):
         pass
+
+    def convertToGray(self):
+        pass
