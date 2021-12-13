@@ -81,7 +81,10 @@ class ImageLabel(QLabel):
 
     def convertToSepia(self):
         if self.image.isNull() == False:
-            pass
+            
+            for row_pixel in range(self.image.width()):
+                for col_pixel in range(self.image.height()):
+                    current_val = QColor(self.image.pixel(row_pixel, col_pixel))
 
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint()
