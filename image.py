@@ -78,3 +78,6 @@ class ImageLabel(QLabel):
 
             if image_file:
                 self.image.save(image_file)
+
+    def convertToSepia(self):
+        pass
