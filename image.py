@@ -83,7 +83,10 @@ class ImageLabel(QLabel):
         pass
 
     def convertToNegativ(self):
-        pass
+        if self.image.isNull() == False:
+            self.image.invertPixels()
+            self.setPixmap(QPixmap().fromImage(self.image))
+            self.repaint()
 
     def convertToGray(self):
         if self.image.isNull() == False:
