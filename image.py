@@ -87,5 +87,5 @@ class ImageLabel(QLabel):
 
     def convertToGray(self):
         if self.image.isNull() == False:
-            # Обработка
+            grayscale_img = self.image.convertToFormat(QImage.Format_Grayscale16)
             self.repaint
