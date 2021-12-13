@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QLabel, QFileDialog
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtGui import QImage, QPixmap, QColor, qRgb
 from PyQt5.QtCore import Qt
 
 class ImageLabel(QLabel):
@@ -80,7 +80,29 @@ class ImageLabel(QLabel):
                 self.image.save(image_file)
 
     def convertToSepia(self):
-        pass
+        if self.image.isNull() == False:
+
+            for row_pixel in range(self.image.width()):
+                for col_pixel in range(self.image.height()):
+                    pixel = QColor(self.image.pixel(row_pixel, col_pixel))
+
+                    red   = pixel.red()
+                    green = pixel.green()
+                    blue  = pixel.blue()
+
+                    new_red   = int(0.393 * red + 0.769 * green + 0.189 * blue)
+                    new_green = int(0.349 * red + 0.686 * green + 0.168 * blue)
+                    new_blue  = int(0.272 * red + 0.534 * green + 0.131 * blue)
+
+                    red   = new_red if new_red < 256 else red
+                    green = new_green if new_green < 256 else green
+                    blue  = new_blue if new_blue < 256 else blue
+
+                    new_pixel = qRgb(red, green, blue)
+                    self.image.setPixel(row_pixel, col_pixel, new_pixel)
+
+        self.setPixmap(QPixmap().fromImage(self.image))
+        self.repaint()
 
     def convertToNegativ(self):
         if self.image.isNull() == False:
