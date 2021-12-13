@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QLabel, QFileDialog
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtGui import QImage, QPixmap, qRgb
 from PyQt5.QtCore import Qt
 
 class ImageLabel(QLabel):
@@ -97,6 +97,9 @@ class ImageLabel(QLabel):
                     red   = new_red if new_red < 256 else red
                     green = new_green if new_green < 256 else green
                     blue  = new_blue if new_blue < 256 else blue
+
+                    new_pixel = qRgb(red, green, blue)
+                    self.image.setPixel(row_pixel, col_pixel, new_pixel)
 
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint()
