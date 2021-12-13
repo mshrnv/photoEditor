@@ -54,6 +54,8 @@ class ImageLabel(QLabel):
             self.setPixmap(QPixmap().fromImage(self.image))
             self.resize(self.pixmap().size())
 
+            self.parent.updateActions()
+
         elif image_file == '':
 
             # Пользватель выбрал 'Назад'
