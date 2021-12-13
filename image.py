@@ -87,3 +87,10 @@ class ImageLabel(QLabel):
             self.image.invertPixels()
             self.setPixmap(QPixmap().fromImage(self.image))
             self.repaint()
+
+    def convertToGray(self):
+        if self.image.isNull() == False:
+            grayscale_img = self.image.convertToFormat(QImage.Format_Grayscale16)
+            self.image = QImage(grayscale_img)
+            self.setPixmap(QPixmap().fromImage(grayscale_img))
+            self.repaint
