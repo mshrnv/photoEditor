@@ -80,4 +80,8 @@ class ImageLabel(QLabel):
                 self.image.save(image_file)
 
     def convertToSepia(self):
-        pass
+        if self.image.isNull() == False:
+            pass
+
+        self.setPixmap(QPixmap().fromImage(self.image))
+        self.repaint()
