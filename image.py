@@ -78,3 +78,16 @@ class ImageLabel(QLabel):
 
             if image_file:
                 self.image.save(image_file)
+
+    def convertToSepia(self):
+        pass
+
+    def convertToNegativ(self):
+        pass
+
+    def convertToGray(self):
+        if self.image.isNull() == False:
+            grayscale_img = self.image.convertToFormat(QImage.Format_Grayscale16)
+            self.image = QImage(grayscale_img)
+            self.setPixmap(QPixmap().fromImage(grayscale_img))
+            self.repaint
