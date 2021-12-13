@@ -164,7 +164,7 @@ class PhotoEditorGUI(QMainWindow):
         # Actions для Edit menu
 
         self.revert_act = QAction("Отменить редактирование", self)
-        #self.revert_act.triggered.connect(self.image_label.revertToOriginal)
+        self.revert_act.triggered.connect(self.image_label.revertToOriginal)
         self.revert_act.setEnabled(False)
 
         # Actions для Tools menu
