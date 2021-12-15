@@ -169,16 +169,6 @@ class PhotoEditorGUI(QMainWindow):
 
         # Actions для Tools menu
 
-        self.crop_act = QAction(QIcon(os.path.join(ICON_PATH, "selection.png")), "Обрезать", self)
-        self.crop_act.setShortcut('Shift+X')
-        #self.crop_act.triggered.connect(self.image_label.cropImage)
-        self.crop_act.setEnabled(False)
-
-        self.resize_act = QAction(QIcon(os.path.join(ICON_PATH, "move.png")), "Изменить размер", self)
-        self.resize_act.setShortcut('Shift+Z')
-        #self.resize_act.triggered.connect(self.image_label.resizeImage)
-        self.resize_act.setEnabled(False)
-
         self.rotate90_cw_act = QAction(QIcon(os.path.join(ICON_PATH, "rotateccw.png")), 'Повернуть по часовой', self)
         self.rotate90_cw_act.triggered.connect(lambda: self.image_label.rotateImage("cw"))
         self.rotate90_cw_act.setEnabled(False)
@@ -236,9 +226,6 @@ class PhotoEditorGUI(QMainWindow):
         # Добавление Actions к Tools
 
         tool_menu = menu_bar.addMenu('Интсрументы')
-        tool_menu.addAction(self.crop_act)
-        tool_menu.addAction(self.resize_act)
-        tool_menu.addSeparator()
         tool_menu.addAction(self.rotate90_cw_act)
         tool_menu.addAction(self.rotate90_ccw_act)
         tool_menu.addAction(self.flip_horizontal)
@@ -263,9 +250,6 @@ class PhotoEditorGUI(QMainWindow):
         tool_bar.addAction(self.save_act)
         tool_bar.addAction(self.exit_act)
         tool_bar.addSeparator()
-        tool_bar.addAction(self.crop_act)
-        tool_bar.addAction(self.resize_act)
-        tool_bar.addSeparator()
         tool_bar.addAction(self.rotate90_cw_act)
         tool_bar.addAction(self.rotate90_ccw_act)
         tool_bar.addAction(self.flip_horizontal)
@@ -277,8 +261,6 @@ class PhotoEditorGUI(QMainWindow):
     def updateActions(self):
 
         # Делаем кнопки активными
-        self.crop_act.setEnabled(True)
-        self.resize_act.setEnabled(True)
         self.rotate90_cw_act.setEnabled(True)
         self.rotate90_ccw_act.setEnabled(True)
         self.flip_horizontal.setEnabled(True)
