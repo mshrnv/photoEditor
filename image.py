@@ -62,9 +62,6 @@ class ImageLabel(QLabel):
             # Устанавливаем выбранное изображение, как свойство класса
             self.image = QImage(image_file)
 
-            # Это копия изображения (оригинал)
-            self.original_image = self.image.copy()
-
             # Отображение изображения на экране
             self.setPixmap(QPixmap().fromImage(self.image))
             self.resize(self.pixmap().size())
