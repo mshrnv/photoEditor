@@ -53,7 +53,6 @@ class ImageLabel(QLabel):
             self.image_path = self.tmp_image_path
 
             # Сбрасываем значения
-            self.parent.zoom_factor = 1
             self.brightness = 0
             self.contrast   = 0
 
@@ -67,6 +66,8 @@ class ImageLabel(QLabel):
             self.resize(self.pixmap().size())
 
             self.parent.updateActions()
+            self.parent.brightness_slider.setValue(0)
+            self.parent.contrast_slider.setValue(0)
 
         elif image_file == '':
 
@@ -82,6 +83,8 @@ class ImageLabel(QLabel):
         self.image = QImage(self.tmp_image_path)
         self.contrast   = 0
         self.brightness = 0
+        self.parent.brightness_slider.setValue(0)
+        self.parent.contrast_slider.setValue(0)
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint()
 
@@ -110,6 +113,22 @@ class ImageLabel(QLabel):
 
             if image_file:
                 self.image.save(image_file)
+
+    def rotateImage(self, direction):
+        if self.image.isNull() == False:
+            if direction == "cw":
+                transform90 = QTransform().rotate(90)
+            elif direction == "ccw":
+                transform90 = QTransform().rotate(-90)
+
+            pixmap = QPixmap(self.image)
+
+            rotated = pixmap.transformed(transform90, mode=Qt.SmoothTransformation)
+            self.resize(self.image.height(), self.image.width())
+
+            self.image = QImage(rotated) 
+            self.setPixmap(rotated.scaled(self.size(), Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation))
+            self.repaint()
 
     def convertToSepia(self):
         if self.image.isNull() == False:

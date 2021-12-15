@@ -35,9 +35,6 @@ class PhotoEditorGUI(QMainWindow):
         #self.showMaximized()
         self.resize(640, 480)
 
-        # Zoom изображения
-        self.zoom_factor = 1
-
         # Отрисовка всех компонентов окна
         self.createMainLabel()
         self.createEditingBar()
@@ -169,22 +166,12 @@ class PhotoEditorGUI(QMainWindow):
 
         # Actions для Tools menu
 
-        self.crop_act = QAction(QIcon(os.path.join(ICON_PATH, "selection.png")), "Обрезать", self)
-        self.crop_act.setShortcut('Shift+X')
-        #self.crop_act.triggered.connect(self.image_label.cropImage)
-        self.crop_act.setEnabled(False)
-
-        self.resize_act = QAction(QIcon(os.path.join(ICON_PATH, "move.png")), "Изменить размер", self)
-        self.resize_act.setShortcut('Shift+Z')
-        #self.resize_act.triggered.connect(self.image_label.resizeImage)
-        self.resize_act.setEnabled(False)
-
-        self.rotate90_cw_act = QAction(QIcon(os.path.join(ICON_PATH, "rotateccw.png")), 'Повернуть по часовой', self)
-        #self.rotate90_cw_act.triggered.connect(lambda: self.image_label.rotateImage90("cw"))
+        self.rotate90_cw_act = QAction(QIcon(os.path.join(ICON_PATH, "rotatecw.png")), 'Повернуть по часовой', self)
+        self.rotate90_cw_act.triggered.connect(lambda: self.image_label.rotateImage("cw"))
         self.rotate90_cw_act.setEnabled(False)
 
         self.rotate90_ccw_act = QAction(QIcon(os.path.join(ICON_PATH, "rotateccw.png")), 'Повернуть против часовой', self)
-        #self.rotate90_ccw_act.triggered.connect(lambda: self.image_label.rotateImage90("ccw"))
+        self.rotate90_ccw_act.triggered.connect(lambda: self.image_label.rotateImage("ccw"))
         self.rotate90_ccw_act.setEnabled(False)
 
         self.flip_horizontal = QAction(QIcon(os.path.join(ICON_PATH, "fliph.png")), 'Отразить по горизонтали', self)
@@ -194,21 +181,6 @@ class PhotoEditorGUI(QMainWindow):
         self.flip_vertical = QAction(QIcon(os.path.join(ICON_PATH, "flipv.png")), 'Отразить по вертикали', self)
         self.flip_vertical.triggered.connect(lambda: self.image_label.flipImage('vertical'))
         self.flip_vertical.setEnabled(False)
-        
-        self.zoom_in_act = QAction(QIcon(os.path.join(ICON_PATH, "zoom-in.png")), 'Увеличить', self)
-        self.zoom_in_act.setShortcut('Ctrl++')
-        #self.zoom_in_act.triggered.connect(lambda: self.zoomOnImage(1.25))
-        self.zoom_in_act.setEnabled(False)
-
-        self.zoom_out_act = QAction(QIcon(os.path.join(ICON_PATH, "zoom-out.png")), 'Уменьшить', self)
-        self.zoom_out_act.setShortcut('Ctrl+-')
-        #self.zoom_out_act.triggered.connect(lambda: self.zoomOnImage(0.8))
-        self.zoom_out_act.setEnabled(False)
-
-        self.normal_size_act = QAction("Нормальный размер", self)
-        self.normal_size_act.setShortcut('Ctrl+=')
-        #self.normal_size_act.triggered.connect(self.normalSize)
-        self.normal_size_act.setEnabled(False)
 
         # Создание menubar
 
@@ -236,17 +208,10 @@ class PhotoEditorGUI(QMainWindow):
         # Добавление Actions к Tools
 
         tool_menu = menu_bar.addMenu('Интсрументы')
-        tool_menu.addAction(self.crop_act)
-        tool_menu.addAction(self.resize_act)
-        tool_menu.addSeparator()
         tool_menu.addAction(self.rotate90_cw_act)
         tool_menu.addAction(self.rotate90_ccw_act)
         tool_menu.addAction(self.flip_horizontal)
         tool_menu.addAction(self.flip_vertical)
-        tool_menu.addSeparator()
-        tool_menu.addAction(self.zoom_in_act)
-        tool_menu.addAction(self.zoom_out_act)
-        tool_menu.addAction(self.normal_size_act)
 
     def createToolBar(self):
         """Создает панель редактирования"""
@@ -263,28 +228,17 @@ class PhotoEditorGUI(QMainWindow):
         tool_bar.addAction(self.save_act)
         tool_bar.addAction(self.exit_act)
         tool_bar.addSeparator()
-        tool_bar.addAction(self.crop_act)
-        tool_bar.addAction(self.resize_act)
-        tool_bar.addSeparator()
         tool_bar.addAction(self.rotate90_cw_act)
         tool_bar.addAction(self.rotate90_ccw_act)
         tool_bar.addAction(self.flip_horizontal)
         tool_bar.addAction(self.flip_vertical)
-        tool_bar.addSeparator()
-        tool_bar.addAction(self.zoom_in_act)
-        tool_bar.addAction(self.zoom_out_act)
 
     def updateActions(self):
 
         # Делаем кнопки активными
-        self.crop_act.setEnabled(True)
-        self.resize_act.setEnabled(True)
         self.rotate90_cw_act.setEnabled(True)
         self.rotate90_ccw_act.setEnabled(True)
         self.flip_horizontal.setEnabled(True)
         self.flip_vertical.setEnabled(True)
         self.save_act.setEnabled(True)
         self.revert_act.setEnabled(True)
-        self.zoom_in_act.setEnabled(True)
-        self.zoom_out_act.setEnabled(True)
-        self.normal_size_act.setEnabled(True)
