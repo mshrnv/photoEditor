@@ -90,17 +90,19 @@ class ImageLabel(QLabel):
 
     def flipImage(self, axis):
         if self.image.isNull() == False:
-            if axis == 'vertical':
+            if axis == 'horizontal':
                 flip = QTransform().scale(1, -1)
-            elif axis == 'horizontal':
+            elif axis == 'vertical':
                 flip = QTransform().scale(-1, 1)
 
             pixmap = QPixmap(self.image)
             flipped = pixmap.transformed(flip)
-
             self.image = QImage(flipped)
-            self.setPixmap(flipped)
-            self.repaint()
+
+            self.image.save(self.tmp_image_path)
+            self.image = QImage(self.tmp_image_path)
+            self.setPixmap(QPixmap().fromImage(self.image))
+            self.repaint
         else:
             # Ошибка, не загружена фотография
             pass
@@ -127,8 +129,11 @@ class ImageLabel(QLabel):
             self.resize(self.image.height(), self.image.width())
 
             self.image = QImage(rotated) 
-            self.setPixmap(rotated.scaled(self.size(), Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation))
-            self.repaint()
+
+            self.image.save(self.tmp_image_path)
+            self.image = QImage(self.tmp_image_path)
+            self.setPixmap(QPixmap().fromImage(self.image))
+            self.repaint
 
     def convertToSepia(self):
         if self.image.isNull() == False:
