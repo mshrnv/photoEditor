@@ -44,13 +44,13 @@ class ImageLabel(QLabel):
 
             script_path = os.path.dirname(__file__)
 
-            original_image_path = os.path.join(script_path, 'temp/original.png')
-            copyfile(image_file, original_image_path)
+            self.original_image_path = os.path.join(script_path, 'temp/original.png')
+            copyfile(image_file, self.original_image_path)
 
-            tmp_image_path = os.path.join(script_path, 'temp/temp.png')
-            copyfile(image_file, tmp_image_path)
+            self.tmp_image_path = os.path.join(script_path, 'temp/temp.png')
+            copyfile(image_file, self.tmp_image_path)
 
-            self.image_path = tmp_image_path
+            self.image_path = self.tmp_image_path
 
             # Сбрасываем значения
             self.parent.zoom_factor = 1
@@ -136,13 +136,18 @@ class ImageLabel(QLabel):
 
     def changeBrighteness(self):
         brightness = self.parent.brightness_slider.value()
+        diff = brightness - self.brightness
+        factor = 1
+        if diff > 0:
+            factor = pow(1.2, diff)
+        elif diff < 0:
+            factor = 1 + diff * 0.1
         self.brightness = brightness
-        print(brightness)
-        im = Image.open(self.image_path)
+
+        im = Image.open(self.tmp_image_path)
 
         enhancer = ImageEnhance.Brightness(im)
 
-        factor = brightness
         im_output = enhancer.enhance(factor)
         im_output.save(self.image_path)
 
