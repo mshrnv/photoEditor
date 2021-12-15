@@ -41,6 +41,8 @@ class ImageLabel(QLabel):
 
             # Сбрасываем значения
             self.parent.zoom_factor = 1
+            self.brightness = 0
+            self.contrast   = 0
 
             # TODO: здесь нужно сбросить все кнопки и слайдеры
 
