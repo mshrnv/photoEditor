@@ -90,6 +90,11 @@ class ImageLabel(QLabel):
             elif direction == "ccw":
                 transform90 = QTransform().rotate(-90)
 
+            pixmap = QPixmap(self.image)
+
+            rotated = pixmap.transformed(transform90, mode=Qt.SmoothTransformation)
+            self.resize(self.image.height(), self.image.width())
+
     def convertToSepia(self):
         if self.image.isNull() == False:
 
