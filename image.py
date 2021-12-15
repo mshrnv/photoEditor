@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QLabel, QFileDialog
-from PyQt5.QtGui import QImage, QPixmap, QColor, qRgb
+from PyQt5.QtGui import QImage, QPixmap, QColor, qRgb, QTransform
 from PyQt5.QtCore import Qt
 
 class ImageLabel(QLabel):
