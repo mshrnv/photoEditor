@@ -95,6 +95,10 @@ class ImageLabel(QLabel):
             rotated = pixmap.transformed(transform90, mode=Qt.SmoothTransformation)
             self.resize(self.image.height(), self.image.width())
 
+            self.image = QImage(rotated) 
+            self.setPixmap(rotated.scaled(self.size(), Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation))
+            self.repaint()
+
     def convertToSepia(self):
         if self.image.isNull() == False:
 
