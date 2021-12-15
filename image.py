@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QLabel, QFileDialog
-from PyQt5.QtGui import QImage, QPixmap, QColor, qRgb
+from PyQt5.QtGui import QImage, QPixmap, QColor, qRgb, QTransform
 from PyQt5.QtCore import Qt
 
 class ImageLabel(QLabel):
@@ -77,11 +77,14 @@ class ImageLabel(QLabel):
     def flipImage(self, axis):
         if self.image.isNull() == False:
             if axis == 'vertical':
-                pass
+                flip = QTransform().scale(1, -1)
             elif axis == 'horizontal':
-                pass
+                flip = QTransform().scale(-1, 1)
 
-            # Переназначить self.image ЗДЕСЬ!
+            pixmap = QPixmap(self.image)
+            flipped = pixmap.transformed(flip)
+
+            self.image = QImage(flipped)
             self.setPixmap(flipped)
             self.repaint()
         else:
