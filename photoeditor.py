@@ -188,11 +188,11 @@ class PhotoEditorGUI(QMainWindow):
         self.rotate90_ccw_act.setEnabled(False)
 
         self.flip_horizontal = QAction(QIcon(os.path.join(ICON_PATH, "fliph.png")), 'Отразить по горизонтали', self)
-        #self.flip_horizontal.triggered.connect(lambda: self.image_label.flipImage("horizontal"))
+        self.flip_horizontal.triggered.connect(lambda: self.image_label.flipImage("horizontal"))
         self.flip_horizontal.setEnabled(False)
 
         self.flip_vertical = QAction(QIcon(os.path.join(ICON_PATH, "flipv.png")), 'Отразить по вертикали', self)
-        #self.flip_vertical.triggered.connect(lambda: self.image_label.flipImage('vertical'))
+        self.flip_vertical.triggered.connect(lambda: self.image_label.flipImage('vertical'))
         self.flip_vertical.setEnabled(False)
         
         self.zoom_in_act = QAction(QIcon(os.path.join(ICON_PATH, "zoom-in.png")), 'Увеличить', self)
