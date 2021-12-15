@@ -143,14 +143,16 @@ class ImageLabel(QLabel):
             self.repaint
 
     def changeBrighteness(self):
-        brightness = self.parent.brightness_slider.value()
-        diff = brightness - self.brightness
+        brightness      = self.parent.brightness_slider.value()
+        diff            = brightness - self.brightness
+        self.brightness = brightness
+
         factor = 1
+
         if diff > 0:
             factor = pow(1.2, diff)
         elif diff < 0:
             factor = 1 + diff * 0.1
-        self.brightness = brightness
 
         im = Image.open(self.tmp_image_path)
 
@@ -164,18 +166,20 @@ class ImageLabel(QLabel):
         self.repaint
 
     def changeContrast(self):
-        contrast = self.parent.contrast_slider.value()
-        diff = contrast - self.contrast
+        contrast      = self.parent.contrast_slider.value()
+        diff          = contrast - self.contrast
+        self.contrast = contrast
+
         factor = 1
+        
         if diff > 0:
             factor = pow(1.2, diff)
         elif diff < 0:
             factor = 1 + diff * 0.1
-        self.contrast = contrast
 
-        image = Image.open(self.tmp_image_path)
-        image = ImageEnhance.Contrast(image).enhance(factor)
-        image.save(self.tmp_image_path)
+        im = Image.open(self.tmp_image_path)
+        im_output = ImageEnhance.Contrast(image).enhance(factor)
+        im_output.save(self.tmp_image_path)
         
         self.image = QImage(self.tmp_image_path)
         self.setPixmap(QPixmap().fromImage(self.image))
