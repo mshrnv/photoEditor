@@ -75,8 +75,11 @@ class ImageLabel(QLabel):
         self.repaint()
 
     def flipImage(self, axis):
-        print(axis)
-        pass
+        if self.image.isNull() == False:
+            print(axis)
+        else:
+            # Ошибка, не загружена фотография
+            pass
 
     def saveImage(self):
         # Окно выбора куда сохранять
