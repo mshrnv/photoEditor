@@ -99,27 +99,34 @@ class ImageLabel(QLabel):
     def convertToSepia(self):
         if self.image.isNull() == False:
 
-            for row_pixel in range(self.image.width()):
-                for col_pixel in range(self.image.height()):
-                    pixel = QColor(self.image.pixel(row_pixel, col_pixel))
+            img = Image.open(self.tmp_image_path)
+            width, height = img.size
 
-                    red   = pixel.red()
-                    green = pixel.green()
-                    blue  = pixel.blue()
+            pixels = img.load() # create the pixel map
 
-                    new_red   = int(0.393 * red + 0.769 * green + 0.189 * blue)
-                    new_green = int(0.349 * red + 0.686 * green + 0.168 * blue)
-                    new_blue  = int(0.272 * red + 0.534 * green + 0.131 * blue)
+            for py in range(height):
+                for px in range(width):
+                    r, g, b = img.getpixel((px, py))
 
-                    red   = new_red if new_red < 256 else red
-                    green = new_green if new_green < 256 else green
-                    blue  = new_blue if new_blue < 256 else blue
+                    tr = int(0.393 * r + 0.769 * g + 0.189 * b)
+                    tg = int(0.349 * r + 0.686 * g + 0.168 * b)
+                    tb = int(0.272 * r + 0.534 * g + 0.131 * b)
 
-                    new_pixel = qRgb(red, green, blue)
-                    self.image.setPixel(row_pixel, col_pixel, new_pixel)
+                    if tr > 255:
+                        tr = 255
 
+                    if tg > 255:
+                        tg = 255
+
+                    if tb > 255:
+                        tb = 255
+
+                    pixels[px, py] = (tr,tg,tb)
+            img.save(self.tmp_image_path)
+
+        self.image = QImage(self.tmp_image_path)
         self.setPixmap(QPixmap().fromImage(self.image))
-        self.repaint()
+        self.repaint
 
     def convertToNegativ(self):
         if self.image.isNull() == False:
@@ -149,30 +156,26 @@ class ImageLabel(QLabel):
         enhancer = ImageEnhance.Brightness(im)
 
         im_output = enhancer.enhance(factor)
-        im_output.save(self.image_path)
+        im_output.save(self.tmp_image_path)
 
-        self.image = QImage(self.image_path)
+        self.image = QImage(self.tmp_image_path)
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint
 
     def changeContrast(self):
-        contrast = 1 + 0.2 * self.parent.contrast_slider.value() 
-        print(contrast)
-        for row_pixel in range(self.image.width()):
-            for col_pixel in range(self.image.height()):
-                
-                factor = float(259 * (contrast + 255) / (255 * (259 - contrast)))
-                
-                pixel = QColor(self.image.pixel(row_pixel, col_pixel))
-                red   = pixel.red()
-                green = pixel.green()
-                blue  = pixel.blue()
+        contrast = self.parent.contrast_slider.value()
+        diff = contrast - self.contrast
+        factor = 1
+        if diff > 0:
+            factor = pow(1.2, diff)
+        elif diff < 0:
+            factor = 1 + diff * 0.1
+        self.contrast = contrast
 
-                new_red   = factor * (red   - 128) + 128
-                new_green = factor * (green - 128) + 128
-                new_blue  = factor * (blue  - 128) + 128
-
-                new_pixel = qRgb(new_red, new_green, new_blue)
-                self.image.setPixel(row_pixel, col_pixel, new_pixel)
+        image = Image.open(self.tmp_image_path)
+        image = ImageEnhance.Contrast(image).enhance(factor)
+        image.save(self.tmp_image_path)
         
+        self.image = QImage(self.tmp_image_path)
         self.setPixmap(QPixmap().fromImage(self.image))
+        self.repaint
