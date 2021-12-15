@@ -80,6 +80,10 @@ class ImageLabel(QLabel):
                 pass
             elif axis == 'horizontal':
                 pass
+
+            # Переназначить self.image ЗДЕСЬ!
+            self.setPixmap(flipped)
+            self.repaint()
         else:
             # Ошибка, не загружена фотография
             pass
