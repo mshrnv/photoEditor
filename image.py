@@ -81,7 +81,8 @@ class ImageLabel(QLabel):
             pass
 
     def revertToOriginal(self):
-        self.image = self.original_image.copy()
+        copyfile(self.original_image_path, self.tmp_image_path)
+        self.image = QImage(self.tmp_image_path)
         self.contrast   = 0
         self.brightness = 0
         self.setPixmap(QPixmap().fromImage(self.image))
