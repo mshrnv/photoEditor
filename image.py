@@ -139,9 +139,9 @@ class ImageLabel(QLabel):
                     pixels[px, py] = (tr,tg,tb)
             img.save(self.tmp_image_path)
 
-        self.image = QImage(self.tmp_image_path)
-        self.setPixmap(QPixmap().fromImage(self.image))
-        self.repaint
+            self.image = QImage(self.tmp_image_path)
+            self.setPixmap(QPixmap().fromImage(self.image))
+            self.repaint
 
     def convertToNegativ(self):
         if self.image.isNull() == False:
