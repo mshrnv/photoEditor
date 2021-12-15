@@ -1,6 +1,9 @@
 from PyQt5.QtWidgets import QLabel, QFileDialog
 from PyQt5.QtGui import QImage, QPixmap, QColor, qRgb
 from PyQt5.QtCore import Qt
+from PIL import Image, ImageEnhance
+import os
+from shutil import copyfile
 
 class ImageLabel(QLabel):
     """
@@ -38,6 +41,16 @@ class ImageLabel(QLabel):
                 "", "PNG Files (*.png);JPG Files (*.jpeg *.jpg )")
 
         if image_file:
+
+            script_path = os.path.dirname(__file__)
+
+            original_image_path = os.path.join(script_path, 'temp/original.png')
+            copyfile(image_file, original_image_path)
+
+            tmp_image_path = os.path.join(script_path, 'temp/temp.png')
+            copyfile(image_file, tmp_image_path)
+
+            self.image_path = tmp_image_path
 
             # Сбрасываем значения
             self.parent.zoom_factor = 1
@@ -123,15 +136,22 @@ class ImageLabel(QLabel):
 
     def changeBrighteness(self):
         brightness = self.parent.brightness_slider.value()
+        self.brightness = brightness
         print(brightness)
-        for row_pixel in range(self.image.width()):
-            for col_pixel in range(self.image.height()):
-                pass
+        im = Image.open(self.image_path)
 
+        enhancer = ImageEnhance.Brightness(im)
+
+        factor = brightness
+        im_output = enhancer.enhance(factor)
+        im_output.save(self.image_path)
+
+        self.image = QImage(self.image_path)
         self.setPixmap(QPixmap().fromImage(self.image))
+        self.repaint
 
     def changeContrast(self):
-        contrast = self.parent.contrast_slider.value()
+        contrast = 1 + 0.2 * self.parent.contrast_slider.value() 
         print(contrast)
         for row_pixel in range(self.image.width()):
             for col_pixel in range(self.image.height()):
@@ -146,5 +166,8 @@ class ImageLabel(QLabel):
                 new_red   = factor * (red   - 128) + 128
                 new_green = factor * (green - 128) + 128
                 new_blue  = factor * (blue  - 128) + 128
+
+                new_pixel = qRgb(new_red, new_green, new_blue)
+                self.image.setPixel(row_pixel, col_pixel, new_pixel)
         
         self.setPixmap(QPixmap().fromImage(self.image))
