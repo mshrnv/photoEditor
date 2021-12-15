@@ -111,7 +111,7 @@ class PhotoEditorGUI(QMainWindow):
         self.contrast_slider.setPageStep(0)
         self.contrast_slider.setTickPosition(QSlider.TicksAbove)
         self.contrast_slider.setStyleSheet(styles.slider)
-        self.contrast_slider.valueChanged.connect(self.image_label.changeContrast)
+        self.contrast_slider.sliderReleased.connect(self.image_label.changeContrast)
 
         # Сетка кнопок на панели редактирования
         editing_grid = QGridLayout()
