@@ -122,10 +122,15 @@ class ImageLabel(QLabel):
             self.repaint
 
     def changeBrighteness(self):
-        print('Яркость')
-        print(self.parent.brightness_slider.value())
-        pass
+        for row_pixel in range(self.image.width()):
+            for col_pixel in range(self.image.height()):
+                pass
 
-    def changeContrast(self, contrast):
-        print('Контраст')
-        pass
+        self.setPixmap(QPixmap().fromImage(self.image))
+
+    def changeContrast(self):
+        for row_pixel in range(self.image.width()):
+            for col_pixel in range(self.image.height()):
+                pass
+        
+        self.setPixmap(QPixmap().fromImage(self.image))
