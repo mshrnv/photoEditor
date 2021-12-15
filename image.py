@@ -66,6 +66,8 @@ class ImageLabel(QLabel):
             self.resize(self.pixmap().size())
 
             self.parent.updateActions()
+            self.parent.brightness_slider.setValue(0)
+            self.parent.contrast_slider.setValue(0)
 
         elif image_file == '':
 
@@ -81,6 +83,8 @@ class ImageLabel(QLabel):
         self.image = QImage(self.tmp_image_path)
         self.contrast   = 0
         self.brightness = 0
+        self.parent.brightness_slider.setValue(0)
+        self.parent.contrast_slider.setValue(0)
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint()
 

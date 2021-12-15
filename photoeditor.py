@@ -166,7 +166,7 @@ class PhotoEditorGUI(QMainWindow):
 
         # Actions для Tools menu
 
-        self.rotate90_cw_act = QAction(QIcon(os.path.join(ICON_PATH, "rotateccw.png")), 'Повернуть по часовой', self)
+        self.rotate90_cw_act = QAction(QIcon(os.path.join(ICON_PATH, "rotatecw.png")), 'Повернуть по часовой', self)
         self.rotate90_cw_act.triggered.connect(lambda: self.image_label.rotateImage("cw"))
         self.rotate90_cw_act.setEnabled(False)
 
