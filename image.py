@@ -76,7 +76,10 @@ class ImageLabel(QLabel):
 
     def flipImage(self, axis):
         if self.image.isNull() == False:
-            print(axis)
+            if axis == 'vertical':
+                pass
+            elif axis == 'horizontal':
+                pass
         else:
             # Ошибка, не загружена фотография
             pass
