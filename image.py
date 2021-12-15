@@ -135,6 +135,12 @@ class ImageLabel(QLabel):
         print(contrast)
         for row_pixel in range(self.image.width()):
             for col_pixel in range(self.image.height()):
-                pass
+                
+                factor = float(259 * (contrast + 255) / (255 * (259 - contrast)))
+                
+                pixel = QColor(self.image.pixel(row_pixel, col_pixel))
+                red   = pixel.red()
+                green = pixel.green()
+                blue  = pixel.blue()
         
         self.setPixmap(QPixmap().fromImage(self.image))
