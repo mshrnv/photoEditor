@@ -84,8 +84,11 @@ class ImageLabel(QLabel):
                 self.image.save(image_file)
 
     def rotateImage(self, direction):
-        print(direction)
-        pass
+        if self.image.isNull() == False:
+            if direction == "cw":
+                transform90 = QTransform().rotate(90)
+            elif direction == "ccw":
+                transform90 = QTransform().rotate(-90)
 
     def convertToSepia(self):
         if self.image.isNull() == False:
