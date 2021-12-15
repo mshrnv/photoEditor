@@ -1,6 +1,9 @@
 from PyQt5.QtWidgets import QLabel, QFileDialog
 from PyQt5.QtGui import QImage, QPixmap, QColor, qRgb, QTransform
 from PyQt5.QtCore import Qt
+from PIL import Image, ImageEnhance
+import os
+from shutil import copyfile
 
 class ImageLabel(QLabel):
     """
@@ -39,6 +42,16 @@ class ImageLabel(QLabel):
 
         if image_file:
 
+            script_path = os.path.dirname(__file__)
+
+            self.original_image_path = os.path.join(script_path, 'temp/original.png')
+            copyfile(image_file, self.original_image_path)
+
+            self.tmp_image_path = os.path.join(script_path, 'temp/temp.png')
+            copyfile(image_file, self.tmp_image_path)
+
+            self.image_path = self.tmp_image_path
+
             # Сбрасываем значения
             self.parent.zoom_factor = 1
             self.brightness = 0
@@ -48,9 +61,6 @@ class ImageLabel(QLabel):
 
             # Устанавливаем выбранное изображение, как свойство класса
             self.image = QImage(image_file)
-
-            # Это копия изображения (оригинал)
-            self.original_image = self.image.copy()
 
             # Отображение изображения на экране
             self.setPixmap(QPixmap().fromImage(self.image))
@@ -68,7 +78,8 @@ class ImageLabel(QLabel):
             pass
 
     def revertToOriginal(self):
-        self.image = self.original_image.copy()
+        copyfile(self.original_image_path, self.tmp_image_path)
+        self.image = QImage(self.tmp_image_path)
         self.contrast   = 0
         self.brightness = 0
         self.setPixmap(QPixmap().fromImage(self.image))
@@ -103,27 +114,34 @@ class ImageLabel(QLabel):
     def convertToSepia(self):
         if self.image.isNull() == False:
 
-            for row_pixel in range(self.image.width()):
-                for col_pixel in range(self.image.height()):
-                    pixel = QColor(self.image.pixel(row_pixel, col_pixel))
+            img = Image.open(self.tmp_image_path)
+            width, height = img.size
 
-                    red   = pixel.red()
-                    green = pixel.green()
-                    blue  = pixel.blue()
+            pixels = img.load() # create the pixel map
 
-                    new_red   = int(0.393 * red + 0.769 * green + 0.189 * blue)
-                    new_green = int(0.349 * red + 0.686 * green + 0.168 * blue)
-                    new_blue  = int(0.272 * red + 0.534 * green + 0.131 * blue)
+            for py in range(height):
+                for px in range(width):
+                    r, g, b = img.getpixel((px, py))
 
-                    red   = new_red if new_red < 256 else red
-                    green = new_green if new_green < 256 else green
-                    blue  = new_blue if new_blue < 256 else blue
+                    tr = int(0.393 * r + 0.769 * g + 0.189 * b)
+                    tg = int(0.349 * r + 0.686 * g + 0.168 * b)
+                    tb = int(0.272 * r + 0.534 * g + 0.131 * b)
 
-                    new_pixel = qRgb(red, green, blue)
-                    self.image.setPixel(row_pixel, col_pixel, new_pixel)
+                    if tr > 255:
+                        tr = 255
 
+                    if tg > 255:
+                        tg = 255
+
+                    if tb > 255:
+                        tb = 255
+
+                    pixels[px, py] = (tr,tg,tb)
+            img.save(self.tmp_image_path)
+
+        self.image = QImage(self.tmp_image_path)
         self.setPixmap(QPixmap().fromImage(self.image))
-        self.repaint()
+        self.repaint
 
     def convertToNegativ(self):
         if self.image.isNull() == False:
@@ -139,10 +157,44 @@ class ImageLabel(QLabel):
             self.repaint
 
     def changeBrighteness(self):
-        print('Яркость')
-        print(self.parent.brightness_slider.value())
-        pass
+        brightness      = self.parent.brightness_slider.value()
+        diff            = brightness - self.brightness
+        self.brightness = brightness
 
-    def changeContrast(self, contrast):
-        print('Контраст')
-        pass
+        factor = 1
+
+        if diff > 0:
+            factor = pow(1.2, diff)
+        elif diff < 0:
+            factor = 1 + diff * 0.1
+
+        im = Image.open(self.tmp_image_path)
+
+        enhancer = ImageEnhance.Brightness(im)
+
+        im_output = enhancer.enhance(factor)
+        im_output.save(self.tmp_image_path)
+
+        self.image = QImage(self.tmp_image_path)
+        self.setPixmap(QPixmap().fromImage(self.image))
+        self.repaint
+
+    def changeContrast(self):
+        contrast      = self.parent.contrast_slider.value()
+        diff          = contrast - self.contrast
+        self.contrast = contrast
+
+        factor = 1
+        
+        if diff > 0:
+            factor = pow(1.2, diff)
+        elif diff < 0:
+            factor = 1 + diff * 0.1
+
+        im = Image.open(self.tmp_image_path)
+        im_output = ImageEnhance.Contrast(image).enhance(factor)
+        im_output.save(self.tmp_image_path)
+        
+        self.image = QImage(self.tmp_image_path)
+        self.setPixmap(QPixmap().fromImage(self.image))
+        self.repaint
