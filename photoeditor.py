@@ -35,9 +35,6 @@ class PhotoEditorGUI(QMainWindow):
         #self.showMaximized()
         self.resize(640, 480)
 
-        # Zoom изображения
-        self.zoom_factor = 1
-
         # Отрисовка всех компонентов окна
         self.createMainLabel()
         self.createEditingBar()
@@ -184,21 +181,6 @@ class PhotoEditorGUI(QMainWindow):
         self.flip_vertical = QAction(QIcon(os.path.join(ICON_PATH, "flipv.png")), 'Отразить по вертикали', self)
         self.flip_vertical.triggered.connect(lambda: self.image_label.flipImage('vertical'))
         self.flip_vertical.setEnabled(False)
-        
-        self.zoom_in_act = QAction(QIcon(os.path.join(ICON_PATH, "zoom-in.png")), 'Увеличить', self)
-        self.zoom_in_act.setShortcut('Ctrl++')
-        #self.zoom_in_act.triggered.connect(lambda: self.zoomOnImage(1.25))
-        self.zoom_in_act.setEnabled(False)
-
-        self.zoom_out_act = QAction(QIcon(os.path.join(ICON_PATH, "zoom-out.png")), 'Уменьшить', self)
-        self.zoom_out_act.setShortcut('Ctrl+-')
-        #self.zoom_out_act.triggered.connect(lambda: self.zoomOnImage(0.8))
-        self.zoom_out_act.setEnabled(False)
-
-        self.normal_size_act = QAction("Нормальный размер", self)
-        self.normal_size_act.setShortcut('Ctrl+=')
-        #self.normal_size_act.triggered.connect(self.normalSize)
-        self.normal_size_act.setEnabled(False)
 
         # Создание menubar
 
@@ -230,10 +212,6 @@ class PhotoEditorGUI(QMainWindow):
         tool_menu.addAction(self.rotate90_ccw_act)
         tool_menu.addAction(self.flip_horizontal)
         tool_menu.addAction(self.flip_vertical)
-        tool_menu.addSeparator()
-        tool_menu.addAction(self.zoom_in_act)
-        tool_menu.addAction(self.zoom_out_act)
-        tool_menu.addAction(self.normal_size_act)
 
     def createToolBar(self):
         """Создает панель редактирования"""
@@ -254,9 +232,6 @@ class PhotoEditorGUI(QMainWindow):
         tool_bar.addAction(self.rotate90_ccw_act)
         tool_bar.addAction(self.flip_horizontal)
         tool_bar.addAction(self.flip_vertical)
-        tool_bar.addSeparator()
-        tool_bar.addAction(self.zoom_in_act)
-        tool_bar.addAction(self.zoom_out_act)
 
     def updateActions(self):
 
@@ -267,6 +242,3 @@ class PhotoEditorGUI(QMainWindow):
         self.flip_vertical.setEnabled(True)
         self.save_act.setEnabled(True)
         self.revert_act.setEnabled(True)
-        self.zoom_in_act.setEnabled(True)
-        self.zoom_out_act.setEnabled(True)
-        self.normal_size_act.setEnabled(True)

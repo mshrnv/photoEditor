@@ -53,7 +53,6 @@ class ImageLabel(QLabel):
             self.image_path = self.tmp_image_path
 
             # Сбрасываем значения
-            self.parent.zoom_factor = 1
             self.brightness = 0
             self.contrast   = 0
 
