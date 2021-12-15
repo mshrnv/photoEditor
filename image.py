@@ -74,6 +74,10 @@ class ImageLabel(QLabel):
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint()
 
+    def flipImage(self, axis):
+        print(axis)
+        pass
+
     def saveImage(self):
         # Окно выбора куда сохранять
         if self.image.isNull() == False:
