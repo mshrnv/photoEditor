@@ -83,6 +83,10 @@ class ImageLabel(QLabel):
             if image_file:
                 self.image.save(image_file)
 
+    def rotateImage(self, direction):
+        print(direction)
+        pass
+
     def convertToSepia(self):
         if self.image.isNull() == False:
 
