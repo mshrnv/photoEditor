@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QLabel, QFileDialog
 from PyQt5.QtGui import QImage, QPixmap, QColor, qRgb, QTransform
 from PyQt5.QtCore import Qt
-from PIL import Image, ImageEnhance
+from PIL import Image, ImageEnhance, ImageOps
 import os
 from shutil import copyfile
 
@@ -121,7 +121,11 @@ class ImageLabel(QLabel):
 
             for py in range(height):
                 for px in range(width):
-                    r, g, b = img.getpixel((px, py))
+                    try:
+                        r, g, b = img.getpixel((px, py))
+                    except Exception as e:
+                        print(e)
+                        return 1
 
                     tr = int(0.393 * r + 0.769 * g + 0.189 * b)
                     tg = int(0.349 * r + 0.686 * g + 0.168 * b)
@@ -146,7 +150,7 @@ class ImageLabel(QLabel):
     def convertToNegativ(self):
         if self.image.isNull() == False:
             im = Image.open(self.tmp_image_path)
-            im_output = PIL.ImageOps.invert(im)
+            im_output = ImageOps.invert(im)
             im_output.save(self.tmp_image_path)
 
             self.image = QImage(self.tmp_image_path)
@@ -155,10 +159,13 @@ class ImageLabel(QLabel):
 
     def convertToGray(self):
         if self.image.isNull() == False:
-            grayscale_img = self.image.convertToFormat(QImage.Format_Grayscale16)
-            self.image = QImage(grayscale_img)
+            im = Image.open(self.tmp_image_path)
+            im_output = ImageOps.grayscale(im)
+            im_output.save(self.tmp_image_path)
+
+            self.image = QImage(self.tmp_image_path)
             self.setPixmap(QPixmap().fromImage(self.image))
-            self.repaint
+            self.repaint()
 
     def changeBrighteness(self):
         brightness      = self.parent.brightness_slider.value()
@@ -196,7 +203,7 @@ class ImageLabel(QLabel):
             factor = 1 + diff * 0.1
 
         im = Image.open(self.tmp_image_path)
-        im_output = ImageEnhance.Contrast(image).enhance(factor)
+        im_output = ImageEnhance.Contrast(im).enhance(factor)
         im_output.save(self.tmp_image_path)
         
         self.image = QImage(self.tmp_image_path)
