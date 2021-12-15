@@ -99,7 +99,7 @@ class PhotoEditorGUI(QMainWindow):
         self.brightness_slider.setPageStep(50)
         self.brightness_slider.setTickPosition(QSlider.TicksAbove)
         self.brightness_slider.setStyleSheet(styles.slider)
-        #self.brightness_slider.valueChanged.connect(self.image_label.changeBrighteness)
+        self.brightness_slider.valueChanged.connect(self.image_label.changeBrighteness)
 
         # Контраст изображения 
         contrast_label = QLabel("Контраст")
@@ -111,7 +111,7 @@ class PhotoEditorGUI(QMainWindow):
         self.contrast_slider.setPageStep(50)
         self.contrast_slider.setTickPosition(QSlider.TicksAbove)
         self.contrast_slider.setStyleSheet(styles.slider)
-        #self.contrast_slider.valueChanged.connect(self.image_label.changeContrast)
+        self.contrast_slider.valueChanged.connect(self.image_label.changeContrast)
 
         # Сетка кнопок на панели редактирования
         editing_grid = QGridLayout()
