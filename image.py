@@ -145,7 +145,11 @@ class ImageLabel(QLabel):
 
     def convertToNegativ(self):
         if self.image.isNull() == False:
-            self.image.invertPixels()
+            im = Image.open(self.tmp_image_path)
+            im_output = PIL.ImageOps.invert(im)
+            im_output.save(self.tmp_image_path)
+
+            self.image = QImage(self.tmp_image_path)
             self.setPixmap(QPixmap().fromImage(self.image))
             self.repaint()
 
