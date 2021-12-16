@@ -48,3 +48,25 @@ dock_widget = """
         min-width: 20px;
     }
 """
+
+menu_bar = """
+    QMenuBar {
+        background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                          stop:0 lightgray, stop:1 darkgray);
+        spacing: 3px; /* spacing between menu bar items */
+    }
+
+    QMenuBar::item {
+        padding: 1px 4px;
+        background: transparent;
+        border-radius: 4px;
+    }
+
+    QMenuBar::item:selected { /* when selected using mouse or keyboard */
+        background: #a8a8a8;
+    }
+
+    QMenuBar::item:pressed {
+        background: #888888;
+    }
+"""

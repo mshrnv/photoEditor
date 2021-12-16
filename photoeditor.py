@@ -187,6 +187,7 @@ class PhotoEditorGUI(QMainWindow):
 
         menu_bar = self.menuBar()
         menu_bar.setNativeMenuBar(False)
+        menu_bar.setStyleSheet(styles.menu_bar)
 
         # Добавление Actions к Photo Editor
 
@@ -208,7 +209,7 @@ class PhotoEditorGUI(QMainWindow):
 
         # Добавление Actions к Tools
 
-        tool_menu = menu_bar.addMenu('Интсрументы')
+        tool_menu = menu_bar.addMenu('Инструменты')
         tool_menu.addAction(self.rotate90_cw_act)
         tool_menu.addAction(self.rotate90_ccw_act)
         tool_menu.addAction(self.flip_horizontal)
