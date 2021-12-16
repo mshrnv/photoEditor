@@ -33,7 +33,7 @@ filter_button = """
 dock_widget = """
     QDockWidget
     {
-        background : lightgreen;
+        background-color : lightgreen;
         titlebar-close-icon: url(icons/close.png);
         titlebar-normal-icon: url(icons/float.png);
     }
@@ -75,9 +75,5 @@ tool_bar = """
     QToolBar {
         background: white;
         spacing: 3px; /* spacing between items in the tool bar */
-    }
-
-    QToolBar::handle {
-        image: url(handle.png);
     }
 """

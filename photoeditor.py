@@ -138,7 +138,7 @@ class PhotoEditorGUI(QMainWindow):
 
         about_dialog = QMessageBox(self)
         about_dialog.setWindowTitle("О программе")
-        about_dialog.setText("Какой-то текст.")
+        about_dialog.setText("Фоторедактор на PyQt5 и Pillow.")
         about_dialog.setBaseSize(QSize(600, 120));
 
         about_act = QAction('О программе...', self)
