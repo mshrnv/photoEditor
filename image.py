@@ -59,13 +59,9 @@ class ImageLabel(QLabel):
             self.original_image_path = os.path.join(script_path, 'temp/original.png')
             copyfile(image_file, self.original_image_path)
 
-            # Формирование пути к промежуточно отредактированному изображению во временной папке и его копирование туда
+            # Формирование пути к промежуточно-отредактированному изображению во временной папке и его копирование туда
             self.tmp_image_path = os.path.join(script_path, 'temp/temp.png')
             copyfile(image_file, self.tmp_image_path)
-
-            # Сбрасываем значения
-            self.brightness = 0
-            self.contrast   = 0
 
             # Устанавливаем выбранное изображение, как свойство класса
             self.image = QImage(image_file)
@@ -77,9 +73,9 @@ class ImageLabel(QLabel):
             # Делаем кнопки редактирования доступными
             self.parent.updateActions()
 
-            # Значения слайдеров обнуляем
-            self.parent.brightness_slider.setValue(0)
-            self.parent.contrast_slider.setValue(0)
+            # Обнуляем значения слайдеров
+            self.resetValues()
+
 
         elif image_file == '':
 
@@ -100,10 +96,7 @@ class ImageLabel(QLabel):
         self.image = QImage(self.tmp_image_path)
 
         # Сбрасываем значения
-        self.contrast   = 0
-        self.brightness = 0
-        self.parent.brightness_slider.setValue(0)
-        self.parent.contrast_slider.setValue(0)
+        self.resetValues()
 
         # Показываем на экране
         self.setPixmap(QPixmap().fromImage(self.image))
@@ -129,9 +122,7 @@ class ImageLabel(QLabel):
 
             # Сохраняем его и заново открываем
             self.image.save(self.tmp_image_path)
-            self.image = QImage(self.tmp_image_path)
-            self.setPixmap(QPixmap().fromImage(self.image))
-            self.repaint
+            self.updateImage()
         else:
             # Ошибка, не загружена фотография
             pass
@@ -170,9 +161,7 @@ class ImageLabel(QLabel):
 
             # Сохраняем и открываем его
             self.image.save(self.tmp_image_path)
-            self.image = QImage(self.tmp_image_path)
-            self.setPixmap(QPixmap().fromImage(self.image))
-            self.repaint
+            self.updateImage()
 
     def convertToSepia(self):
         """Накалдывает фильтр сепия"""
@@ -217,9 +206,7 @@ class ImageLabel(QLabel):
 
             # Сохраняем изображение и открываем его
             img.save(self.tmp_image_path)
-            self.image = QImage(self.tmp_image_path)
-            self.setPixmap(QPixmap().fromImage(self.image))
-            self.repaint
+            self.updateImage()
 
     def convertToNegativ(self):
         """Накладывает фильтр негатив"""
@@ -233,9 +220,7 @@ class ImageLabel(QLabel):
             im_output.save(self.tmp_image_path)
 
             # Открываем его на экране
-            self.image = QImage(self.tmp_image_path)
-            self.setPixmap(QPixmap().fromImage(self.image))
-            self.repaint()
+            self.updateImage()
 
     def convertToGray(self):
         """Накладывате черно-белый фильтр"""
@@ -249,9 +234,7 @@ class ImageLabel(QLabel):
             im_output.save(self.tmp_image_path)
 
             # Открываем его на экране
-            self.image = QImage(self.tmp_image_path)
-            self.setPixmap(QPixmap().fromImage(self.image))
-            self.repaint()
+            self.updateImage()
 
     def changeBrighteness(self):
         """Изменяет яркость изображения"""
@@ -276,9 +259,7 @@ class ImageLabel(QLabel):
         im_output.save(self.tmp_image_path)
 
         # Открываем изображение и показываем его
-        self.image = QImage(self.tmp_image_path)
-        self.setPixmap(QPixmap().fromImage(self.image))
-        self.repaint
+        self.updateImage()
 
     def changeContrast(self):
         """Изменяет контраст изображения"""
@@ -302,9 +283,7 @@ class ImageLabel(QLabel):
         im_output.save(self.tmp_image_path)
         
         # Открываем изображение и показываем его
-        self.image = QImage(self.tmp_image_path)
-        self.setPixmap(QPixmap().fromImage(self.image))
-        self.repaint
+        self.updateImage()
 
     def updateImage(self):
         """Открывает промежуточное изображение и показывает его на экране"""
@@ -312,3 +291,11 @@ class ImageLabel(QLabel):
         self.image = QImage(self.tmp_image_path)
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint
+
+    def resetValues(self):
+        """Обнуляет все значения слайдеров"""
+
+        self.contrast   = 0
+        self.brightness = 0
+        self.parent.brightness_slider.setValue(0)
+        self.parent.contrast_slider.setValue(0)
