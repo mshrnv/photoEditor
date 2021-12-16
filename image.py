@@ -235,6 +235,10 @@ class ImageLabel(QLabel):
     def changeBrighteness(self):
         """Изменяет яркость изображения"""
 
+        # Если не открыто изображение - ничего не редактируем
+        if self.image.isNull() == True:
+            return 1
+
         # Вычисление значения насколько увеличилась яркость
         brightness      = self.parent.brightness_slider.value()
         diff            = brightness - self.brightness
@@ -258,6 +262,10 @@ class ImageLabel(QLabel):
 
     def changeContrast(self):
         """Изменяет контраст изображения"""
+
+        # Если не открыто изображение - ничего не редактируем
+        if self.image.isNull() == True:
+            return 1
 
         # Вычисление значения насколько увеличился контраст
         contrast      = self.parent.contrast_slider.value()
