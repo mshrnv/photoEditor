@@ -35,6 +35,10 @@ class ImageLabel(QLabel):
         self.parent = parent 
         self.image  = QImage()
 
+        # Обнуляем значения слайдеров
+        self.brightness = 0
+        self.contrast   = 0
+        
         # Вывод изображения на экран (по умолчанию - ничего)
         self.setPixmap(QPixmap().fromImage(self.image))
         self.setAlignment(Qt.AlignCenter)
