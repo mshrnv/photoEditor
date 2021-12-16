@@ -15,10 +15,16 @@ class ImageLabel(QLabel):
     ----------
     image : QImage
         Изображение на экране
-    original_image : QImage
-        Оригинальное изображение
     parent : PhotoEditorGUI
         Окно приложения
+    original_image_path: String
+        Путь оригинальному изображению во временной папке
+    tmp_image_path : String
+        Путь к промежуточно отредактированному изображению во временной папке
+    brightness : Integer
+        Текущее значение слайдера яркости
+    contrast : Integer
+        Текущее значение слайдера контраста
     """
     def __init__(self, parent, image = None):
         """Конструктор класса ImageLabel"""
@@ -50,13 +56,9 @@ class ImageLabel(QLabel):
             self.tmp_image_path = os.path.join(script_path, 'temp/temp.png')
             copyfile(image_file, self.tmp_image_path)
 
-            self.image_path = self.tmp_image_path
-
             # Сбрасываем значения
             self.brightness = 0
             self.contrast   = 0
-
-            # TODO: здесь нужно сбросить все кнопки и слайдеры
 
             # Устанавливаем выбранное изображение, как свойство класса
             self.image = QImage(image_file)
@@ -232,7 +234,7 @@ class ImageLabel(QLabel):
 
     def changeContrast(self):
         """Изменяет контраст изображения"""
-        
+
         contrast      = self.parent.contrast_slider.value()
         diff          = contrast - self.contrast
         self.contrast = contrast
