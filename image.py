@@ -92,15 +92,11 @@ class ImageLabel(QLabel):
         # Замена промежуточного файла на оригинальный (тот, который был при загрузке)
         copyfile(self.original_image_path, self.tmp_image_path)
 
-        # Открываем его
-        self.image = QImage(self.tmp_image_path)
-
         # Сбрасываем значения
         self.resetValues()
 
         # Показываем на экране
-        self.setPixmap(QPixmap().fromImage(self.image))
-        self.repaint()
+        self.updateImage()
 
     def flipImage(self, axis):
         """Отражает изображение вдоль оси"""
@@ -248,14 +244,13 @@ class ImageLabel(QLabel):
 
         # Вычисление коэффицента увелчиения/уменьшения яркости
         if diff > 0:
-            factor = pow(1.2, diff)
+            factor = pow(1.1, diff)
         elif diff < 0:
-            factor = 1 + diff * 0.1
+            factor = 1 + diff * 0.05
 
         # Открываем изображение, работаем с ярокстью, сохраняем его
         im = Image.open(self.tmp_image_path)
-        enhancer = ImageEnhance.Brightness(im)
-        im_output = enhancer.enhance(factor)
+        im_output = ImageEnhance.Brightness(im).enhance(factor)
         im_output.save(self.tmp_image_path)
 
         # Открываем изображение и показываем его
@@ -273,9 +268,9 @@ class ImageLabel(QLabel):
         
         # Вычисление коэффицента увелчиения/уменьшения контраста
         if diff > 0:
-            factor = pow(1.2, diff)
+            factor = pow(1.1, diff)
         elif diff < 0:
-            factor = 1 + diff * 0.1
+            factor = 1 + diff * 0.05
 
         # Открываем изображение, работаем с контрастом, сохраняем его
         im = Image.open(self.tmp_image_path)
