@@ -8,6 +8,7 @@ from image import ImageLabel
 import styles
 import os
 
+# Путь к папке с иконками
 ICON_PATH = 'icons'
 
 class PhotoEditorGUI(QMainWindow):
@@ -69,18 +70,21 @@ class PhotoEditorGUI(QMainWindow):
         self.editing_bar.setMinimumWidth(120)
         self.editing_bar.setStyleSheet(styles.dock_widget)
 
+        # Кнопка с фильтром ЧБ
         convert_to_grayscale = QToolButton()
         convert_to_grayscale.setText('Черно-белый')
         convert_to_grayscale.setStyleSheet(styles.filter_button)
         #convert_to_grayscale.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         convert_to_grayscale.clicked.connect(self.image_label.convertToGray)
 
+        # Кнопка с фильтром Сепия
         convert_to_sepia = QToolButton()
         convert_to_sepia.setText('Сепия')
         convert_to_sepia.setStyleSheet(styles.filter_button)
         #convert_to_sepia.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         convert_to_sepia.clicked.connect(self.image_label.convertToSepia)
 
+        # Кнопка с фильтром Негатив
         convert_to_negative = QToolButton()
         convert_to_negative.setText('Негатив')
         convert_to_negative .setStyleSheet(styles.filter_button)
