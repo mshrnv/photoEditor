@@ -222,6 +222,7 @@ class PhotoEditorGUI(QMainWindow):
 
         tool_bar = QToolBar('Панель редактирования')
         tool_bar.setIconSize(QSize(26, 26))
+        tool_bar.setStyleSheet(styles.tool_bar)
         self.addToolBar(tool_bar)
 
         # Добавление Actions к tool_bar

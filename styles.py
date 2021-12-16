@@ -70,3 +70,14 @@ menu_bar = """
         background: #888888;
     }
 """
+
+tool_bar = """
+    QToolBar {
+        background: white;
+        spacing: 3px; /* spacing between items in the tool bar */
+    }
+
+    QToolBar::handle {
+        image: url(handle.png);
+    }
+"""
