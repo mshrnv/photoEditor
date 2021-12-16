@@ -67,6 +67,7 @@ class PhotoEditorGUI(QMainWindow):
         self.editing_bar = QDockWidget("Инструменты")
         self.editing_bar.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.editing_bar.setMinimumWidth(120)
+        self.editing_bar.setStyleSheet(styles.dock_widget)
 
         convert_to_grayscale = QToolButton()
         convert_to_grayscale.setText('Черно-белый')

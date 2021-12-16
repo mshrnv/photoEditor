@@ -29,3 +29,22 @@ filter_button = """
 					    background-color: white;
 					}
 				"""
+
+dock_widget = """
+    QDockWidget
+    {
+        background : lightgreen;
+        titlebar-close-icon: url(icons/close.png);
+        titlebar-normal-icon: url(icons/float.png);
+    }
+    QDockWidget::title
+    {
+        background : lightblue;
+    }
+    QDockWidget::close-button, QDockWidget::float-button {
+        padding: 0px;
+        icon-size: 20px; /* maximum icon size */
+        min-height: 20px;
+        min-width: 20px;
+    }
+"""
