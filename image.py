@@ -79,6 +79,8 @@ class ImageLabel(QLabel):
             pass
 
     def revertToOriginal(self):
+        """Возвращает ищображение к оригинальному"""
+
         copyfile(self.original_image_path, self.tmp_image_path)
         self.image = QImage(self.tmp_image_path)
         self.contrast   = 0
@@ -89,6 +91,8 @@ class ImageLabel(QLabel):
         self.repaint()
 
     def flipImage(self, axis):
+        """Отражает изображение вдоль оси"""
+
         if self.image.isNull() == False:
             if axis == 'horizontal':
                 flip = QTransform().scale(1, -1)
@@ -108,6 +112,8 @@ class ImageLabel(QLabel):
             pass
 
     def saveImage(self):
+        """Сохраняет изображение"""
+
         # Окно выбора куда сохранять
         if self.image.isNull() == False:
             image_file, _ = QFileDialog.getSaveFileName(self, "Save Image", 
@@ -117,6 +123,8 @@ class ImageLabel(QLabel):
                 self.image.save(image_file)
 
     def rotateImage(self, direction):
+        """Поворачивает изображение на 90 градусов"""
+
         if self.image.isNull() == False:
             if direction == "cw":
                 transform90 = QTransform().rotate(90)
@@ -136,6 +144,8 @@ class ImageLabel(QLabel):
             self.repaint
 
     def convertToSepia(self):
+        """Накалдывает фильтр сепия"""
+
         if self.image.isNull() == False:
 
             img = Image.open(self.tmp_image_path)
@@ -172,6 +182,8 @@ class ImageLabel(QLabel):
             self.repaint
 
     def convertToNegativ(self):
+        """Накладывает фильтр негатив"""
+
         if self.image.isNull() == False:
             im = Image.open(self.tmp_image_path)
             im_output = ImageOps.invert(im)
@@ -182,6 +194,8 @@ class ImageLabel(QLabel):
             self.repaint()
 
     def convertToGray(self):
+        """Накладывате черно-белый фильтр"""
+
         if self.image.isNull() == False:
             im = Image.open(self.tmp_image_path)
             im_output = ImageOps.grayscale(im)
@@ -192,6 +206,8 @@ class ImageLabel(QLabel):
             self.repaint()
 
     def changeBrighteness(self):
+        """Изменяет яркость изображения"""
+
         brightness      = self.parent.brightness_slider.value()
         diff            = brightness - self.brightness
         self.brightness = brightness
@@ -215,6 +231,8 @@ class ImageLabel(QLabel):
         self.repaint
 
     def changeContrast(self):
+        """Изменяет контраст изображения"""
+        
         contrast      = self.parent.contrast_slider.value()
         diff          = contrast - self.contrast
         self.contrast = contrast
