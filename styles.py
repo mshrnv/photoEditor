@@ -29,3 +29,51 @@ filter_button = """
 					    background-color: white;
 					}
 				"""
+
+dock_widget = """
+    QDockWidget
+    {
+        background-color : lightgreen;
+        titlebar-close-icon: url(icons/close.png);
+        titlebar-normal-icon: url(icons/float.png);
+    }
+    QDockWidget::title
+    {
+        background : lightblue;
+    }
+    QDockWidget::close-button, QDockWidget::float-button {
+        padding: 0px;
+        icon-size: 20px; /* maximum icon size */
+        min-height: 20px;
+        min-width: 20px;
+    }
+"""
+
+menu_bar = """
+    QMenuBar {
+        background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                          stop:0 lightgray, stop:1 darkgray);
+        spacing: 3px; /* spacing between menu bar items */
+    }
+
+    QMenuBar::item {
+        padding: 1px 4px;
+        background: transparent;
+        border-radius: 4px;
+    }
+
+    QMenuBar::item:selected { /* when selected using mouse or keyboard */
+        background: #a8a8a8;
+    }
+
+    QMenuBar::item:pressed {
+        background: #888888;
+    }
+"""
+
+tool_bar = """
+    QToolBar {
+        background: white;
+        spacing: 3px; /* spacing between items in the tool bar */
+    }
+"""

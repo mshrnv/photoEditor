@@ -68,6 +68,7 @@ class PhotoEditorGUI(QMainWindow):
         self.editing_bar = QDockWidget("Инструменты")
         self.editing_bar.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.editing_bar.setMinimumWidth(120)
+        self.editing_bar.setStyleSheet(styles.dock_widget)
 
         # Кнопка с фильтром ЧБ
         convert_to_grayscale = QToolButton()
@@ -141,7 +142,7 @@ class PhotoEditorGUI(QMainWindow):
 
         about_dialog = QMessageBox(self)
         about_dialog.setWindowTitle("О программе")
-        about_dialog.setText("Какой-то текст.")
+        about_dialog.setText("Фоторедактор на PyQt5 и Pillow.")
         about_dialog.setBaseSize(QSize(600, 120));
 
         about_act = QAction('О программе...', self)
@@ -190,6 +191,7 @@ class PhotoEditorGUI(QMainWindow):
 
         menu_bar = self.menuBar()
         menu_bar.setNativeMenuBar(False)
+        menu_bar.setStyleSheet(styles.menu_bar)
 
         # Добавление Actions к Photo Editor
 
@@ -211,7 +213,7 @@ class PhotoEditorGUI(QMainWindow):
 
         # Добавление Actions к Tools
 
-        tool_menu = menu_bar.addMenu('Интсрументы')
+        tool_menu = menu_bar.addMenu('Инструменты')
         tool_menu.addAction(self.rotate90_cw_act)
         tool_menu.addAction(self.rotate90_ccw_act)
         tool_menu.addAction(self.flip_horizontal)
@@ -224,6 +226,7 @@ class PhotoEditorGUI(QMainWindow):
 
         tool_bar = QToolBar('Панель редактирования')
         tool_bar.setIconSize(QSize(26, 26))
+        tool_bar.setStyleSheet(styles.tool_bar)
         self.addToolBar(tool_bar)
 
         # Добавление Actions к tool_bar
