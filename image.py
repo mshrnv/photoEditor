@@ -38,7 +38,7 @@ class ImageLabel(QLabel):
         # Обнуляем значения слайдеров
         self.brightness = 0
         self.contrast   = 0
-        
+
         # Вывод изображения на экран (по умолчанию - ничего)
         self.setPixmap(QPixmap().fromImage(self.image))
         self.setAlignment(Qt.AlignCenter)
@@ -302,6 +302,13 @@ class ImageLabel(QLabel):
         im_output.save(self.tmp_image_path)
         
         # Открываем изображение и показываем его
+        self.image = QImage(self.tmp_image_path)
+        self.setPixmap(QPixmap().fromImage(self.image))
+        self.repaint
+
+    def updateImage(self):
+        """Открывает промежуточное изображение и показывает его на экране"""
+
         self.image = QImage(self.tmp_image_path)
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint
