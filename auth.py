@@ -1,4 +1,4 @@
-
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -77,11 +77,12 @@ class AuthGui(object):
         self.login_label.setText(_translate("MainWindow", "Логин"))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = AuthGui()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+    def start(self):
+        app = QtWidgets.QApplication(sys.argv)
+        MainWindow = QtWidgets.QMainWindow()
+        ui = AuthGui()
+        ui.setupUi(MainWindow)
+        MainWindow.show()
+        sys.exit(app.exec_())
+
+AuthGui().start()
