@@ -13,10 +13,10 @@ class AuthGui(QMainWindow):
         """Констрктор класса AuthGui"""
 
         super().__init__()
-
         self.setupUi()
 
     def setupUi(self):
+        """Главный метод, создающий окно и рисующий все компоненты"""
 
         self.setFixedSize(500, 300)
         self.setWindowTitle("Фоторедактор")
@@ -29,9 +29,11 @@ class AuthGui(QMainWindow):
         self.show()
 
     def createCentralWidget(self):
+        """Метод, инициализирующий все компоненты окна"""
         self.centralwidget = QtWidgets.QWidget()
         self.centralwidget.setObjectName("centralwidget")
 
+        # Кнопка "Войти"
         self.auth_button = QtWidgets.QPushButton(self.centralwidget)
         self.auth_button.setText('Войти')
         self.auth_button.setGeometry(QtCore.QRect(190, 210, 131, 51))
@@ -43,6 +45,7 @@ class AuthGui(QMainWindow):
         self.auth_button.setCheckable(False)
         self.auth_button.setObjectName("auth_button")
 
+        # Поле ввода логина
         self.login_input = QtWidgets.QLineEdit(self.centralwidget)
         self.login_input.setGeometry(QtCore.QRect(140, 70, 221, 31))
         font = QtGui.QFont()
@@ -52,6 +55,7 @@ class AuthGui(QMainWindow):
         self.login_input.setAlignment(QtCore.Qt.AlignCenter)
         self.login_input.setObjectName("login_input")
 
+        # Поле ввода пароля
         self.password_input = QtWidgets.QLineEdit(self.centralwidget)
         self.password_input.setGeometry(QtCore.QRect(140, 150, 221, 31))
         font = QtGui.QFont()
@@ -62,6 +66,7 @@ class AuthGui(QMainWindow):
         self.password_input.setAlignment(QtCore.Qt.AlignCenter)
         self.password_input.setObjectName("password_input")
 
+        # Надпись "Пароль"
         self.password_label = QtWidgets.QLabel(self.centralwidget)
         self.password_label.setText('Пароль')
         self.password_label.setGeometry(QtCore.QRect(200, 110, 101, 31))
@@ -73,6 +78,7 @@ class AuthGui(QMainWindow):
         self.password_label.setAlignment(QtCore.Qt.AlignCenter)
         self.password_label.setObjectName("password_label")
 
+        # Надпись "Логин"
         self.login_label = QtWidgets.QLabel()
         self.login_label.setText('Логин')
         self.login_label.setGeometry(QtCore.QRect(210, 40, 81, 21))
@@ -84,7 +90,7 @@ class AuthGui(QMainWindow):
         self.login_label.setAlignment(QtCore.Qt.AlignCenter)
         self.login_label.setObjectName("login_label")
         
-
+        # Grid widget (сетка)
         editing_grid = QGridLayout()
         editing_grid.addWidget(self.login_label, 1, 0, 1, 0)
         editing_grid.addWidget(self.login_input, 2, 0, 1, 0)
@@ -98,32 +104,22 @@ class AuthGui(QMainWindow):
         container = QWidget()
         container.setLayout(editing_grid)
 
-        self.menu_bar = QtWidgets.QMenuBar(self.centralwidget)
-        self.menu_bar.setGeometry(QtCore.QRect(0, 0, 513, 21))
-        self.menu_bar.setObjectName("menu_bar")
-        self.setMenuBar(self.menu_bar)
-
         self.setCentralWidget(container)
 
-    def start(self):
-        app = QtWidgets.QApplication(sys.argv)
-        MainWindow = QtWidgets.QMainWindow()
-        ui = AuthGui()
-        ui.setupUi(MainWindow)
-        MainWindow.show()
-
     def auth(self):
+        """Функция проверяет введенные данные и определяет дальнейшее действие"""
+        
         username = self.login_input.text()
         password = self.password_input.text()
         print(username, password, sep=" ")
         self.close()
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    # Создание приложения QT
-    app = QApplication(sys.argv)
-    app.setAttribute(Qt.AA_DontShowIconsInMenus, True)
+#     # Создание приложения QT
+#     app = QApplication(sys.argv)
+#     app.setAttribute(Qt.AA_DontShowIconsInMenus, True)
 
-    # Инициализация окна фоторедактора и его отображение
-    window = AuthGui()
-    sys.exit(app.exec_())
+#     # Инициализация окна авторизации и его отображение
+#     window = AuthGui()
+#     sys.exit(app.exec_())
