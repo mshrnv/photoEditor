@@ -14,3 +14,11 @@ class Database:
             self.cursor = self.connect.cursor()
         except Exception as e:
             print(e)
+
+    def close(self):
+    	"""Функция осуществляет отключение от БД"""
+    	
+    	try:
+            self.connect.close()
+        except Exception as e:
+            print(e)
