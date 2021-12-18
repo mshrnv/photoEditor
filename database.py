@@ -24,7 +24,7 @@ class Database:
             print(e)
 
     def getUserPassword(self, username):
-        """Функция для получения данных пользователя"""
+        """Функция для получения пароля пользователя"""
 
         self.connect()
         request = "SELECT password FROM users WHERE username = ?"
@@ -34,4 +34,4 @@ class Database:
         if result is None:
             return False
         else:
-            return result[0]                                                                         '))
+            return result[0]
