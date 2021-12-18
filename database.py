@@ -39,4 +39,4 @@ class Database:
     def registrateUser(self, username, password_hash):
         """Функция, регистрирующая пользователей в базе данных"""
         
-        pass
+        request = "INSERT INTO users VALUES (?, ?)"
