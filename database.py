@@ -35,3 +35,8 @@ class Database:
             return False
         else:
             return result[0]
+        
+    def registrateUser(self, username, password_hash):
+        """Функция, регистрирующая пользователей в базе данных"""
+        
+        pass
