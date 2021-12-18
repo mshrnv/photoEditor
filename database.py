@@ -1,24 +1,46 @@
-import sqlite3
-import os
+import sqlite3, os
 
 class Database:
-	""""Класс для работы с базой данных"""
+    """"РљР»Р°СЃСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…"""
 
-	def connect(self):
-		"""Функция осуществляет подлкючение к БД"""
+    def connect(self):
+        """Р¤СѓРЅРєС†РёСЏ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РїРѕРґР»РєСЋС‡РµРЅРёРµ Рє Р‘Р”"""
+        
+        dir_path = os.path.dirname(__file__)
+        DB_PATH = os.path.join(dir_path, 'database.sqlite')
 
         try:
-        	dir_path = os.path.dirname(__file__)
-        	DB_PATH  = os.path.join(dir_path, 'database.sqlite')
             self.connect = sqlite3.connect(DB_PATH)
             self.cursor = self.connect.cursor()
         except Exception as e:
             print(e)
 
     def close(self):
-    	"""Функция осуществляет отключение от БД"""
-    	
-    	try:
+        """Р¤СѓРЅРєС†РёСЏ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РѕС‚РєР»СЋС‡РµРЅРёРµ РѕС‚ Р‘Р”"""
+
+        try:
             self.connect.close()
         except Exception as e:
             print(e)
+
+    def getUserPassword(self, username):
+        """Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РїР°СЂРѕР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"""
+
+        self.connect()
+        request = "SELECT password FROM users WHERE username = ?"
+        result  = self.cursor.execute(request, (username, )).fetchone()
+        self.close()
+
+        if result is None:
+            return False
+        else:
+            return result[0]
+        
+    def registrateUser(self, username, password_hash):
+        """Р¤СѓРЅРєС†РёСЏ, СЂРµРіРёСЃС‚СЂРёСЂСѓСЋС‰Р°СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…"""
+        
+        self.connect()
+        request = "INSERT INTO users VALUES (?, ?)"
+        self.cursor.execute(request, (username, password_hash))
+        self.connect.commit()
+        self.close()
