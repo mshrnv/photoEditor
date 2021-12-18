@@ -22,3 +22,10 @@ class Database:
             self.connect.close()
         except Exception as e:
             print(e)
+
+    def getUserPassword(self, username):
+        """Функция для получения данных пользователя"""
+
+        self.connect()
+        request = "SELECT password FROM users WHERE username = ?"
+        result  = self.cursor.execute(request, (date,time)).fetchone()
