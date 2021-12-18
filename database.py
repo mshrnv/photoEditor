@@ -39,4 +39,8 @@ class Database:
     def registrateUser(self, username, password_hash):
         """Функция, регистрирующая пользователей в базе данных"""
         
+        self.connect()
         request = "INSERT INTO users VALUES (?, ?)"
+        self.cursor.execute(request, (username, password_hash))
+        self.connect.commit()
+        self.close()
