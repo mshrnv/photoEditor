@@ -7,6 +7,7 @@ from PyQt5.QtCore import Qt, QSize
 from image import ImageLabel
 import styles
 import os
+from selection import SelectionGui
 
 # Путь к папке с иконками
 ICON_PATH = 'icons'
