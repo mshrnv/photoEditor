@@ -244,3 +244,7 @@ class PhotoEditorGUI(QMainWindow):
         self.flip_vertical.setEnabled(True)
         self.save_act.setEnabled(True)
         self.revert_act.setEnabled(True)
+
+    def backToSelection(self):
+        # Возврат к списку изображений
+        pass
