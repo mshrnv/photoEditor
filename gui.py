@@ -469,20 +469,20 @@ class SelectionGui(QMainWindow):
         # Открытие QFileDialog для выбора изображения нужного расширения
         image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
                 "", "PNG Files (*.png);JPG Files (*.jpeg *.jpg )")
-        
+        print(image_file)
         # Путь к папке, где выполняется скрипт
         script_path = os.path.dirname(__file__)
-        name = os.path.basename(script_path)
-        
-        original_image_path = os.path.join(script_path, f'images/{self.username}/{name}-original.png')
+        name = os.path.basename(image_file)
+        print(name)
+        original_image_path = os.path.join(script_path, f'images/{self.username}/temp-{name}')
         copyfile(image_file, original_image_path)
 
         # Формирование пути к промежуточно-отредактированному изображению во временной папке и его копирование туда
-        tmp_image_path = os.path.join(script_path, f'images/{self.username}/{name}-temp.png')
+        tmp_image_path = os.path.join(script_path, f'images\\{self.username}\\{name}')
         copyfile(image_file, tmp_image_path)
         
         # Запись в БД
-        
+        DatabaseQuery().addImage(self.username, name)
         print('Загрузка')
         pass
 
