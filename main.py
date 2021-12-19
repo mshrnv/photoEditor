@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import Qt
-from auth import AuthGui
+from gui import AuthGui
 
 if __name__ == "__main__":
 
