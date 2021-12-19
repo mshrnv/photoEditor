@@ -68,6 +68,7 @@ class SelectionGui(QMainWindow):
         self.exit_button = QtWidgets.QPushButton(self.gridLayoutWidget)
         self.exit_button.setObjectName("exit_button")
         self.exit_button.setText("Выйти")
+        self.exit_button.clicked.connect(self.exit)
         self.gridLayout.addWidget(self.exit_button, 4, 0, 1, 1)
 
         # Элемент - список изображений
@@ -96,6 +97,12 @@ class SelectionGui(QMainWindow):
         # Диалоговое окно выбора изображения
         # Запись в БД
         print('Загрузка')
+        pass
+
+    def exit(self):
+        """Функция предназначена для выхода из сессии пользователя"""
+        # Закрытие окна, открытие другого
+        print('Выход')
         pass
 
 if __name__ == "__main__":
