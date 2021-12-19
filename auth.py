@@ -119,7 +119,6 @@ class AuthGui(QMainWindow):
         if response != False:
             if (password == response):
                 print('SUCCESS AUTH')
-                # Открыть новое окно - передать туда массив изображений
                 images = DatabaseQuery().getUserImages(username)
                 self.close()
                 self.selection = SelectionGui(username, images)
@@ -129,7 +128,6 @@ class AuthGui(QMainWindow):
                 # QErrorMessage
         else:
             print(f"NEW USER: {username}")
-            # Регистрация нового пользователя
             DatabaseQuery().registrateUser(username, password)
             # mkdir
             self.close()

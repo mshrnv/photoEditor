@@ -3,7 +3,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QApplication, QGridLayout, QWidget
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-#from photoeditor import PhotoEditorGUI
+from photoeditor import PhotoEditorGUI
+from auth import AuthGui
 
 ICON_PATH = 'icons' # Путь к иконкам приложения
 
@@ -103,9 +104,10 @@ class SelectionGui(QMainWindow):
 
     def exit(self):
         """Функция предназначена для выхода из сессии пользователя"""
-        # Закрытие окна, открытие другого
+        self.close()
+        window = AuthGui()
+        window.show()
         print('Выход')
-        pass
 
 # if __name__ == "__main__":
 #     # Создание приложения QT
