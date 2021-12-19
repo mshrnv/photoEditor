@@ -114,12 +114,24 @@ class AuthGui(QMainWindow):
         username = self.login_input.text()
         password = self.password_input.text()
         
-        if (password == DatabaseQuery().getUserPassword(username)):
-            print('SUCCESS AUTH')
+        response = DatabaseQuery().getUserPassword(username)
+        
+        if response != False:
+            if (password == response):
+                print('SUCCESS AUTH')
+                # Запрос в бд - получить все изображениях
+                # Открыть новое окно - передать туда массив изображений
+                self.close()
+            else:
+                print('FAIL AUTH')
+                # QErrorMessage
         else:
-            print('FAIL AUTH')
+            print(f"NEW USER: {username}")
+            # Регистрация нового пользователя
+            # Открыть новое окно
+            self.close()
 
-        self.close()
+        
 
 # if __name__ == "__main__":
 
