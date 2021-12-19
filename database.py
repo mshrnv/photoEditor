@@ -29,10 +29,10 @@ class DatabaseQuery(Database):
     def getUserPassword(self, username):
         """Функция для получения пароля пользователя"""
 
-        self.connect()
+        self._connect()
         request = "SELECT password FROM users WHERE username = ?"
         result  = self.cursor.execute(request, (username, )).fetchone()
-        self.close()
+        self._close()
 
         if result is None:
             return False
@@ -42,8 +42,8 @@ class DatabaseQuery(Database):
     def registrateUser(self, username, password_hash):
         """Функция, регистрирующая пользователей в базе данных"""
         
-        self.connect()
+        self._connect()
         request = "INSERT INTO users VALUES (?, ?)"
         self.cursor.execute(request, (username, password_hash))
         self.connect.commit()
-        self.close()
+        self._close()
