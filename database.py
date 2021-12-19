@@ -53,4 +53,7 @@ class DatabaseQuery(Database):
         
         self._connect()
         request = "SELECT name FROM images WHERE user_id = (SELECT id FROM users WHERE username = ?)"
+        result  = self.cursor.execute(request, (username, )).fetchall()
         self._close()
+        
+        return [i[0] for i in result]
