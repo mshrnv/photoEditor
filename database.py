@@ -43,7 +43,7 @@ class DatabaseQuery(Database):
         """Функция, регистрирующая пользователей в базе данных"""
         
         self._connect()
-        request = "INSERT INTO users VALUES (?, ?)"
+        request = "INSERT INTO users(username, password) VALUES (?, ?)"
         self.cursor.execute(request, (username, password_hash))
         self.connect.commit()
         self._close()

@@ -122,7 +122,7 @@ class AuthGui(QMainWindow):
                 # Открыть новое окно - передать туда массив изображений
                 images = DatabaseQuery().getUserImages(username)
                 self.close()
-                self.selection = SelectionGui(images)
+                self.selection = SelectionGui(username, images)
                 self.selection.show()
             else:
                 print('FAIL AUTH')
@@ -130,13 +130,13 @@ class AuthGui(QMainWindow):
         else:
             print(f"NEW USER: {username}")
             # Регистрация нового пользователя
-            # Открыть новое окно
+            DatabaseQuery().registrateUser(username, password)
+            # mkdir
             self.close()
-
-        
+            self.selection = SelectionGui(username)
+            self.selection.show()
 
 # if __name__ == "__main__":
-
 #     # Создание приложения QT
 #     app = QApplication(sys.argv)
 #     app.setAttribute(Qt.AA_DontShowIconsInMenus, True)

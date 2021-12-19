@@ -10,10 +10,11 @@ ICON_PATH = 'icons' # Путь к иконкам приложения
 class SelectionGui(QMainWindow):
     """Класс используется для работы с окном выбора изображения"""
 
-    def __init__(self, images = list()):
+    def __init__(self, username, images = list()):
         """Констрктор класса SelectionGui"""
 
-        self.images = images
+        self.images   = images
+        self.username = username
         super().__init__()
         self.setupUi()
 
