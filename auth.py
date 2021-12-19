@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QGridLayout, QWidget
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from selection import SelectionGui
+from database import DatabaseQuery
 
 ICON_PATH = 'icons'
 
@@ -112,7 +113,12 @@ class AuthGui(QMainWindow):
         
         username = self.login_input.text()
         password = self.password_input.text()
-        print(username, password, sep=" ")
+        
+        if (password == DatabaseQuery().getUserPassword(username)):
+            print('SUCCESS AUTH')
+        else:
+            print('FAIL AUTH')
+
         self.close()
 
 # if __name__ == "__main__":
