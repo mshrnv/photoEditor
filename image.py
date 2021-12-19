@@ -43,12 +43,8 @@ class ImageLabel(QLabel):
         self.setPixmap(QPixmap().fromImage(self.image))
         self.setAlignment(Qt.AlignCenter)
 
-    def openImage(self):
+    def openImage(self, image_file):
         """Функция предлагает выбрать изображение и открывает его"""
-
-        # Открытие QFileDialog для выбора изображения нужного расширения
-        image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
-                "", "PNG Files (*.png);JPG Files (*.jpeg *.jpg )")
 
         if image_file:
 

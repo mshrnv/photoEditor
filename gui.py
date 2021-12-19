@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import (QToolBar, QAction, QSlider, QGridLayout,
                              QWidget, QMainWindow, QLabel, QMessageBox,
-                             QScrollArea, QDockWidget, QToolButton)
+                             QScrollArea, QDockWidget, QToolButton, QFileDialog)
 from PyQt5.QtGui import QImage, QPalette, QIcon
 from PyQt5.QtCore import Qt, QSize
 from image import ImageLabel
@@ -464,7 +464,12 @@ class SelectionGui(QMainWindow):
 
     def loadImage(self):
         """Функция предназначена для загрузки изображения в базу"""
-        # Диалоговое окно выбора изображения
+        
+        # Открытие QFileDialog для выбора изображения нужного расширения
+        image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
+                "", "PNG Files (*.png);JPG Files (*.jpeg *.jpg )")
+        
+        # filecopy
         # Запись в БД
         print('Загрузка')
         pass
