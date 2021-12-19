@@ -47,3 +47,10 @@ class DatabaseQuery(Database):
         self.cursor.execute(request, (username, password_hash))
         self.connect.commit()
         self._close()
+        
+    def getUserImages(self, username):
+        """Функция возвращает массив изображений пользователя"""
+        
+        self._connect()
+        request = "SELECT name FROM images WHERE user_id = (SELECT id FROM users WHERE username = ?)"
+        self._close()
