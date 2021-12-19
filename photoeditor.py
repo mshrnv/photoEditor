@@ -7,6 +7,7 @@ from PyQt5.QtCore import Qt, QSize
 from image import ImageLabel
 import styles
 import os
+from selection import SelectionGui
 
 # Путь к папке с иконками
 ICON_PATH = 'icons'
@@ -148,15 +149,11 @@ class PhotoEditorGUI(QMainWindow):
         about_act = QAction('О программе...', self)
         about_act.triggered.connect(about_dialog.exec_)
 
-        self.exit_act = QAction(QIcon(os.path.join(ICON_PATH, "exit.png")) ,'Выход', self)
-        self.exit_act.setShortcut('Ctrl+Q')
-        self.exit_act.triggered.connect(self.close)
+        self.back_act = QAction(QIcon(os.path.join(ICON_PATH, "back.png")) ,'Назад', self)
+        self.back_act.setShortcut('Ctrl+Q')
+        self.back_act.triggered.connect(self.backToSelection)
 
         # Actions для File menu
-
-        self.open_act = QAction(QIcon(os.path.join(ICON_PATH, "open.png")) ,'Открыть файл...', self)
-        self.open_act.setShortcut('Ctrl+O')
-        self.open_act.triggered.connect(self.image_label.openImage)
 
         self.save_act = QAction(QIcon(os.path.join(ICON_PATH, "save.png")) ,"Сохранить файл...", self)
         self.save_act.setShortcut('Ctrl+S')
@@ -198,12 +195,11 @@ class PhotoEditorGUI(QMainWindow):
         main_menu = menu_bar.addMenu('Фоторедактор')
         main_menu.addAction(about_act)
         main_menu.addSeparator()
-        main_menu.addAction(self.exit_act)
+        main_menu.addAction(self.back_act)
 
         # Добавление Actions к File
 
         file_menu = menu_bar.addMenu('Файл')
-        file_menu.addAction(self.open_act)
         file_menu.addAction(self.save_act)
 
         # Добавление Actions к Edit
@@ -231,9 +227,8 @@ class PhotoEditorGUI(QMainWindow):
 
         # Добавление Actions к tool_bar
 
-        tool_bar.addAction(self.open_act)
         tool_bar.addAction(self.save_act)
-        tool_bar.addAction(self.exit_act)
+        tool_bar.addAction(self.back_act)
         tool_bar.addSeparator()
         tool_bar.addAction(self.rotate90_cw_act)
         tool_bar.addAction(self.rotate90_ccw_act)
@@ -249,3 +244,7 @@ class PhotoEditorGUI(QMainWindow):
         self.flip_vertical.setEnabled(True)
         self.save_act.setEnabled(True)
         self.revert_act.setEnabled(True)
+
+    def backToSelection(self):
+        # Возврат к списку изображений
+        pass

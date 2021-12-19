@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QApplication, QGridLayout, QWidget
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
+from selection import SelectionGui
 
 ICON_PATH = 'icons'
 
