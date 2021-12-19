@@ -4,9 +4,10 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QGridLayout, QWidget
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 
-ICON_PATH = 'icons'
+ICON_PATH = 'icons' # Путь к иконкам приложения
 
 class SelectionGui(QMainWindow):
+    """Класс используется для работы с окном выбора изображения"""
 
     def __init__(self, images = list()):
         """Констрктор класса SelectionGui"""
@@ -29,17 +30,17 @@ class SelectionGui(QMainWindow):
         self.show()
 
     def createCentralWidget(self):
-
-        # font = QtGui.QFont()
-        # font.setFamily("Calibri")
-        # font.setPointSize(12)
-        # font.setBold(True)
-        # font.setWeight(75)
-        # MainWindow.setFont(font)
+        """Функция, создающая все компоненты окна"""
 
         # Центральный (главный) виджет окна
         self.centralwidget = QtWidgets.QWidget()
         self.centralwidget.setObjectName("centralwidget")
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.centralwidget.setFont(font)
 
         # Сетка с компонентами окна
         self.gridLayoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -49,50 +50,47 @@ class SelectionGui(QMainWindow):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
 
+        # Кнопка "Загрузить"
         self.load_button = QtWidgets.QPushButton(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.load_button.setFont(font)
         self.load_button.setObjectName("load_button")
         self.load_button.setText("Загрузить")
         self.gridLayout.addWidget(self.load_button, 3, 0, 1, 1)
 
+        # Кнопка "Редактировать"
         self.edit_button = QtWidgets.QPushButton(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.edit_button.setFont(font)
         self.edit_button.setStyleSheet("")
         self.edit_button.setObjectName("edit_button")
         self.edit_button.setText("Редактировать")
+        self.edit_button.clicked.connect(self.editImage)
+
         self.gridLayout.addWidget(self.edit_button, 1, 0, 1, 1)
 
+        # Кнопка "Выйти"
         self.exit_button = QtWidgets.QPushButton(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.exit_button.setFont(font)
         self.exit_button.setObjectName("exit_button")
         self.exit_button.setText("Выйти")
         self.gridLayout.addWidget(self.exit_button, 4, 0, 1, 1)
 
+        # Элемент - список изображений
         self.list = QtWidgets.QListWidget(self.gridLayoutWidget)
         self.list.setObjectName("list")
         
+        # Добавление фотографий в список для отображения на экране
         for image in self.images:
             item = QtWidgets.QListWidgetItem()
             item.setText(image)
             self.list.addItem(item)
 
         self.gridLayout.addWidget(self.list, 0, 0, 1, 1)
+
+        # Установка главного виджета
         self.setCentralWidget(self.centralwidget)
+
+    def editImage(self):
+        """Функция предназначена для открытия окна фоторедактора"""
+        # Здеь будет открываться окно редактирования
+        print('Редактирование')
+        pass
 
 if __name__ == "__main__":
     # Создание приложения QT
