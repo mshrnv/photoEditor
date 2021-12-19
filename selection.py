@@ -105,11 +105,11 @@ class SelectionGui(QMainWindow):
         print('Выход')
         pass
 
-if __name__ == "__main__":
-    # Создание приложения QT
-    app = QApplication(sys.argv)
-    app.setAttribute(Qt.AA_DontShowIconsInMenus, True)
+# if __name__ == "__main__":
+#     # Создание приложения QT
+#     app = QApplication(sys.argv)
+#     app.setAttribute(Qt.AA_DontShowIconsInMenus, True)
 
-    # Инициализация окна фоторедактора и его отображение
-    window = SelectionGui(['1.jpg', '2.png'])
-    sys.exit(app.exec_())
+#     # Инициализация окна фоторедактора и его отображение
+#     window = SelectionGui(['1.jpg', '2.png'])
+#     sys.exit(app.exec_())
