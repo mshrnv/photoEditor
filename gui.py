@@ -481,6 +481,10 @@ class SelectionGui(QMainWindow):
         tmp_image_path = os.path.join(script_path, f'images\\{self.username}\\{name}')
         copyfile(image_file, tmp_image_path)
         
+        item = QtWidgets.QListWidgetItem()
+        item.setText(name)
+        self.list.addItem(name)
+        
         # Запись в БД
         DatabaseQuery().addImage(self.username, name)
         print('Загрузка')
