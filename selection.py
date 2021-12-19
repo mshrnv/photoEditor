@@ -15,7 +15,20 @@ class SelectionGui(QMainWindow):
         super().__init__()
         self.setupUi()
 
-    def setupUi(self, MainWindow):
+    def setupUi(self):
+        """Главный метод, создающий окно и рисующий все компоненты"""
+
+        self.setFixedSize(500, 300)
+        self.setWindowTitle("Фоторедактор")
+        self.setWindowIcon(QIcon(os.path.join(ICON_PATH, "photoshop.png")))
+
+        # Отрисовка всех компонентов окна
+        self.createCentralWidget()
+
+        # Показ окна
+        self.show()
+
+    def createCentralWidget(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(540, 358)
         font = QtGui.QFont()
