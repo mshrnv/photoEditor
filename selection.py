@@ -7,7 +7,14 @@ from PyQt5.QtGui import QIcon
 ICON_PATH = 'icons'
 
 
-class Ui_MainWindow(object):
+class SelectionGui(QMainWindow):
+
+    def __init__(self):
+        """Констрктор класса SelectionGui"""
+
+        super().__init__()
+        self.setupUi()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(540, 358)
