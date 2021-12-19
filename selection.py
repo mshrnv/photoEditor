@@ -54,15 +54,14 @@ class SelectionGui(QMainWindow):
         self.load_button = QtWidgets.QPushButton(self.gridLayoutWidget)
         self.load_button.setObjectName("load_button")
         self.load_button.setText("Загрузить")
+        self.load_button.clicked.connect(self.loadImage)
         self.gridLayout.addWidget(self.load_button, 3, 0, 1, 1)
 
         # Кнопка "Редактировать"
         self.edit_button = QtWidgets.QPushButton(self.gridLayoutWidget)
-        self.edit_button.setStyleSheet("")
         self.edit_button.setObjectName("edit_button")
         self.edit_button.setText("Редактировать")
         self.edit_button.clicked.connect(self.editImage)
-
         self.gridLayout.addWidget(self.edit_button, 1, 0, 1, 1)
 
         # Кнопка "Выйти"
@@ -90,6 +89,13 @@ class SelectionGui(QMainWindow):
         """Функция предназначена для открытия окна фоторедактора"""
         # Здеь будет открываться окно редактирования
         print('Редактирование')
+        pass
+
+    def loadImage(self):
+        """Функция предназначена для загрузки изображения в базу"""
+        # Диалоговое окно выбора изображения
+        # Запись в БД
+        print('Загрузка')
         pass
 
 if __name__ == "__main__":
