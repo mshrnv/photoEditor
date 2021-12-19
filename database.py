@@ -1,9 +1,9 @@
 import sqlite3, os
 
 class Database:
-    """"Класс для работы с базой данных"""
+    """"Класс для работы с подключением базы данных"""
 
-    def connect(self):
+    def _connect(self):
         """Функция осуществляет подлкючение к БД"""
         
         dir_path = os.path.dirname(__file__)
@@ -15,7 +15,7 @@ class Database:
         except Exception as e:
             print(e)
 
-    def close(self):
+    def _close(self):
         """Функция осуществляет отключение от БД"""
 
         try:
@@ -23,6 +23,9 @@ class Database:
         except Exception as e:
             print(e)
 
+class DatabaseQuery(Database):
+    """Класс для работы с запросами в базу данных"""
+    
     def getUserPassword(self, username):
         """Функция для получения пароля пользователя"""
 
