@@ -28,7 +28,7 @@ class SelectionGui(QMainWindow):
         self.createCentralWidget()
 
         # Показ окна
-        self.show()
+        # self.show()
 
     def createCentralWidget(self):
         """Функция, создающая все компоненты окна"""

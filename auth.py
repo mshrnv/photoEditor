@@ -28,7 +28,7 @@ class AuthGui(QMainWindow):
         self.createCentralWidget()
 
         # Показ окна
-        self.show()
+        # self.show()
 
     def createCentralWidget(self):
         """Метод, инициализирующий все компоненты окна"""
@@ -107,7 +107,7 @@ class AuthGui(QMainWindow):
         container.setLayout(editing_grid)
 
         self.setCentralWidget(container)
-
+    
     def auth(self):
         """Функция проверяет введенные данные и определяет дальнейшее действие"""
         
@@ -119,9 +119,11 @@ class AuthGui(QMainWindow):
         if response != False:
             if (password == response):
                 print('SUCCESS AUTH')
-                # Запрос в бд - получить все изображениях
                 # Открыть новое окно - передать туда массив изображений
+                images = DatabaseQuery().getUserImages(username)
                 self.close()
+                self.selection = SelectionGui(images)
+                self.selection.show()
             else:
                 print('FAIL AUTH')
                 # QErrorMessage

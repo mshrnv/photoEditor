@@ -11,4 +11,5 @@ if __name__ == "__main__":
 
     # Инициализация окна фоторедактора и его отображение
     window = AuthGui()
+    window.show()
     sys.exit(app.exec_())

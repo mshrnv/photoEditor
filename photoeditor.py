@@ -44,7 +44,7 @@ class PhotoEditorGUI(QMainWindow):
         self.createToolBar()
 
         # Показ окна
-        self.show()
+        # self.show()
 
     def createMainLabel(self):
         """Создает центральный(главный) виджет приложения"""
