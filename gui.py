@@ -8,6 +8,7 @@ from image import ImageLabel
 import styles
 import os
 from database import DatabaseQuery
+from shutil import copyfile
 
 # Путь к папке с иконками
 ICON_PATH = 'icons'
@@ -469,8 +470,19 @@ class SelectionGui(QMainWindow):
         image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
                 "", "PNG Files (*.png);JPG Files (*.jpeg *.jpg )")
         
-        # filecopy
+        # Путь к папке, где выполняется скрипт
+        script_path = os.path.dirname(__file__)
+        name = os.path.basename(script_path)
+        
+        original_image_path = os.path.join(script_path, f'images/{self.username}/{name}-original.png')
+        copyfile(image_file, original_image_path)
+
+        # Формирование пути к промежуточно-отредактированному изображению во временной папке и его копирование туда
+        tmp_image_path = os.path.join(script_path, f'images/{self.username}/{name}-temp.png')
+        copyfile(image_file, tmp_image_path)
+        
         # Запись в БД
+        
         print('Загрузка')
         pass
 
