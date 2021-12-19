@@ -57,3 +57,9 @@ class DatabaseQuery(Database):
         self._close()
         
         return [i[0] for i in result]
+    
+    def addImage(self, username, basename):
+        """Функция для добавления загруженного изображения в БД"""
+        self._connect()
+        request = "INSERT INTO images(name, user_id) VALUES (?, SELECT id FROM users WHERE username = ?)"
+        self._close()
