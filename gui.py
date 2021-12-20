@@ -9,6 +9,7 @@ import styles
 import os
 from database import DatabaseQuery
 from shutil import copyfile
+from hashlib import sha256
 
 # Путь к папке с иконками
 ICON_PATH = 'icons'
