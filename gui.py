@@ -378,7 +378,11 @@ class AuthGui(QMainWindow):
         else:
             print(f"NEW USER: {username}")
             DatabaseQuery().registrateUser(username, password)
-            # mkdir
+            
+            script_path      = os.path.dirname(__file__)
+            user_folder_path = os.path.join(script_path, f'images/{username}')
+            os.mkdir(user_folder_path)
+            
             self.close()
             self.selection = SelectionGui(username)
             self.selection.show()
