@@ -364,6 +364,8 @@ class AuthGui(QMainWindow):
         username = self.login_input.text()
         password = self.password_input.text()
         
+        hash = sha256(password.encode('utf-8')).hexdigest()
+
         response = DatabaseQuery().getUserPassword(username)
         
         if response != False:
