@@ -1,9 +1,9 @@
 import sqlite3, os
 
 class Database:
-    """"Класс для работы с базой данных"""
+    """"Класс для работы с подключением базы данных"""
 
-    def connect(self):
+    def _connect(self):
         """Функция осуществляет подлкючение к БД"""
         
         dir_path = os.path.dirname(__file__)
@@ -15,7 +15,7 @@ class Database:
         except Exception as e:
             print(e)
 
-    def close(self):
+    def _close(self):
         """Функция осуществляет отключение от БД"""
 
         try:
@@ -23,13 +23,16 @@ class Database:
         except Exception as e:
             print(e)
 
+class DatabaseQuery(Database):
+    """Класс для работы с запросами в базу данных"""
+    
     def getUserPassword(self, username):
         """Функция для получения пароля пользователя"""
 
-        self.connect()
+        self._connect()
         request = "SELECT password FROM users WHERE username = ?"
         result  = self.cursor.execute(request, (username, )).fetchone()
-        self.close()
+        self._close()
 
         if result is None:
             return False
@@ -39,8 +42,27 @@ class Database:
     def registrateUser(self, username, password_hash):
         """Функция, регистрирующая пользователей в базе данных"""
         
-        self.connect()
-        request = "INSERT INTO users VALUES (?, ?)"
+        self._connect()
+        request = "INSERT INTO users(username, password) VALUES (?, ?)"
         self.cursor.execute(request, (username, password_hash))
         self.connect.commit()
-        self.close()
+        self._close()
+        
+    def getUserImages(self, username):
+        """Функция возвращает массив изображений пользователя"""
+        
+        self._connect()
+        request = "SELECT name FROM images WHERE user_id = (SELECT id FROM users WHERE username = ?)"
+        result  = self.cursor.execute(request, (username, )).fetchall()
+        self._close()
+        
+        return [i[0] for i in result]
+    
+    def addImage(self, username, basename):
+        """Функция для добавления загруженного изображения в БД"""
+        
+        self._connect()
+        request = "INSERT INTO images(name, user_id) VALUES (?, (SELECT id FROM users WHERE username = ?))"
+        self.cursor.execute(request, (basename, username))
+        self.connect.commit()
+        self._close()

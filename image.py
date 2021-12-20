@@ -26,7 +26,7 @@ class ImageLabel(QLabel):
     contrast : Integer
         Текущее значение слайдера контраста
     """
-    def __init__(self, parent, image = None):
+    def __init__(self, parent):
         """Конструктор класса ImageLabel"""
 
         super().__init__(parent)
@@ -43,28 +43,16 @@ class ImageLabel(QLabel):
         self.setPixmap(QPixmap().fromImage(self.image))
         self.setAlignment(Qt.AlignCenter)
 
-    def openImage(self):
+    def openImage(self, orig_path, temp_path):
         """Функция предлагает выбрать изображение и открывает его"""
 
-        # Открытие QFileDialog для выбора изображения нужного расширения
-        image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
-                "", "PNG Files (*.png);JPG Files (*.jpeg *.jpg )")
+        if orig_path and temp_path:
 
-        if image_file:
-
-            # Путь к папке, где выполняется скрипт
-            script_path = os.path.dirname(__file__)
-
-            # Формирование пути к оригинальному изображению во временной папке и его копирование туда
-            self.original_image_path = os.path.join(script_path, 'temp/original.png')
-            copyfile(image_file, self.original_image_path)
-
-            # Формирование пути к промежуточно-отредактированному изображению во временной папке и его копирование туда
-            self.tmp_image_path = os.path.join(script_path, 'temp/temp.png')
-            copyfile(image_file, self.tmp_image_path)
-
+            self.original_image_path = orig_path
+            self.tmp_image_path      = temp_path
+            
             # Устанавливаем выбранное изображение, как свойство класса
-            self.image = QImage(image_file)
+            self.image = QImage(self.tmp_image_path)
 
             # Отображение изображения на экране
             self.setPixmap(QPixmap().fromImage(self.image))
@@ -75,16 +63,6 @@ class ImageLabel(QLabel):
 
             # Обнуляем значения слайдеров
             self.resetValues()
-
-
-        elif image_file == '':
-
-            # Пользватель выбрал 'Назад'
-            pass
-        else:
-
-            # Какая-то другая ошибка
-            pass
 
     def revertToOriginal(self):
         """Возвращает ищображение к оригинальному"""
