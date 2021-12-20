@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import (QToolBar, QAction, QSlider, QGridLayout,
                              QWidget, QMainWindow, QLabel, QMessageBox,
                              QScrollArea, QDockWidget, QToolButton, QFileDialog)
-from PyQt5.QtGui import QImage, QPalette, QIcon
+from PyQt5.QtGui import QImage, QPalette, QIcon, QPixmap
 from PyQt5.QtCore import Qt, QSize
 from image import ImageLabel
 import styles
@@ -20,13 +20,15 @@ class PhotoEditorGUI(QMainWindow):
     Основное применение - работа с UI приложения.
     """
     
-    def __init__(self):
+    def __init__(self, orig_path, temp_path):
         """Констрктор класса PhotoEditorGUI"""
 
         super().__init__()
-
-        self.initializeUI()
+        
         self.image = QImage()
+        
+        self.initializeUI()
+        self.image_label.openImage(orig_path, temp_path)
 
     def initializeUI(self):
         """Главный метод, создающий окно и рисующий все компоненты"""
@@ -456,12 +458,20 @@ class SelectionGui(QMainWindow):
 
         # Установка главного виджета
         self.setCentralWidget(self.centralwidget)
-
+    
     def editImage(self):
         """Функция предназначена для открытия окна фоторедактора"""
         # Здеь будет открываться окно редактирования
         print('Редактирование')
-        pass
+        name = self.list.currentItem().text()
+        
+        script_path = os.path.dirname(__file__)
+        orig_path = os.path.join(script_path, f'images/{self.username}/temp-{name}')
+        temp_path = os.path.join(script_path, f'images/{self.username}/{name}')
+
+        self.close()
+        self.editor = PhotoEditorGUI(orig_path, temp_path)
+        self.editor.show()
 
     def loadImage(self):
         """Функция предназначена для загрузки изображения в базу"""
