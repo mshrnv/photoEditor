@@ -20,12 +20,13 @@ class PhotoEditorGUI(QMainWindow):
     Основное применение - работа с UI приложения.
     """
     
-    def __init__(self, orig_path, temp_path):
+    def __init__(self, orig_path, temp_path, username):
         """Констрктор класса PhotoEditorGUI"""
 
         super().__init__()
         
         self.image = QImage()
+        self.username = username
         
         self.initializeUI()
         self.image_label.openImage(orig_path, temp_path)
@@ -249,8 +250,12 @@ class PhotoEditorGUI(QMainWindow):
         self.revert_act.setEnabled(True)
 
     def backToSelection(self):
-        # Возврат к списку изображений
-        pass
+        """Функция для возврата к списку изображений"""
+        
+        images = DatabaseQuery().getUserImages(self.username)
+        self.close()
+        self.selection = SelectionGui(self.username, images)
+        self.selection.show()
     
 class AuthGui(QMainWindow):
     """Класс используется для работы с окном авторизации пользователей"""
@@ -470,7 +475,7 @@ class SelectionGui(QMainWindow):
         temp_path = os.path.join(script_path, f'images/{self.username}/{name}')
 
         self.close()
-        self.editor = PhotoEditorGUI(orig_path, temp_path)
+        self.editor = PhotoEditorGUI(orig_path, temp_path, self.username)
         self.editor.show()
 
     def loadImage(self):
