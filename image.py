@@ -15,7 +15,7 @@ class ImageLabel(QLabel):
     ----------
     image : QImage
         Изображение на экране
-    parent : PhotoEditorGUI
+    parent : PhotoEditorGui
         Окно приложения
     original_image_path: String
         Путь оригинальному изображению во временной папке
@@ -27,7 +27,12 @@ class ImageLabel(QLabel):
         Текущее значение слайдера контраста
     """
     def __init__(self, parent):
-        """Конструктор класса ImageLabel"""
+        """
+        Конструктор класса ImageLabel
+
+        Args:
+            parent (PhotoEditorGui): Родительское окно (окно фоторедактора)
+        """
 
         super().__init__(parent)
 
@@ -44,10 +49,17 @@ class ImageLabel(QLabel):
         self.setAlignment(Qt.AlignCenter)
 
     def openImage(self, orig_path, temp_path):
-        """Функция предлагает выбрать изображение и открывает его"""
+        """
+        Функция предлагает выбрать изображение и открывает его
+
+        Args:
+            orig_path (String): Путь к оригинальному изображению
+            temp_path (String): Путь к временному изображению
+        """
 
         if orig_path and temp_path:
 
+            # Присваивание значений свойствам
             self.original_image_path = orig_path
             self.tmp_image_path      = temp_path
             
@@ -65,7 +77,9 @@ class ImageLabel(QLabel):
             self.resetValues()
 
     def revertToOriginal(self):
-        """Возвращает ищображение к оригинальному"""
+        """
+        Возвращает ищображение к оригинальному
+        """
 
         # Замена промежуточного файла на оригинальный (тот, который был при загрузке)
         copyfile(self.original_image_path, self.tmp_image_path)
@@ -77,7 +91,12 @@ class ImageLabel(QLabel):
         self.updateImage()
 
     def flipImage(self, axis):
-        """Отражает изображение вдоль оси"""
+        """
+        Отражает изображение вдоль оси
+
+        Args:
+            axis (String): Ось, вдоль которой отразить
+        """
 
         # Если на экране есть изображение
         if self.image.isNull() == False:
@@ -102,7 +121,9 @@ class ImageLabel(QLabel):
             pass
 
     def saveImage(self):
-        """Сохраняет изображение"""
+        """
+        Сохраняет изображение
+        """
 
         # Окно выбора куда сохранять
         if self.image.isNull() == False:
@@ -114,14 +135,19 @@ class ImageLabel(QLabel):
                 self.image.save(image_file)
 
     def rotateImage(self, direction):
-        """Поворачивает изображение на 90 градусов"""
+        """
+        Поворачивает изображение на 90 градусов
+
+        Args:
+            direction (String): Направление поворота на 90 градусов
+                CW  - По часовой
+                CCW - Против часовой
+        """
 
         # Если на экране есть изображение
         if self.image.isNull() == False:
 
             # Определяем направление поворота и поворачиваем изображение
-            # CW  - По часовой
-            # CCW - Против часовой
             if direction == "cw":
                 transform90 = QTransform().rotate(90)
             elif direction == "ccw":
@@ -138,7 +164,9 @@ class ImageLabel(QLabel):
             self.updateImage()
 
     def convertToSepia(self):
-        """Накалдывает фильтр сепия"""
+        """
+        Накалдывает фильтр сепия
+        """
 
         # Если на экране есть изображение
         if self.image.isNull() == False:
@@ -183,7 +211,9 @@ class ImageLabel(QLabel):
             self.updateImage()
 
     def convertToNegativ(self):
-        """Накладывает фильтр негатив"""
+        """
+        Накладывает фильтр негатив
+        """
 
         # Если на экране есть изображение
         if self.image.isNull() == False:
@@ -197,7 +227,9 @@ class ImageLabel(QLabel):
             self.updateImage()
 
     def convertToGray(self):
-        """Накладывате черно-белый фильтр"""
+        """
+        Накладывате черно-белый фильтр
+        """
 
         # Если на экране есть изображение
         if self.image.isNull() == False:
@@ -211,7 +243,9 @@ class ImageLabel(QLabel):
             self.updateImage()
 
     def changeBrighteness(self):
-        """Изменяет яркость изображения"""
+        """
+        Изменяет яркость изображения
+        """
 
         # Если не открыто изображение - ничего не редактируем
         if self.image.isNull() == True:
@@ -239,7 +273,9 @@ class ImageLabel(QLabel):
         self.updateImage()
 
     def changeContrast(self):
-        """Изменяет контраст изображения"""
+        """
+        Изменяет контраст изображения
+        """
 
         # Если не открыто изображение - ничего не редактируем
         if self.image.isNull() == True:
@@ -267,14 +303,19 @@ class ImageLabel(QLabel):
         self.updateImage()
 
     def updateImage(self):
-        """Открывает промежуточное изображение и показывает его на экране"""
+        """
+        Открывает промежуточное изображение и показывает его на экране
+        """
 
+        # Открытие и отображение файла на экране
         self.image = QImage(self.tmp_image_path)
         self.setPixmap(QPixmap().fromImage(self.image))
         self.repaint
 
     def resetValues(self):
-        """Обнуляет все значения слайдеров"""
+        """
+        Обнуляет все значения слайдеров
+        """
 
         self.contrast   = 0
         self.brightness = 0

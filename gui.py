@@ -16,24 +16,35 @@ ICON_PATH = 'icons'
 
 class PhotoEditorGUI(QMainWindow):
     """
-    Класс используется для работы с окном приложения
+    Класс используется для работы с окном фоторедактора
     
-    Основное применение - работа с UI приложения.
+    Основное применение - работа с UI окна фоторедактора.
     """
     
     def __init__(self, orig_path, temp_path, username):
-        """Констрктор класса PhotoEditorGUI"""
+        """
+        Констрктор класса PhotoEditorGUI
+
+        Args:
+            orig_path (String): Путь к оригинальному изображению
+            temp_path (String): Путь к временному изображению
+            username  (String): Логин пользователя
+        """
 
         super().__init__()
         
+        # Присваивание значений свойствам класса
         self.image = QImage()
         self.username = username
         
+        # Запуск окна и открытие изображения
         self.initializeUI()
         self.image_label.openImage(orig_path, temp_path)
 
     def initializeUI(self):
-        """Главный метод, создающий окно и рисующий все компоненты"""
+        """
+        Главный метод, создающий окно и рисующий все компоненты
+        """
 
         # Параметры окна
         self.setMinimumSize(300, 200)
@@ -48,11 +59,10 @@ class PhotoEditorGUI(QMainWindow):
         self.createMenu()
         self.createToolBar()
 
-        # Показ окна
-        # self.show()
-
     def createMainLabel(self):
-        """Создает центральный(главный) виджет приложения"""
+        """
+        Создает центральный(главный) виджет приложения
+        """
 
         # Создание лейбла с изображением
         self.image_label = ImageLabel(self)
@@ -68,7 +78,9 @@ class PhotoEditorGUI(QMainWindow):
         self.setCentralWidget(self.scroll_area)
 
     def createEditingBar(self):
-        """Создает меню редактирования"""
+        """
+        Создает меню редактирования
+        """
 
         # Инициализация меню редактирования
         self.editing_bar = QDockWidget("Инструменты")
@@ -80,27 +92,28 @@ class PhotoEditorGUI(QMainWindow):
         convert_to_grayscale = QToolButton()
         convert_to_grayscale.setText('Черно-белый')
         convert_to_grayscale.setStyleSheet(styles.filter_button)
-        #convert_to_grayscale.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         convert_to_grayscale.clicked.connect(self.image_label.convertToGray)
 
         # Кнопка с фильтром Сепия
         convert_to_sepia = QToolButton()
         convert_to_sepia.setText('Сепия')
         convert_to_sepia.setStyleSheet(styles.filter_button)
-        #convert_to_sepia.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         convert_to_sepia.clicked.connect(self.image_label.convertToSepia)
 
         # Кнопка с фильтром Негатив
         convert_to_negative = QToolButton()
         convert_to_negative.setText('Негатив')
         convert_to_negative .setStyleSheet(styles.filter_button)
-        #convert_to_negative.setIcon(QIcon(os.path.join(icon_path, "")))
         convert_to_negative.clicked.connect(self.image_label.convertToNegativ)
 
         # Яркость изображения
+        
+        # Надпись "Яркость"
         brightness_label = QLabel("Яркость")
         brightness_label.setStyleSheet(styles.edit_label)
         brightness_label.setAlignment(Qt.AlignCenter)
+        
+        # Слайдер яркости
         self.brightness_slider = QSlider(Qt.Horizontal)
         self.brightness_slider.setRange(-5, 5)
         self.brightness_slider.setTickInterval(0)
@@ -110,9 +123,13 @@ class PhotoEditorGUI(QMainWindow):
         self.brightness_slider.sliderReleased.connect(self.image_label.changeBrighteness)
 
         # Контраст изображения 
+        
+        # Надпись "Контраст"
         contrast_label = QLabel("Контраст")
         contrast_label.setStyleSheet(styles.edit_label)
         contrast_label.setAlignment(Qt.AlignCenter)
+        
+        # Слайдер контраста
         self.contrast_slider = QSlider(Qt.Horizontal)
         self.contrast_slider.setRange(-5, 5)
         self.contrast_slider.setTickInterval(0)
@@ -142,7 +159,9 @@ class PhotoEditorGUI(QMainWindow):
         self.tools_menu_act = self.editing_bar.toggleViewAction()
 
     def createMenu(self):
-        """Создает меню приложения"""
+        """
+        Создает меню приложения
+        """
 
         # Actions для Photo Editor menu
 
@@ -221,7 +240,9 @@ class PhotoEditorGUI(QMainWindow):
         tool_menu.addAction(self.flip_vertical)
 
     def createToolBar(self):
-        """Создает панель редактирования"""
+        """
+        Создает панель редактирования
+        """
 
         # Добавление панели управления на основе главного меню
 
@@ -241,6 +262,9 @@ class PhotoEditorGUI(QMainWindow):
         tool_bar.addAction(self.flip_vertical)
 
     def updateActions(self):
+        """
+        Делает кнопки редактирования активными
+        """
 
         # Делаем кнопки активными
         self.rotate90_cw_act.setEnabled(True)
@@ -251,25 +275,40 @@ class PhotoEditorGUI(QMainWindow):
         self.revert_act.setEnabled(True)
 
     def backToSelection(self):
-        """Функция для возврата к списку изображений"""
+        """
+        Функция для возврата к списку изображений
+        """
         
+        # Получаем список изображений пользователя
         images = DatabaseQuery().getUserImages(self.username)
+        
+        # Закрываем текущее окно и открываем новое
         self.close()
         self.selection = SelectionGui(self.username, images)
         self.selection.show()
     
 class AuthGui(QMainWindow):
-    """Класс используется для работы с окном авторизации пользователей"""
+    """
+    Класс используется для работы с окном авторизации
+    
+    Основное применение - работа с UI окна.
+    """
 
     def __init__(self):
-        """Констрктор класса AuthGui"""
+        """
+        Констрктор класса AuthGui
+        """
 
+        # Отрисовка интерфейса
         super().__init__()
         self.setupUi()
 
     def setupUi(self):
-        """Главный метод, создающий окно и рисующий все компоненты"""
+        """
+        Главный метод, создающий окно и рисующий все компоненты
+        """
 
+        # Устанавливаем размер, название и иконку окна
         self.setFixedSize(500, 300)
         self.setWindowTitle("Фоторедактор")
         self.setWindowIcon(QIcon(os.path.join(ICON_PATH, "photoshop.png")))
@@ -277,11 +316,12 @@ class AuthGui(QMainWindow):
         # Отрисовка всех компонентов окна
         self.createCentralWidget()
 
-        # Показ окна
-        # self.show()
-
     def createCentralWidget(self):
-        """Метод, инициализирующий все компоненты окна"""
+        """
+        Метод, инициализирующий все компоненты окна
+        """
+        
+        # Инициализация главного виджета
         self.centralwidget = QtWidgets.QWidget()
         self.centralwidget.setObjectName("centralwidget")
 
@@ -359,26 +399,39 @@ class AuthGui(QMainWindow):
         self.setCentralWidget(container)
     
     def auth(self):
-        """Функция проверяет введенные данные и определяет дальнейшее действие"""
+        """
+        Функция проверяет введенные данные и определяет дальнейшее действие
+        """
         
+        # Получение значений из полей ввода
         username = self.login_input.text()
         password = self.password_input.text()
         
+        # Получение хэша
         hash = sha256((username + (sha256(password.encode('utf-8')).hexdigest())).encode('utf-8')).hexdigest()
-        print(hash)
+
+        # Получение пароля из базы
         response = DatabaseQuery().getUserPassword(username)
         
+        # Проверка ответа из БД
         if response != False:
+
             if (hash == response):
-                print('SUCCESS AUTH')
+                # Авторизация
+
+                # Получение списка изображений пользователя
                 images = DatabaseQuery().getUserImages(username)
+                
+                # Закрытие текущего окна и открытие нового
                 self.close()
                 self.selection = SelectionGui(username, images)
                 self.selection.show()
             else:
-                print('FAIL AUTH')
+                # Ошибка авторизации
                 # QErrorMessage
+                pass
         else:
+            # Регистрация
             print(f"NEW USER: {username}")
             DatabaseQuery().registrateUser(username, hash)
             
@@ -391,19 +444,35 @@ class AuthGui(QMainWindow):
             self.selection.show()
             
 class SelectionGui(QMainWindow):
-    """Класс используется для работы с окном выбора изображения"""
+    """
+    Класс используется для работы с окном выбора изображения
+    
+    Основное применение - работа с UI окна.
+    """
 
     def __init__(self, username, images = list()):
-        """Констрктор класса SelectionGui"""
+        """
+        Констрктор класса SelectionGui
 
+        Args:
+            username (String): Логин пользователя
+            images   (List)  : Список изображений. По умолчанию - пустой.
+        """
+
+        # Устанавливаем переданные параметры в свойства класса
         self.images   = images
         self.username = username
+        
+        # Запсук окна и отрисовка его интерфейса
         super().__init__()
         self.setupUi()
 
     def setupUi(self):
-        """Главный метод, создающий окно и рисующий все компоненты"""
+        """
+        Главный метод, создающий окно и рисующий все компоненты
+        """
 
+        # Устанавливаем размер, название и иконку окна
         self.setFixedSize(540, 360)
         self.setWindowTitle("Фоторедактор")
         self.setWindowIcon(QIcon(os.path.join(ICON_PATH, "photoshop.png")))
@@ -411,11 +480,10 @@ class SelectionGui(QMainWindow):
         # Отрисовка всех компонентов окна
         self.createCentralWidget()
 
-        # Показ окна
-        # self.show()
-
     def createCentralWidget(self):
-        """Функция, создающая все компоненты окна"""
+        """
+        Функция, создающая все компоненты окна
+        """
 
         # Центральный (главный) виджет окна
         self.centralwidget = QtWidgets.QWidget()
@@ -472,49 +540,60 @@ class SelectionGui(QMainWindow):
         self.setCentralWidget(self.centralwidget)
     
     def editImage(self):
-        """Функция предназначена для открытия окна фоторедактора"""
-        # Здеь будет открываться окно редактирования
-        print('Редактирование')
+        """
+        Функция предназначена для открытия окна фоторедактора
+        """
+        
+        # Получаем выбранный элемент списка
         name = self.list.currentItem().text()
         
+        # Формируем пути к изображению и его копии
         script_path = os.path.dirname(__file__)
         orig_path = os.path.join(script_path, f'images/{self.username}/temp-{name}')
         temp_path = os.path.join(script_path, f'images/{self.username}/{name}')
 
+        # Закрываем текущее окно и открываем новое
         self.close()
         self.editor = PhotoEditorGUI(orig_path, temp_path, self.username)
         self.editor.show()
 
     def loadImage(self):
-        """Функция предназначена для загрузки изображения в базу"""
+        """
+        Функция предназначена для загрузки изображения в базу
+        """
         
         # Открытие QFileDialog для выбора изображения нужного расширения
         image_file, _ = QFileDialog.getOpenFileName(self, "Open Image", 
                 "", "PNG Files (*.png);JPG Files (*.jpeg *.jpg )")
-        print(image_file)
+
         # Путь к папке, где выполняется скрипт
         script_path = os.path.dirname(__file__)
+        
+        # Имя выбранного файла
         name = os.path.basename(image_file)
-        print(name)
+
+        # Копируем файл (оригинал)
         original_image_path = os.path.join(script_path, f'images/{self.username}/temp-{name}')
         copyfile(image_file, original_image_path)
 
-        # Формирование пути к промежуточно-отредактированному изображению во временной папке и его копирование туда
+        # Копируем файл (временный)
         tmp_image_path = os.path.join(script_path, f'images\\{self.username}\\{name}')
         copyfile(image_file, tmp_image_path)
         
+        # Добавляем новый элемент к списку
         item = QtWidgets.QListWidgetItem()
         item.setText(name)
         self.list.addItem(name)
         
         # Запись в БД
         DatabaseQuery().addImage(self.username, name)
-        print('Загрузка')
-        pass
 
     def exit(self):
-        """Функция предназначена для выхода из сессии пользователя"""
+        """
+        Функция предназначена для выхода из сессии пользователя
+        """
+        
+        # Закрываем текущее окно и открываем другое
         self.close()
         self.auth = AuthGui()
         self.auth.show()
-        print('Выход')

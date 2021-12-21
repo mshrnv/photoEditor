@@ -1,3 +1,4 @@
+# Стили для слайдеров яркости и контраста
 slider = """
             QSlider::groove:horizontal {  
                 height: 10px;
@@ -18,8 +19,10 @@ slider = """
             }
         """
 
+# Стили для лейблов "Яркость" и "Контраст"
 edit_label = """QLabel{font-size: 20px}"""
 
+# Стили для кнопок "Негатив", "Чёрно-белый", "Сепия"
 filter_button = """
 					QToolButton {
 						width: 100%;
@@ -30,6 +33,7 @@ filter_button = """
 					}
 				"""
 
+# Стили для всей панели редатирования (применяются после ее отделения от окна)
 dock_widget = """
     QDockWidget
     {
@@ -49,6 +53,7 @@ dock_widget = """
     }
 """
 
+# Стили для верхнего меню
 menu_bar = """
     QMenuBar {
         background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
@@ -71,6 +76,7 @@ menu_bar = """
     }
 """
 
+# Стили для панели инструментов
 tool_bar = """
     QToolBar {
         background: white;
