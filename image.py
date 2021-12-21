@@ -1,16 +1,16 @@
-from PyQt5.QtWidgets import QLabel, QFileDialog
-from PyQt5.QtGui import QImage, QPixmap, QColor, qRgb, QTransform
-from PyQt5.QtCore import Qt
-from PIL import Image, ImageEnhance, ImageOps
-import os
+"""
+    Импорт PyQt, Pillow и функции копирования файлов
+"""
 from shutil import copyfile
+from PIL import Image, ImageEnhance, ImageOps
+import PyQt5
 
-class ImageLabel(QLabel):
+class ImageLabel(PyQt5.QtWidgets.QLabel):
     """
     Класс используется для работы с лейблом изображения
-    
+
     Основное применение - работа с изображением на экране (открытие, редактирование...).
-    
+
     Attributes
     ----------
     image : QImage
@@ -26,6 +26,7 @@ class ImageLabel(QLabel):
     contrast : Integer
         Текущее значение слайдера контраста
     """
+
     def __init__(self, parent):
         """
         Конструктор класса ImageLabel
@@ -37,18 +38,22 @@ class ImageLabel(QLabel):
         super().__init__(parent)
 
         # parent - родительский элемент, в котором содержится QImage
-        self.parent = parent 
-        self.image  = QImage()
+        self.parent = parent
+        self.image = PyQt5.QtGui.QImage()
 
         # Обнуляем значения слайдеров
         self.brightness = 0
-        self.contrast   = 0
+        self.contrast = 0
+
+        # Инициализируем свойства
+        self.original_image_path = ''
+        self.tmp_image_path = ''
 
         # Вывод изображения на экран (по умолчанию - ничего)
-        self.setPixmap(QPixmap().fromImage(self.image))
-        self.setAlignment(Qt.AlignCenter)
+        self.setPixmap(PyQt5.QtGui.QPixmap().fromImage(self.image))
+        self.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
 
-    def openImage(self, orig_path, temp_path):
+    def open_image(self, orig_path, temp_path):
         """
         Функция предлагает выбрать изображение и открывает его
 
@@ -61,22 +66,22 @@ class ImageLabel(QLabel):
 
             # Присваивание значений свойствам
             self.original_image_path = orig_path
-            self.tmp_image_path      = temp_path
-            
+            self.tmp_image_path = temp_path
+
             # Устанавливаем выбранное изображение, как свойство класса
-            self.image = QImage(self.tmp_image_path)
+            self.image = PyQt5.QtGui.QImage(self.tmp_image_path)
 
             # Отображение изображения на экране
-            self.setPixmap(QPixmap().fromImage(self.image))
+            self.setPixmap(PyQt5.QtGui.QPixmap().fromImage(self.image))
             self.resize(self.pixmap().size())
 
             # Делаем кнопки редактирования доступными
-            self.parent.updateActions()
+            self.parent.update_actions()
 
             # Обнуляем значения слайдеров
-            self.resetValues()
+            self.reset_values()
 
-    def revertToOriginal(self):
+    def revert_to_original(self):
         """
         Возвращает ищображение к оригинальному
         """
@@ -85,12 +90,12 @@ class ImageLabel(QLabel):
         copyfile(self.original_image_path, self.tmp_image_path)
 
         # Сбрасываем значения
-        self.resetValues()
+        self.reset_values()
 
         # Показываем на экране
-        self.updateImage()
+        self.update_image()
 
-    def flipImage(self, axis):
+    def flip_image(self, axis):
         """
         Отражает изображение вдоль оси
 
@@ -99,42 +104,43 @@ class ImageLabel(QLabel):
         """
 
         # Если на экране есть изображение
-        if self.image.isNull() == False:
+        if self.image.isNull() is False:
 
             # Если отразить по горизонтали то поворачиваем относительно OY
-            if axis == 'horizontal':
-                flip = QTransform().scale(1, -1)
+            if axis == "horizontal":
+                flip = PyQt5.QtGui.QTransform().scale(1, -1)
             # Если отразить по вертикали то поворачиваем относительно OX
-            elif axis == 'vertical':
-                flip = QTransform().scale(-1, 1)
+            elif axis == "vertical":
+                flip = PyQt5.QtGui.QTransform().scale(-1, 1)
 
             # Формируем новое изображение
-            pixmap = QPixmap(self.image)
+            pixmap = PyQt5.QtGui.QPixmap(self.image)
             flipped = pixmap.transformed(flip)
-            self.image = QImage(flipped)
+            self.image = PyQt5.QtGui.QImage(flipped)
 
             # Сохраняем его и заново открываем
             self.image.save(self.tmp_image_path)
-            self.updateImage()
+            self.update_image()
         else:
             # Ошибка, не загружена фотография
             pass
 
-    def saveImage(self):
+    def save_image(self):
         """
         Сохраняет изображение
         """
 
         # Окно выбора куда сохранять
-        if self.image.isNull() == False:
-            image_file, _ = QFileDialog.getSaveFileName(self, "Save Image", 
-                "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
+        if self.image.isNull() is False:
+            image_file, _ = PyQt5.QtWidgets.QFileDialog.getSaveFileName(
+                self, "Save Image", "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )"
+            )
 
             # Если выбранный путь - корректный, то сохраняем туда файл
             if image_file:
                 self.image.save(image_file)
 
-    def rotateImage(self, direction):
+    def rotate_image(self, direction):
         """
         Поворачивает изображение на 90 градусов
 
@@ -145,31 +151,31 @@ class ImageLabel(QLabel):
         """
 
         # Если на экране есть изображение
-        if self.image.isNull() == False:
+        if self.image.isNull() is False:
 
             # Определяем направление поворота и поворачиваем изображение
             if direction == "cw":
-                transform90 = QTransform().rotate(90)
+                transform90 = PyQt5.QtGui.QTransform().rotate(90)
             elif direction == "ccw":
-                transform90 = QTransform().rotate(-90)
+                transform90 = PyQt5.QtGui.QTransform().rotate(-90)
 
             # Формируем новое изображение
-            pixmap = QPixmap(self.image)
-            rotated = pixmap.transformed(transform90, mode=Qt.SmoothTransformation)
+            pixmap = PyQt5.QtGui.QPixmap(self.image)
+            rotated = pixmap.transformed(transform90, mode=PyQt5.QtCore.Qt.SmoothTransformation)
             self.resize(self.image.height(), self.image.width())
-            self.image = QImage(rotated) 
+            self.image = PyQt5.QtGui.QImage(rotated)
 
             # Сохраняем и открываем его
             self.image.save(self.tmp_image_path)
-            self.updateImage()
+            self.update_image()
 
-    def convertToSepia(self):
+    def convert_to_sepia(self):
         """
         Накалдывает фильтр сепия
         """
 
         # Если на экране есть изображение
-        if self.image.isNull() == False:
+        if self.image.isNull() is False:
 
             # Открываем временный файл
             img = Image.open(self.tmp_image_path)
@@ -179,81 +185,76 @@ class ImageLabel(QLabel):
             pixels = img.load()
 
             # Начинаем пробегать по каждому пикселю изображения
-            for py in range(height):
-                for px in range(width):
+            for pixel_y in range(height):
+                for pixel_x in range(width):
 
                     # Обработка исключений на случай ошибки, чтобы не крашилось
                     try:
-                        r, g, b = img.getpixel((px, py))
-                    except Exception as e:
-                        print(e)
+                        red, green, blue = img.getpixel((pixel_x, pixel_y))
+                    except TypeError as error:
+                        print(error)
                         return 1
 
                     # Вычисление RGB нового пикселя
-                    tr = int(0.393 * r + 0.769 * g + 0.189 * b)
-                    tg = int(0.349 * r + 0.686 * g + 0.168 * b)
-                    tb = int(0.272 * r + 0.534 * g + 0.131 * b)
+                    new_red   = int(0.393 * red + 0.769 * green + 0.189 * blue)
+                    new_green = int(0.349 * red + 0.686 * green + 0.168 * blue)
+                    new_blue  = int(0.272 * red + 0.534 * green + 0.131 * blue)
 
-                    if tr > 255:
-                        tr = 255
-
-                    if tg > 255:
-                        tg = 255
-
-                    if tb > 255:
-                        tb = 255
+                    new_red   = min(new_red, 255)
+                    new_green = min(new_green, 255)
+                    new_blue  = min(new_blue, 255)
 
                     # Замена пикселя на новый
-                    pixels[px, py] = (tr,tg,tb)
+                    pixels[pixel_x, pixel_y] = (new_red, new_green, new_blue)
 
             # Сохраняем изображение и открываем его
             img.save(self.tmp_image_path)
-            self.updateImage()
+            self.update_image()
 
-    def convertToNegativ(self):
+    def convert_to_negativ(self):
         """
         Накладывает фильтр негатив
         """
 
         # Если на экране есть изображение
-        if self.image.isNull() == False:
+        if self.image.isNull() is False:
 
             # Открываем изображение, инвертируем пиксели и сохраняем
-            im = Image.open(self.tmp_image_path)
-            im_output = ImageOps.invert(im)
-            im_output.save(self.tmp_image_path)
+            image = Image.open(self.tmp_image_path)
+            image_output = ImageOps.invert(image)
+            image_output.save(self.tmp_image_path)
 
             # Открываем его на экране
-            self.updateImage()
+            self.update_image()
 
-    def convertToGray(self):
+    def convert_to_gray(self):
         """
         Накладывате черно-белый фильтр
         """
 
         # Если на экране есть изображение
-        if self.image.isNull() == False:
+        if self.image.isNull() is False:
 
             # Открываем изображение, применяем фильтр и сохраняем
-            im = Image.open(self.tmp_image_path)
-            im_output = ImageOps.grayscale(im)
-            im_output.save(self.tmp_image_path)
+            image = Image.open(self.tmp_image_path)
+            image_output = ImageOps.grayscale(image)
+            image_output.save(self.tmp_image_path)
 
             # Открываем его на экране
-            self.updateImage()
+            self.update_image()
 
-    def changeBrighteness(self):
+    def change_brighteness(self):
         """
         Изменяет яркость изображения
         """
 
         # Если не открыто изображение - ничего не редактируем
-        if self.image.isNull() == True:
+        if self.image.isNull() is True:
             return 1
 
         # Вычисление значения насколько увеличилась яркость
-        brightness      = self.parent.brightness_slider.value()
-        diff            = brightness - self.brightness
+        brightness = self.parent.brightness_slider.value()
+        diff = brightness - self.brightness
         self.brightness = brightness
 
         factor = 1
@@ -265,29 +266,29 @@ class ImageLabel(QLabel):
             factor = 1 + diff * 0.05
 
         # Открываем изображение, работаем с ярокстью, сохраняем его
-        im = Image.open(self.tmp_image_path)
-        im_output = ImageEnhance.Brightness(im).enhance(factor)
-        im_output.save(self.tmp_image_path)
+        image = Image.open(self.tmp_image_path)
+        image_output = ImageEnhance.Brightness(image).enhance(factor)
+        image_output.save(self.tmp_image_path)
 
         # Открываем изображение и показываем его
-        self.updateImage()
+        self.update_image()
 
-    def changeContrast(self):
+    def change_contrast(self):
         """
         Изменяет контраст изображения
         """
 
         # Если не открыто изображение - ничего не редактируем
-        if self.image.isNull() == True:
+        if self.image.isNull() is True:
             return 1
 
         # Вычисление значения насколько увеличился контраст
-        contrast      = self.parent.contrast_slider.value()
-        diff          = contrast - self.contrast
+        contrast = self.parent.contrast_slider.value()
+        diff = contrast - self.contrast
         self.contrast = contrast
 
         factor = 1
-        
+
         # Вычисление коэффицента увелчиения/уменьшения контраста
         if diff > 0:
             factor = pow(1.1, diff)
@@ -295,29 +296,29 @@ class ImageLabel(QLabel):
             factor = 1 + diff * 0.05
 
         # Открываем изображение, работаем с контрастом, сохраняем его
-        im = Image.open(self.tmp_image_path)
-        im_output = ImageEnhance.Contrast(im).enhance(factor)
-        im_output.save(self.tmp_image_path)
-        
-        # Открываем изображение и показываем его
-        self.updateImage()
+        image = Image.open(self.tmp_image_path)
+        image_output = ImageEnhance.Contrast(image).enhance(factor)
+        image_output.save(self.tmp_image_path)
 
-    def updateImage(self):
+        # Открываем изображение и показываем его
+        self.update_image()
+
+    def update_image(self):
         """
         Открывает промежуточное изображение и показывает его на экране
         """
 
         # Открытие и отображение файла на экране
-        self.image = QImage(self.tmp_image_path)
-        self.setPixmap(QPixmap().fromImage(self.image))
-        self.repaint
+        self.image = PyQt5.QtGui.QImage(self.tmp_image_path)
+        self.setPixmap(PyQt5.QtGui.QPixmap().fromImage(self.image))
+        self.repaint()
 
-    def resetValues(self):
+    def reset_values(self):
         """
         Обнуляет все значения слайдеров
         """
 
-        self.contrast   = 0
+        self.contrast = 0
         self.brightness = 0
         self.parent.brightness_slider.setValue(0)
         self.parent.contrast_slider.setValue(0)

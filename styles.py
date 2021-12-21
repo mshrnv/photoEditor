@@ -1,5 +1,9 @@
+"""
+    В файле указаны стили для элементов UI
+"""
+
 # Стили для слайдеров яркости и контраста
-slider = """
+SLIDER = """
             QSlider::groove:horizontal {  
                 height: 10px;
                 margin: 0px;
@@ -20,10 +24,10 @@ slider = """
         """
 
 # Стили для лейблов "Яркость" и "Контраст"
-edit_label = """QLabel{font-size: 20px}"""
+EDIT_LABEL = """QLabel{font-size: 20px}"""
 
 # Стили для кнопок "Негатив", "Чёрно-белый", "Сепия"
-filter_button = """
+FILTER_BUTTON = """
 					QToolButton {
 						width: 100%;
 						font-size: 15px;
@@ -34,7 +38,7 @@ filter_button = """
 				"""
 
 # Стили для всей панели редатирования (применяются после ее отделения от окна)
-dock_widget = """
+DOCK_WIDGET = """
     QDockWidget
     {
         background-color : lightgreen;
@@ -54,7 +58,7 @@ dock_widget = """
 """
 
 # Стили для верхнего меню
-menu_bar = """
+MENU_BAR = """
     QMenuBar {
         background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
                                           stop:0 lightgray, stop:1 darkgray);
@@ -77,7 +81,7 @@ menu_bar = """
 """
 
 # Стили для панели инструментов
-tool_bar = """
+TOOL_BAR = """
     QToolBar {
         background: white;
         spacing: 3px; /* spacing between items in the tool bar */
