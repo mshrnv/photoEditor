@@ -15,24 +15,35 @@ ICON_PATH = 'icons'
 
 class PhotoEditorGUI(QMainWindow):
     """
-    Класс используется для работы с окном приложения
+    Класс используется для работы с окном фоторедактора
     
-    Основное применение - работа с UI приложения.
+    Основное применение - работа с UI окна фоторедактора.
     """
     
     def __init__(self, orig_path, temp_path, username):
-        """Констрктор класса PhotoEditorGUI"""
+        """
+        Констрктор класса PhotoEditorGUI
+
+        Args:
+            orig_path (String): Путь к оригинальному изображению
+            temp_path (String): Путь к временному изображению
+            username  (String): Логин пользователя
+        """
 
         super().__init__()
         
+        # Присваивание значений свойствам класса
         self.image = QImage()
         self.username = username
         
+        # Запуск окна и открытие изображения
         self.initializeUI()
         self.image_label.openImage(orig_path, temp_path)
 
     def initializeUI(self):
-        """Главный метод, создающий окно и рисующий все компоненты"""
+        """
+        Главный метод, создающий окно и рисующий все компоненты
+        """
 
         # Параметры окна
         self.setMinimumSize(300, 200)
@@ -47,11 +58,10 @@ class PhotoEditorGUI(QMainWindow):
         self.createMenu()
         self.createToolBar()
 
-        # Показ окна
-        # self.show()
-
     def createMainLabel(self):
-        """Создает центральный(главный) виджет приложения"""
+        """
+        Создает центральный(главный) виджет приложения
+        """
 
         # Создание лейбла с изображением
         self.image_label = ImageLabel(self)
@@ -67,7 +77,9 @@ class PhotoEditorGUI(QMainWindow):
         self.setCentralWidget(self.scroll_area)
 
     def createEditingBar(self):
-        """Создает меню редактирования"""
+        """
+        Создает меню редактирования
+        """
 
         # Инициализация меню редактирования
         self.editing_bar = QDockWidget("Инструменты")
@@ -79,27 +91,28 @@ class PhotoEditorGUI(QMainWindow):
         convert_to_grayscale = QToolButton()
         convert_to_grayscale.setText('Черно-белый')
         convert_to_grayscale.setStyleSheet(styles.filter_button)
-        #convert_to_grayscale.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         convert_to_grayscale.clicked.connect(self.image_label.convertToGray)
 
         # Кнопка с фильтром Сепия
         convert_to_sepia = QToolButton()
         convert_to_sepia.setText('Сепия')
         convert_to_sepia.setStyleSheet(styles.filter_button)
-        #convert_to_sepia.setIcon(QIcon(os.path.join(icon_path, "ICON HERE")))
         convert_to_sepia.clicked.connect(self.image_label.convertToSepia)
 
         # Кнопка с фильтром Негатив
         convert_to_negative = QToolButton()
         convert_to_negative.setText('Негатив')
         convert_to_negative .setStyleSheet(styles.filter_button)
-        #convert_to_negative.setIcon(QIcon(os.path.join(icon_path, "")))
         convert_to_negative.clicked.connect(self.image_label.convertToNegativ)
 
         # Яркость изображения
+        
+        # Надпись "Яркость"
         brightness_label = QLabel("Яркость")
         brightness_label.setStyleSheet(styles.edit_label)
         brightness_label.setAlignment(Qt.AlignCenter)
+        
+        # Слайдер яркости
         self.brightness_slider = QSlider(Qt.Horizontal)
         self.brightness_slider.setRange(-5, 5)
         self.brightness_slider.setTickInterval(0)
@@ -109,9 +122,13 @@ class PhotoEditorGUI(QMainWindow):
         self.brightness_slider.sliderReleased.connect(self.image_label.changeBrighteness)
 
         # Контраст изображения 
+        
+        # Надпись "Контраст"
         contrast_label = QLabel("Контраст")
         contrast_label.setStyleSheet(styles.edit_label)
         contrast_label.setAlignment(Qt.AlignCenter)
+        
+        # Слайдер контраста
         self.contrast_slider = QSlider(Qt.Horizontal)
         self.contrast_slider.setRange(-5, 5)
         self.contrast_slider.setTickInterval(0)
@@ -141,7 +158,9 @@ class PhotoEditorGUI(QMainWindow):
         self.tools_menu_act = self.editing_bar.toggleViewAction()
 
     def createMenu(self):
-        """Создает меню приложения"""
+        """
+        Создает меню приложения
+        """
 
         # Actions для Photo Editor menu
 
@@ -220,7 +239,9 @@ class PhotoEditorGUI(QMainWindow):
         tool_menu.addAction(self.flip_vertical)
 
     def createToolBar(self):
-        """Создает панель редактирования"""
+        """
+        Создает панель редактирования
+        """
 
         # Добавление панели управления на основе главного меню
 
@@ -240,6 +261,9 @@ class PhotoEditorGUI(QMainWindow):
         tool_bar.addAction(self.flip_vertical)
 
     def updateActions(self):
+        """
+        Делает кнопки редактирования активными
+        """
 
         # Делаем кнопки активными
         self.rotate90_cw_act.setEnabled(True)
@@ -250,9 +274,14 @@ class PhotoEditorGUI(QMainWindow):
         self.revert_act.setEnabled(True)
 
     def backToSelection(self):
-        """Функция для возврата к списку изображений"""
+        """
+        Функция для возврата к списку изображений
+        """
         
+        # Получаем список изображений пользователя
         images = DatabaseQuery().getUserImages(self.username)
+        
+        # Закрываем текущее окно и открываем новое
         self.close()
         self.selection = SelectionGui(self.username, images)
         self.selection.show()
