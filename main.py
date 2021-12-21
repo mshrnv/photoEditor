@@ -9,7 +9,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setAttribute(Qt.AA_DontShowIconsInMenus, True)
 
-    # Инициализация окна фоторедактора и его отображение
+    # Инициализация окна авторизации и его отображение
     window = AuthGui()
     window.show()
     sys.exit(app.exec_())
