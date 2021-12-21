@@ -1,4 +1,9 @@
-import sqlite3, os
+"""
+    sqlite3 - работа с БД
+    os - для работы с путями к файлам
+"""
+import sqlite3
+import os
 
 
 class Database:
@@ -28,16 +33,16 @@ class Database:
 
         # Формируем путь к БД
         dir_path = os.path.dirname(__file__)
-        DB_PATH = os.path.join(dir_path, "database.sqlite")
+        db_path = os.path.join(dir_path, "database.sqlite")
 
         # Попытка подключения к БД
         try:
-            self.connect = sqlite3.connect(DB_PATH)
+            self.connect = sqlite3.connect(db_path)
             self.cursor = self.connect.cursor()
 
         # В случае ошибки выводим ее в консоль
-        except Exception as e:
-            print(e)
+        except ConnectionError as error:
+            print(error)
 
     def _close(self):
         """
@@ -50,8 +55,8 @@ class Database:
             self.connect.close()
 
         # В случае ошибки выводим ее в консоль
-        except Exception as e:
-            print(e)
+        except ConnectionError as error:
+            print(error)
 
 
 class DatabaseQuery(Database):
@@ -62,7 +67,7 @@ class DatabaseQuery(Database):
         Database (Class): Для управления подключением к БД
     """
 
-    def getUserPassword(self, username):
+    def get_user_password(self, username):
         """
         Функция возвращает пароль пользователя username
 
@@ -88,10 +93,9 @@ class DatabaseQuery(Database):
             return False
 
         # Иначе - возвращаем хэш пароля из БД
-        else:
-            return result[0]
+        return result[0]
 
-    def registrateUser(self, username, password_hash):
+    def registrate_user(self, username, password_hash):
         """
         Функция регистрирует пользователей в базе данных
 
@@ -111,7 +115,7 @@ class DatabaseQuery(Database):
 
         self._close()
 
-    def getUserImages(self, username):
+    def get_user_images(self, username):
         """
         Функция возвращает массив изображений пользователя
 
@@ -124,7 +128,7 @@ class DatabaseQuery(Database):
 
         # Подключение к БД и формирование запроса
         self._connect()
-        request = "SELECT name FROM images WHERE user_id = (SELECT id FROM users WHERE username = ?)"
+        request = "SELECT name FROM images WHERE user_id = (SELECT id FROM users WHERE username=?)"
 
         # Получение данных из базы и отключение от БД
         result = self.cursor.execute(request, (username,)).fetchall()
@@ -133,7 +137,7 @@ class DatabaseQuery(Database):
         # Возврат результата в виде списка строк
         return [i[0] for i in result]
 
-    def addImage(self, username, basename):
+    def add_image(self, username, basename):
         """
         Функция для добавления загруженного изображения в БД
 
