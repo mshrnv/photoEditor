@@ -5,12 +5,13 @@ from PIL import Image, ImageEnhance, ImageOps
 import os
 from shutil import copyfile
 
+
 class ImageLabel(QLabel):
     """
     Класс используется для работы с лейблом изображения
-    
+
     Основное применение - работа с изображением на экране (открытие, редактирование...).
-    
+
     Attributes
     ----------
     image : QImage
@@ -26,6 +27,7 @@ class ImageLabel(QLabel):
     contrast : Integer
         Текущее значение слайдера контраста
     """
+
     def __init__(self, parent):
         """
         Конструктор класса ImageLabel
@@ -37,12 +39,12 @@ class ImageLabel(QLabel):
         super().__init__(parent)
 
         # parent - родительский элемент, в котором содержится QImage
-        self.parent = parent 
-        self.image  = QImage()
+        self.parent = parent
+        self.image = QImage()
 
         # Обнуляем значения слайдеров
         self.brightness = 0
-        self.contrast   = 0
+        self.contrast = 0
 
         # Вывод изображения на экран (по умолчанию - ничего)
         self.setPixmap(QPixmap().fromImage(self.image))
@@ -61,8 +63,8 @@ class ImageLabel(QLabel):
 
             # Присваивание значений свойствам
             self.original_image_path = orig_path
-            self.tmp_image_path      = temp_path
-            
+            self.tmp_image_path = temp_path
+
             # Устанавливаем выбранное изображение, как свойство класса
             self.image = QImage(self.tmp_image_path)
 
@@ -102,10 +104,10 @@ class ImageLabel(QLabel):
         if self.image.isNull() == False:
 
             # Если отразить по горизонтали то поворачиваем относительно OY
-            if axis == 'horizontal':
+            if axis == "horizontal":
                 flip = QTransform().scale(1, -1)
             # Если отразить по вертикали то поворачиваем относительно OX
-            elif axis == 'vertical':
+            elif axis == "vertical":
                 flip = QTransform().scale(-1, 1)
 
             # Формируем новое изображение
@@ -127,8 +129,9 @@ class ImageLabel(QLabel):
 
         # Окно выбора куда сохранять
         if self.image.isNull() == False:
-            image_file, _ = QFileDialog.getSaveFileName(self, "Save Image", 
-                "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )")
+            image_file, _ = QFileDialog.getSaveFileName(
+                self, "Save Image", "", "PNG Files (*.png);;JPG Files (*.jpeg *.jpg )"
+            )
 
             # Если выбранный путь - корректный, то сохраняем туда файл
             if image_file:
@@ -157,7 +160,7 @@ class ImageLabel(QLabel):
             pixmap = QPixmap(self.image)
             rotated = pixmap.transformed(transform90, mode=Qt.SmoothTransformation)
             self.resize(self.image.height(), self.image.width())
-            self.image = QImage(rotated) 
+            self.image = QImage(rotated)
 
             # Сохраняем и открываем его
             self.image.save(self.tmp_image_path)
@@ -204,7 +207,7 @@ class ImageLabel(QLabel):
                         tb = 255
 
                     # Замена пикселя на новый
-                    pixels[px, py] = (tr,tg,tb)
+                    pixels[px, py] = (tr, tg, tb)
 
             # Сохраняем изображение и открываем его
             img.save(self.tmp_image_path)
@@ -252,8 +255,8 @@ class ImageLabel(QLabel):
             return 1
 
         # Вычисление значения насколько увеличилась яркость
-        brightness      = self.parent.brightness_slider.value()
-        diff            = brightness - self.brightness
+        brightness = self.parent.brightness_slider.value()
+        diff = brightness - self.brightness
         self.brightness = brightness
 
         factor = 1
@@ -282,12 +285,12 @@ class ImageLabel(QLabel):
             return 1
 
         # Вычисление значения насколько увеличился контраст
-        contrast      = self.parent.contrast_slider.value()
-        diff          = contrast - self.contrast
+        contrast = self.parent.contrast_slider.value()
+        diff = contrast - self.contrast
         self.contrast = contrast
 
         factor = 1
-        
+
         # Вычисление коэффицента увелчиения/уменьшения контраста
         if diff > 0:
             factor = pow(1.1, diff)
@@ -298,7 +301,7 @@ class ImageLabel(QLabel):
         im = Image.open(self.tmp_image_path)
         im_output = ImageEnhance.Contrast(im).enhance(factor)
         im_output.save(self.tmp_image_path)
-        
+
         # Открываем изображение и показываем его
         self.updateImage()
 
@@ -317,7 +320,7 @@ class ImageLabel(QLabel):
         Обнуляет все значения слайдеров
         """
 
-        self.contrast   = 0
+        self.contrast = 0
         self.brightness = 0
         self.parent.brightness_slider.setValue(0)
         self.parent.contrast_slider.setValue(0)
