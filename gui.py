@@ -576,7 +576,15 @@ class SelectionGui(PyQt5.QtWidgets.QMainWindow):
         """
 
         # Получаем выбранный элемент списка
-        name = self.list.currentItem().text()
+        item = self.list.currentItem()
+        
+        # Проверка на пустоту
+        if item is None:
+            # Элемент не выбран
+            return 1
+        
+        # Получаем значение элемента
+        name = item.text()
 
         # Формируем пути к изображению и его копии
         script_path = os.path.dirname(__file__)
