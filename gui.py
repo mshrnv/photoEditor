@@ -369,7 +369,7 @@ class AuthGui(QMainWindow):
         response = DatabaseQuery().getUserPassword(username)
         
         if response != False:
-            if (password == response):
+            if (hash == response):
                 print('SUCCESS AUTH')
                 images = DatabaseQuery().getUserImages(username)
                 self.close()
@@ -380,7 +380,7 @@ class AuthGui(QMainWindow):
                 # QErrorMessage
         else:
             print(f"NEW USER: {username}")
-            DatabaseQuery().registrateUser(username, password)
+            DatabaseQuery().registrateUser(username, hash)
             
             script_path      = os.path.dirname(__file__)
             user_folder_path = os.path.join(script_path, f'images/{username}')
