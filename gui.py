@@ -9,6 +9,7 @@ import styles
 import os
 from database import DatabaseQuery
 from shutil import copyfile
+from hashlib import sha256
 
 # Путь к папке с иконками
 ICON_PATH = 'icons'
@@ -406,14 +407,22 @@ class AuthGui(QMainWindow):
         username = self.login_input.text()
         password = self.password_input.text()
         
+        # Получение хэша
+        hash = sha256((username + (sha256(password.encode('utf-8')).hexdigest())).encode('utf-8')).hexdigest()
+
         # Получение пароля из базы
         response = DatabaseQuery().getUserPassword(username)
         
         # Проверка ответа из БД
         if response != False:
-            if (password == response):
+
+            if (hash == response):
                 # Авторизация
+
+                # Получение списка изображений пользователя
                 images = DatabaseQuery().getUserImages(username)
+                
+                # Закрытие текущего окна и открытие нового
                 self.close()
                 self.selection = SelectionGui(username, images)
                 self.selection.show()
@@ -424,7 +433,7 @@ class AuthGui(QMainWindow):
         else:
             # Регистрация
             print(f"NEW USER: {username}")
-            DatabaseQuery().registrateUser(username, password)
+            DatabaseQuery().registrateUser(username, hash)
             
             script_path      = os.path.dirname(__file__)
             user_folder_path = os.path.join(script_path, f'images/{username}')
