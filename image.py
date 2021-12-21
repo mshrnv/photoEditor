@@ -76,7 +76,7 @@ class ImageLabel(PyQt5.QtWidgets.QLabel):
             self.resize(self.pixmap().size())
 
             # Делаем кнопки редактирования доступными
-            self.parent.updateActions()
+            self.parent.update_actions()
 
             # Обнуляем значения слайдеров
             self.reset_values()

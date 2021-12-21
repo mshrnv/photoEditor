@@ -7,7 +7,6 @@ from shutil import copyfile
 from hashlib import sha256
 import PyQt5
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt
 from image import ImageLabel
 from database import DatabaseQuery
 import styles
@@ -72,7 +71,7 @@ class PhotoEditorGui(PyQt5.QtWidgets.QMainWindow):
 
         self.scroll_area = PyQt5.QtWidgets.QScrollArea()
         self.scroll_area.setBackgroundRole(PyQt5.QtGui.QPalette.Dark)
-        self.scroll_area.setAlignment(Qt.AlignCenter)
+        self.scroll_area.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
 
         self.scroll_area.setWidget(self.image_label)
 
@@ -86,7 +85,7 @@ class PhotoEditorGui(PyQt5.QtWidgets.QMainWindow):
 
         # Инициализация меню редактирования
         self.editing_bar = PyQt5.QtWidgets.QDockWidget("Инструменты")
-        self.editing_bar.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        self.editing_bar.setAllowedAreas(PyQt5.QtCore.Qt.LeftDockWidgetArea | PyQt5.QtCore.Qt.RightDockWidgetArea)
         self.editing_bar.setMinimumWidth(120)
         self.editing_bar.setStyleSheet(styles.DOCK_WIDGET)
 
@@ -113,10 +112,10 @@ class PhotoEditorGui(PyQt5.QtWidgets.QMainWindow):
         # Надпись "Яркость"
         brightness_label = PyQt5.QtWidgets.QLabel("Яркость")
         brightness_label.setStyleSheet(styles.EDIT_LABEL)
-        brightness_label.setAlignment(Qt.AlignCenter)
+        brightness_label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
 
         # Слайдер яркости
-        self.brightness_slider = PyQt5.QtWidgets.QSlider(Qt.Horizontal)
+        self.brightness_slider = PyQt5.QtWidgets.QSlider(PyQt5.QtCore.Qt.Horizontal)
         self.brightness_slider.setRange(-5, 5)
         self.brightness_slider.setTickInterval(0)
         self.brightness_slider.setPageStep(0)
@@ -131,10 +130,10 @@ class PhotoEditorGui(PyQt5.QtWidgets.QMainWindow):
         # Надпись "Контраст"
         contrast_label = PyQt5.QtWidgets.QLabel("Контраст")
         contrast_label.setStyleSheet(styles.EDIT_LABEL)
-        contrast_label.setAlignment(Qt.AlignCenter)
+        contrast_label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
 
         # Слайдер контраста
-        self.contrast_slider = PyQt5.QtWidgets.QSlider(Qt.Horizontal)
+        self.contrast_slider = PyQt5.QtWidgets.QSlider(PyQt5.QtCore.Qt.Horizontal)
         self.contrast_slider.setRange(-5, 5)
         self.contrast_slider.setTickInterval(0)
         self.contrast_slider.setPageStep(0)
@@ -161,7 +160,7 @@ class PhotoEditorGui(PyQt5.QtWidgets.QMainWindow):
 
         # Добавление меню к этому виджету
         self.editing_bar.setWidget(container)
-        self.addDockWidget(Qt.LeftDockWidgetArea, self.editing_bar)
+        self.addDockWidget(PyQt5.QtCore.Qt.LeftDockWidgetArea, self.editing_bar)
         self.tools_menu_act = self.editing_bar.toggleViewAction()
 
     def create_menu(self):
@@ -373,7 +372,7 @@ class AuthGui(PyQt5.QtWidgets.QMainWindow):
         font.setPointSize(12)
         self.login_input.setFont(font)
         self.login_input.setText("")
-        self.login_input.setAlignment(QtCore.Qt.AlignCenter)
+        self.login_input.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
         self.login_input.setObjectName("login_input")
 
         # Поле ввода пароля
@@ -382,9 +381,9 @@ class AuthGui(PyQt5.QtWidgets.QMainWindow):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.password_input.setFont(font)
-        self.password_input.setInputMethodHints(QtCore.Qt.ImhHiddenText)
+        self.password_input.setInputMethodHints(PyQt5.QtCore.Qt.ImhHiddenText)
         self.password_input.setText("")
-        self.password_input.setAlignment(QtCore.Qt.AlignCenter)
+        self.password_input.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
         self.password_input.setObjectName("password_input")
 
         # Надпись "Пароль"
@@ -396,7 +395,7 @@ class AuthGui(PyQt5.QtWidgets.QMainWindow):
         font.setBold(True)
         font.setWeight(75)
         self.password_label.setFont(font)
-        self.password_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.password_label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
         self.password_label.setObjectName("password_label")
 
         # Надпись "Логин"
@@ -408,7 +407,7 @@ class AuthGui(PyQt5.QtWidgets.QMainWindow):
         font.setBold(True)
         font.setWeight(75)
         self.login_label.setFont(font)
-        self.login_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.login_label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
         self.login_label.setObjectName("login_label")
 
         # Grid widget (сетка)
