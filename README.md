@@ -2,6 +2,22 @@
 
 Фоторедактор, реализованный на Python + PyQt5 + Pillow
 
+## Installation
+
+`git clone https://gitlab.com/shmd001/photoeditor.git`  
+`cd photoeditor`  
+`pip install -r requirements.txt`  
+`python main.py`  
+
+## [CHANGELOG](./CHANGELOG.md)
+
+## Notes:
+
+- Регистрация пользователей осуществляется путем ввода нового логина, ненаходящегося в базе данных
+- Фильтр Сепия работает дольше остальных из-за особенностей его разработки
+- Сохранение файла в нужное место осуществляется путем нажатия соответсвующей кнопки в окне редактирования
+
+
 ## Developers Team:
     1. Maintainer - 2020-5-24-sho
     2. Developer  - 2020-5-21-tak
