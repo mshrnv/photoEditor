@@ -614,12 +614,12 @@ class SelectionGui(PyQt5.QtWidgets.QMainWindow):
 
         # Копируем файл (оригинал)
         original_image_path = os.path.join(
-            script_path, f"images/{self.username}/temp-{name}"
+            script_path, f"images/{self.username}/{name}"
         )
         copyfile(image_file, original_image_path)
 
         # Копируем файл (временный)
-        tmp_image_path = os.path.join(script_path, f"images\\{self.username}\\{name}")
+        tmp_image_path = os.path.join(script_path, f"images\\{self.username}\\temp-{name}")
         copyfile(image_file, tmp_image_path)
 
         # Добавляем новый элемент к списку
