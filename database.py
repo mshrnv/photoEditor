@@ -41,7 +41,7 @@ class Database:
             self.cursor = self.connect.cursor()
 
         # В случае ошибки выводим ее в консоль
-        except ConnectionError as error:
+        except sqlite3.Error as error:
             print(error)
 
     def _close(self):
@@ -55,7 +55,7 @@ class Database:
             self.connect.close()
 
         # В случае ошибки выводим ее в консоль
-        except ConnectionError as error:
+        except sqlite3.Error as error:
             print(error)
 
 
