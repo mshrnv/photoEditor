@@ -1,0 +1,40 @@
+import os,sys,inspect
+import pytest, sqlite3
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir) 
+import database
+from random import randint
+
+class TestClass:
+    
+    login    = randint(1000,9999)
+    password = randint(1000,9999)
+    image    = str(randint(1000,9999)) + '.jpg'
+        
+    def test_init(self):
+        database.DatabaseQuery()
+        
+    def test_connect(self):
+        database.DatabaseQuery()._connect()
+        
+    def test_close(self):
+        obj = database.Database()
+        obj._connect()
+        obj._close()
+        
+    def test_reg(self):
+        database.DatabaseQuery().registrate_user(self.login, self.password)
+        
+    def test_repeated_reg(self):
+        with pytest.raises(sqlite3.IntegrityError):
+            database.DatabaseQuery().registrate_user(self.login, self.password)
+        
+    def test_auth(self):
+        assert str(self.password) == database.DatabaseQuery().get_user_password(self.login)
+        
+    def test_image_add(self):
+        database.DatabaseQuery().add_image(self.login, self.image)
+        
+    def test_image_list(self):
+        assert True == (self.image in database.DatabaseQuery().get_user_images(self.login))
