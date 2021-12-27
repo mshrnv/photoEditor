@@ -9,6 +9,7 @@ import PyQt5
 from PyQt5 import QtCore, QtGui, QtWidgets
 from image import ImageLabel
 from database import DatabaseQuery
+from error import Error
 import styles
 
 # Путь к папке с иконками
@@ -459,15 +460,24 @@ class AuthGui(PyQt5.QtWidgets.QMainWindow):
             else:
                 # Ошибка авторизации
                 # QErrorMessage
+                Error(self, 'Неправильнй пароль!')
                 pass
         else:
             # Регистрация
-            print(f"NEW USER: {username}")
-            DatabaseQuery().registrate_user(username, hash)
+            try:
+                DatabaseQuery().registrate_user(username, hash)
+            except Exception as e:
+                Error(self, 'Ошибка регистрации!')
+                return 1
 
             script_path = os.path.dirname(__file__)
             user_folder_path = os.path.join(script_path, f"images/{username}")
-            os.mkdir(user_folder_path)
+            
+            try:
+                os.mkdir(user_folder_path)
+            except Exception as e:
+                Error(self, 'Невозможно создать папку пользователя!')
+                return 1
 
             self.close()
             self.selection = SelectionGui(username)
@@ -581,6 +591,7 @@ class SelectionGui(PyQt5.QtWidgets.QMainWindow):
         # Проверка на пустоту
         if item is None:
             # Элемент не выбран
+            Error(self, 'Выберите изображение!')
             return 1
         
         # Получаем значение элемента
@@ -605,6 +616,10 @@ class SelectionGui(PyQt5.QtWidgets.QMainWindow):
         image_file, _ = PyQt5.QtWidgets.QFileDialog.getOpenFileName(
             self, "Open Image", "", "PNG Files (*.png);JPG Files (*.jpeg *.jpg )"
         )
+        
+        if image_file == '':
+            Error(self, 'Изображение не загружено!')
+            return 1
 
         # Путь к папке, где выполняется скрипт
         script_path = os.path.dirname(__file__)

@@ -2,6 +2,7 @@
     sqlite3 - работа с БД
     os - для работы с путями к файлам
 """
+from error import Error
 import sqlite3
 import os
 
@@ -42,7 +43,7 @@ class Database:
 
         # В случае ошибки выводим ее в консоль
         except sqlite3.Error as error:
-            print(error)
+            Error(self, 'Невозможно подключиться к базе данных!')
 
     def _close(self):
         """
@@ -56,7 +57,7 @@ class Database:
 
         # В случае ошибки выводим ее в консоль
         except sqlite3.Error as error:
-            print(error)
+            Error(self, 'Ошибка базы данных!')
 
 
 class DatabaseQuery(Database):
